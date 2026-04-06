@@ -260,7 +260,7 @@ body {
     .testo-gigante {
         /* Aumentiamo la base minima da 3rem a 4rem (o anche 4.5rem se vuoi osare). 
            Il 15vw lo farà scalare perfettamente. */
-        font-size: clamp(4rem, 15vw, 6rem); 
+        font-size: clamp(3.9rem, 15vw, 6rem); 
         
         /* QUESTE SONO LE DUE REGOLE MAGICHE PER NON USCIRE DAI BORDI */
         white-space: normal; 
