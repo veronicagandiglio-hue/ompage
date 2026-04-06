@@ -211,7 +211,6 @@ body {
 .outline {
     color: transparent; /* Testo trasparente */
     -webkit-text-stroke: 2px #fff; /* Bordo bianco (regola lo spessore a 1px o 2px) */
-    text-stroke: 2px #fff;
 }
 
 /* NASTRO SCORREVOLE */
