@@ -154,10 +154,44 @@ body {
     overflow: hidden;
 }
 
+/* --- La tua classe originale modificata --- */
 .contenitore-titolo-eroe {
     text-align: center;
     z-index: 2;
-    pointer-events: none; /* Essenziale per il cursore raggi X */
+    pointer-events: none; /* Mantengo la tua proprietà essenziale */
+    
+    /* AGGIUNTA: Forza i figli (i testi) a stare in una cornice che li "taglia" */
+    overflow: hidden; 
+}
+
+/* --- LE NUOVE CLASSI PER L'ANIMAZIONE --- */
+
+/* Applica questa classe a ogni riga di testo (es. all'H1 o ai div delle righe) */
+.testo-animato {
+    display: block; /* Fondamentale per l'animazione */
+    transform: translateY(110%); /* Parte tutto giù, fuori vista (110% per sicurezza) */
+    
+    /* Animazione fluida e aggressiva */
+    animation: comparsaDalBasso 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+/* RITARDI OPZIONALI: Per far comparire le righe una dopo l'altra */
+.testo-animato.ritardo-1 { animation-delay: 0.1s; }
+.testo-animato.ritardo-2 { animation-delay: 0.2s; }
+
+/* LA DEFINIZIONE DELL'ANIMAZIONE */
+@keyframes comparsaDalBasso {
+    0% {
+        transform: translateY(110%);
+        opacity: 0; /* Inizia invisibile per un effetto più pulito */
+    }
+    10% {
+        opacity: 1; /* Compare subito ma continua a salire */
+    }
+    100% {
+        transform: translateY(0); /* Arriva alla posizione originale */
+        opacity: 1;
+    }
 }
 
 .testo-gigante {
@@ -172,6 +206,12 @@ body {
 .testo-vuoto {
     color: transparent;
     -webkit-text-stroke: 2px var(--colore-testo);
+}
+
+.outline {
+    color: transparent; /* Testo trasparente */
+    -webkit-text-stroke: 2px #fff; /* Bordo bianco (regola lo spessore a 1px o 2px) */
+    text-stroke: 2px #fff;
 }
 
 /* NASTRO SCORREVOLE */
