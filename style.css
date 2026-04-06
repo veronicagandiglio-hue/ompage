@@ -144,7 +144,7 @@ body {
    SEZIONE EROE
    ========================================== */
 .sezione-eroe {
-    padding-bottom: 0vh; 
+    padding-bottom: 6vh; 
     position: relative;
     height: 115vh;
     display: flex;
