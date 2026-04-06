@@ -272,6 +272,10 @@ body {
         margin-bottom: 10px; /* Un po' di respiro tra i blocchi */
     }
 
+.sezione-eroe {
+    height: 92vh;
+}
+
     /* Adeguiamo il testo vuoto per non fare accavallare troppo il bordo */
     .testo-vuoto {
         -webkit-text-stroke: 1px var(--colore-testo);
