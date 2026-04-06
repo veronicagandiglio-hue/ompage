@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ompage | Digital Haute Couture</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Cursore Custom (Visibile solo su Desktop) -->
+    <div class="cursore-inversione"></div>
+
+    <!-- Modulo 1: Navbar Fluttuante -->
+    <nav class="nav-pillola">
+        <div class="testo-logo">Ompage</div>
+        
+        <!-- Link di navigazione interna -->
+        <div class="nav-links">
+            <a href="#punti-forza">Vantaggi</a>
+            <a href="#portfolio">Lavori</a>
+            <a href="#metodo">Metodo</a>
+            <a href="#faq">FAQ</a>
+        </div>
+
+        <div class="gruppo-destra-nav">
+            <!-- Testo Copia Email -->
+            <span class="copia-email-header" onclick="copiaEmailHeader()">ciao@ompage.it</span>
+            
+            <img src="immagini\e94e84d4-13b3-42f0-8980-9fdc3dd3670b_Nero_AI_Cartoonize_Photo_MiniME_Nero_AI_Background_Remover_transparent.webp" alt="Avatar Ompage" class="avatar-profilo">
+            
+            <a href="https://wa.me/tuonumero" class="bottone-primario" target="_blank">Parliamo su WA</a>
+        </div>
+    </nav>
+
+    <!-- Modulo 2: Hero Brutalista -->
+    <section class="sezione-eroe">
+        
+        <div class="contenitore-titolo-eroe">
+            <h1 class="testo-gigante">IL TUO SITO</h1>
+            <h1 class="testo-gigante testo-vuoto">È INVISIBILE.</h1>
+            <h1 class="testo-gigante">RISOLVIAMOLO.</h1>
+        </div>
+
+        <!-- Ticker Tape Infinito -->
+        <div class="nastro-scorrevole">
+            <div class="testo-nastro">
+                BASTA SITI VETRINA NOIOSI • DESIGN PREMIUM DA MILLE EURO A PREZZI LOCALI • CONVERSIONE ALLE STELLE • BASTA SITI VETRINA NOIOSI • DESIGN PREMIUM DA MILLE EURO A PREZZI LOCALI • CONVERSIONE ALLE STELLE • 
+            </div>
+        </div>
+
+    </section>
+
+    <!-- Bottone WhatsApp Fisso per Mobile (invisibile su Desktop) -->
+    <a href="https://wa.me/tuonumero" class="bottone-mobile-fisso" target="_blank">Chatta su WhatsApp</a>
+
+
+<!-- ==========================================
+         BLOCCO 2.1: I PUNTI DI FORZA (Sticky Stacking)
+         ========================================== -->
+    <section class="sezione-punti-forza">
+        <div class="contenitore-centrato">
+            <h2 class="titolo-sezione">NON VENDO SITI.<br><span class="testo-vuoto">VENDO CLIENTI.</span></h2>
+            
+            <div class="pila-di-carte">
+                
+                <!-- Carta 1 -->
+                <div class="carta-sticky" id="carta-1">
+                    <div class="contenuto-carta">
+                        <div class="numero-carta">01</div>
+                        <h3>ROI IMMEDIATO</h3>
+                        <p>Il mio design premium costa una frazione delle agenzie blasonate, ma converte il doppio. Ti basta acquisire un solo nuovo cliente grazie al nuovo sito per ripagarti l'intero investimento. Subito.</p>
+                    </div>
+                </div>
+
+                <!-- Carta 2 -->
+                <div class="carta-sticky" id="carta-2">
+                    <div class="contenuto-carta">
+                        <div class="numero-carta">02</div>
+                        <h3>DESIGN CHE SPICCA</h3>
+                        <p>I tuoi concorrenti usano tutti lo stesso template noioso del 2015. Io ti costruisco un'identità Brutalista ed Elegante su misura. Quando un cliente aprirà il tuo sito, saprà immediatamente che sei tu il leader locale.</p>
+                    </div>
+                </div>
+
+                <!-- Carta 3 (Carta Accento) -->
+                <div class="carta-sticky carta-accento" id="carta-3">
+                    <div class="contenuto-carta">
+                        <div class="numero-carta">03</div>
+                        <h3>ZERO RICATTI</h3>
+                        <p>Modifiche infinite alla bozza finché non dici "WOW". E l'anno prossimo? Il rinnovo di dominio e mantenimento costa solo 100€ ed è assolutamente <strong>opzionale</strong>. Se non sei felice, sei libero.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         BLOCCO 2.2: PORTFOLIO IPHONE (CSS Puro)
+         ========================================== -->
+    <section class="sezione-portfolio">
+        <h2 class="titolo-sezione text-center">LE MIE MACCHINE<br>DA CONVERSIONE</h2>
+        
+        <div class="griglia-iphone">
+            
+            <!-- iPhone 1 -->
+            <div class="iphone-mockup">
+                <div class="dynamic-island"></div>
+                <!-- Sostituisci il src con il tuo video MP4 -->
+                <video class="screen-video" muted playsinline loop>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-software-developer-working-on-code-4174-large.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- iPhone 2 -->
+            <div class="iphone-mockup">
+                <div class="dynamic-island"></div>
+                <!-- Sostituisci il src con il tuo video MP4 -->
+                <video class="screen-video" muted playsinline loop>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-digital-animation-of-a-city-3146-large.mp4" type="video/mp4">
+                </video>
+            </div>
+
+            <!-- iPhone 3 -->
+            <div class="iphone-mockup">
+                <div class="dynamic-island"></div>
+                <!-- Sostituisci il src con il tuo video MP4 -->
+                <video class="screen-video" muted playsinline loop>
+                    <source src="https://assets.mixkit.co/videos/preview/mixkit-a-girl-blowing-a-bubble-gum-at-an-amusement-park-1226-large.mp4" type="video/mp4">
+                </video>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- ==========================================
+         BLOCCO 3.1: COME FUNZIONA (Processo)
+         ========================================== -->
+    <section class="sezione-processo">
+        <div class="contenitore-centrato griglia-processo">
+            
+            <!-- Colonna Sinistra (Sticky Title) -->
+            <div class="processo-titolo-colonna">
+                <h2 class="titolo-sezione" style="margin-bottom: 0;">IL<br>PIANO<br><span style="color: var(--colore-accento);">D'AZIONE.</span></h2>
+            </div>
+
+            <!-- Colonna Destra (Gli Step) -->
+            <div class="processo-step-colonna">
+                
+                <div class="step-singolo rivela-scroll">
+                    <div class="step-numero">01</div>
+                    <div class="step-testo">
+                        <h3>SCELTA E BOZZA ONLINE</h3>
+                        <p>Niente mesi di attesa. Scegliamo il dominio e in tempi record metto online una bozza strutturata dal design inarrivabile, creata sul tuo posizionamento.</p>
+                    </div>
+                </div>
+
+                <div class="step-singolo rivela-scroll">
+                    <div class="step-numero">02</div>
+                    <div class="step-testo">
+                        <h3>MODIFICHE INFINITE</h3>
+                        <p>Guardiamo il sito insieme. Non c'è limite alle revisioni. Sposto, cambio e ottimizzo finché non guardi lo schermo e dici: "Wow, questo è il mio brand".</p>
+                    </div>
+                </div>
+
+                <div class="step-singolo rivela-scroll">
+                    <div class="step-numero">03</div>
+                    <div class="step-testo">
+                        <h3>IL SITO È TUO. ZERO RICATTI.</h3>
+                        <p>Un mese prima della scadenza annuale, ti propongo il rinnovo (solo 100€ per hosting e dominio). Non ti va? Sei libero di andare. Nessuna clausola nascosta.</p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         BLOCCO 3.2: IL METODO (Inversione Cromatica)
+         ========================================== -->
+    <section class="sezione-metodo">
+        <div class="contenitore-centrato">
+            <h2 class="testo-gigante-metodo">
+                PERCHÉ COSTO COSÌ POCO?<br>
+                <span class="testo-barrato">NIENTE FUFFA SEO.</span><br>
+                <span class="testo-barrato">NIENTE BLOG INUTILI.</span><br>
+                COSTRUISCO VETRINE<br>
+                PER <span class="evidenziatore-fucsia">CONVERTIRE.</span>
+            </h2>
+            <p class="descrizione-metodo">
+                Le agenzie tradizionali ti vendono pacchetti complessi e inutili solo per alzare il prezzo. Ai tuoi clienti non serve un'enciclopedia. Serve vedere chi sei, percepire che sei un professionista Premium e trovare subito un bottone per contattarti. Io faccio questo: Landing Page d'alta moda. Meno tempo per me, prezzo imbattibile per te.
+            </p>
+        </div>
+    </section>
+
+    <!-- ==========================================
+         BLOCCO 3.3: FAQ ACCORDION BRUTALISTA
+         ========================================== -->
+    <section class="sezione-faq">
+        <div class="contenitore-centrato">
+            <h2 class="titolo-sezione">DOMANDE<br>FREQUENTI</h2>
+            
+            <div class="faq-lista">
+                
+                <!-- Domanda 1 -->
+                <div class="faq-elemento">
+                    <div class="faq-domanda">
+                        <h3>Ci sono costi nascosti oltre al setup?</h3>
+                        <div class="faq-icona">+</div>
+                    </div>
+                    <!-- Il trucco Grid CSS è applicato qui -->
+                    <div class="faq-risposta-wrapper">
+                        <div class="faq-risposta-interna">
+                            <p>Assolutamente no. Il prezzo iniziale copre la creazione del sito e le modifiche. L'anno successivo, il costo per mantenere il sito online (server e dominio) è di soli 100€. Se decidi di chiudere, non paghi nulla.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domanda 2 -->
+                <div class="faq-elemento">
+                    <div class="faq-domanda">
+                        <h3>Perché una "Landing Page" e non un sito a più pagine?</h3>
+                        <div class="faq-icona">+</div>
+                    </div>
+                    <div class="faq-risposta-wrapper">
+                        <div class="faq-risposta-interna">
+                            <p>L'attenzione degli utenti sul web è di 3 secondi. Se li fai navigare tra le pagine "Chi Siamo", "Storia" e "Mission", li perdi. Una One-Page concentra tutte le tue armi migliori in una singola pagina a scorrimento, guidando l'utente dritto al pulsante WhatsApp.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Domanda 3 -->
+                <div class="faq-elemento">
+                    <div class="faq-domanda">
+                        <h3>Come funziona per i testi e le immagini?</h3>
+                        <div class="faq-icona">+</div>
+                    </div>
+                    <div class="faq-risposta-wrapper">
+                        <div class="faq-risposta-interna">
+                            <p>Mi fornisci tu i testi e le foto della tua attività (il tuo locale, i tuoi lavori). Se non hai foto professionali, userò immagini di altissima qualità dai migliori archivi Premium per garantire un impatto visivo perfetto.</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+   <!-- ==========================================
+         BLOCCO 4.1: FOOTER (The Boss CTA)
+         ========================================== -->
+    <footer class="sezione-boss-footer">
+        
+        <!-- LATO SINISTRO: AVATAR ASSOLUTO (Fuori dalla griglia) -->
+        <div class="footer-avatar">
+            <img src="immagini\e94e84d4-13b3-42f0-8980-9fdc3dd3670b_Nero_AI_Cartoonize_Photo_MiniME_Nero_AI_Background_Remover_transparent.webp" alt="Avatar Fondatore" class="avatar-immagine" id="avatar-boss">
+        </div>
+
+        <!-- LATO DESTRO: TESTI (Dentro la griglia centrata) -->
+        <div class="contenitore-centrato footer-layout">
+            <div class="footer-testo">
+                <h2 class="testo-gigante-footer">
+                    PRONTI A<br>DOMINARE IL<br>MERCATO?
+                </h2>
+                
+                <!-- Bottone Offset Brutalista -->
+                <a href="https://wa.me/tuonumero" class="bottone-offset" target="_blank">
+                    <span class="testo-bottone">PARLIAMONE ORA ↗</span>
+                </a>
+
+                <!-- Link Legali e Copia Email -->
+                <div class="link-legali">
+                    <span class="dettaglio-legale">Ompage di Veronica Gandiglio - P.IVA 1234567890</span><br>
+                    <span class="dettaglio-legale copia-email-footer" onclick="copiaEmailFooter()">ciao@ompage.it</span>
+
+                    <div class="lista-link-privacy">
+                        <button class="apri-modale" data-target="modale-privacy">Privacy Policy</button>
+                        <button class="apri-modale" data-target="modale-cookie">Cookie Policy</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+    <!-- ==========================================
+         BLOCCO 4.2: INFRASTRUTTURA LEGALE (Modali)
+         ========================================== -->
+    
+    <!-- Sfondo scuro per le modali -->
+    <div class="overlay-modale" id="overlay"></div>
+
+    <!-- Modale Privacy Policy -->
+    <div class="modale-legale" id="modale-privacy">
+        <div class="modale-header">
+            <h3>PRIVACY POLICY</h3>
+            <button class="chiudi-modale">&times;</button>
+        </div>
+        <div class="modale-corpo">
+            <p><strong>INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI</strong><br>In questa sezione inserirai i testi della tua Privacy Policy. Essendo una vetrina senza form di contatto (usi WhatsApp direttamente), il tracciamento dei dati è quasi nullo. Assicurati di specificare come gestisci i dati se i clienti ti contattano via email o WhatsApp.</p>
+            <p>I dati non verranno mai ceduti a terzi o usati per profilazione aggressiva. Siamo sviluppatori, non spie.</p>
+        </div>
+    </div>
+
+    <!-- Modale Cookie Policy -->
+    <div class="modale-legale" id="modale-cookie">
+        <div class="modale-header">
+            <h3>COOKIE POLICY</h3>
+            <button class="chiudi-modale">&times;</button>
+        </div>
+        <div class="modale-corpo">
+            <p><strong>INFORMATIVA SUI COOKIE</strong><br>Questo sito è costruito per essere una macchina da guerra. Non usiamo script di profilazione invadenti, non ti seguiamo su Facebook e non usiamo Pixel di terze parti.</p>
+            <p>Utilizziamo ESCLUSIVAMENTE cookie tecnici necessari per il corretto funzionamento dell'interfaccia (come ad esempio ricordare se hai chiuso il banner dei cookie). Navigando su questo sito, accetti l'uso di questi cookie tecnici.</p>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         BLOCCO 4.3: COOKIE BANNER (Solo Tecnici)
+         ========================================== -->
+    <div class="banner-cookie" id="banner-cookie">
+        <p><strong>NESSUN TRACCIAMENTO.</strong> Questo sito utilizza solo cookie tecnici strettamente necessari al suo funzionamento. Niente profilazione, niente noie.</p>
+        <button id="accetta-cookie" class="bottone-primario" style="padding: 10px 20px; font-size: 0.8rem;">HO CAPITO</button>
+    </div>
+
+    <script>
+
+// ==========================================
+// 1. LOGICA CURSORE CUSTOM (Inversione)
+// ==========================================
+const cursore = document.querySelector('.cursore-inversione');
+const elementiInterattivi = document.querySelectorAll('a, .bottone-primario, .bottone-mobile-fisso, .nav-links a, .copia-email-header, .faq-domanda');
+
+if (window.innerWidth > 992) {
+    window.addEventListener('mousemove', (e) => {
+        cursore.style.left = e.clientX + 'px';
+        cursore.style.top = e.clientY + 'px';
+    });
+
+    elementiInterattivi.forEach(elemento => {
+        elemento.addEventListener('mouseenter', () => {
+            cursore.style.width = '80px';
+            cursore.style.height = '80px';
+        });
+        
+        elemento.addEventListener('mouseleave', () => {
+            cursore.style.width = '40px';
+            cursore.style.height = '40px';
+        });
+    });
+}
+
+// ==========================================
+// 2. LOGICA VIDEO PORTFOLIO (Intersection Observer)
+// ==========================================
+const videoPortfolio = document.querySelectorAll('.screen-video');
+let videoObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.play();
+        } else {
+            entry.target.pause();
+        }
+    });
+}, { threshold: 0.3 });
+
+videoPortfolio.forEach(video => {
+    videoObserver.observe(video);
+});
+
+// ==========================================
+// 3. LOGICA FAQ ACCORDION
+// ==========================================
+const faqElementi = document.querySelectorAll('.faq-elemento');
+faqElementi.forEach(elemento => {
+    const domanda = elemento.querySelector('.faq-domanda');
+    domanda.addEventListener('click', () => {
+        const eraGiaAttivo = elemento.classList.contains('attivo');
+        faqElementi.forEach(faq => faq.classList.remove('attivo'));
+        if (!eraGiaAttivo) {
+            elemento.classList.add('attivo');
+        }
+    });
+});
+
+// ==========================================
+// 4. LOGICA SCROLL REVEAL (Animazione Step)
+// ==========================================
+const stepDaRivelare = document.querySelectorAll('.rivela-scroll');
+const rivelaObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.classList.add('visibile');
+            observer.unobserve(entry.target);
+        }
+    });
+}, { threshold: 0.2 });
+
+stepDaRivelare.forEach(step => {
+    rivelaObserver.observe(step);
+});
+
+// ==========================================
+// 5. LOGICA MODALI (Privacy / Cookie)
+// ==========================================
+const bottoniApriModale = document.querySelectorAll('.apri-modale');
+const bottoniChiudiModale = document.querySelectorAll('.chiudi-modale');
+const overlay = document.getElementById('overlay');
+
+function chiudiTutteLeModali() {
+    document.querySelectorAll('.modale-legale').forEach(modale => modale.classList.remove('attivo'));
+    overlay.classList.remove('attivo');
+}
+
+bottoniApriModale.forEach(bottone => {
+    bottone.addEventListener('click', () => {
+        const targetId = bottone.getAttribute('data-target');
+        document.getElementById(targetId).classList.add('attivo');
+        overlay.classList.add('attivo');
+    });
+});
+
+bottoniChiudiModale.forEach(bottone => bottone.addEventListener('click', chiudiTutteLeModali));
+overlay.addEventListener('click', chiudiTutteLeModali);
+
+// ==========================================
+// 6. LOGICA COOKIE BANNER
+// ==========================================
+const bannerCookie = document.getElementById('banner-cookie');
+const bottoneAccettaCookie = document.getElementById('accetta-cookie');
+
+if (!localStorage.getItem('cookieAccettati_Ompage')) {
+    setTimeout(() => { bannerCookie.classList.add('visibile'); }, 2000);
+}
+
+bottoneAccettaCookie.addEventListener('click', () => {
+    bannerCookie.classList.remove('visibile');
+    localStorage.setItem('cookieAccettati_Ompage', 'true');
+});
+
+// ==========================================
+// 7. PARALLASSE AVATAR & COPIA EMAIL
+// ==========================================
+
+
+function copiaEmailHeader() {
+    const emailDaCopiare = "ciao@ompage.it"; 
+    const spanEmail = document.querySelector('.copia-email-header');
+    navigator.clipboard.writeText(emailDaCopiare).then(() => {
+        const testoOriginale = spanEmail.innerText;
+        spanEmail.innerText = "COPIATA!";
+        spanEmail.style.color = "var(--colore-accento)"; 
+        setTimeout(() => {
+            spanEmail.innerText = testoOriginale;
+            spanEmail.style.color = "#888";
+        }, 2000);
+    });
+}
+
+// ==========================================
+        // LOGICA COPIA EMAIL FOOTER
+        // ==========================================
+        function copiaEmailFooter() {
+            const emailDaCopiare = "ciao@ompage.it"; 
+            const spanEmail = document.querySelector('.copia-email-footer');
+            
+            navigator.clipboard.writeText(emailDaCopiare).then(() => {
+                const testoOriginale = spanEmail.innerText;
+                spanEmail.innerText = "COPIATA!";
+                spanEmail.style.color = "var(--colore-accento)"; 
+                
+                setTimeout(() => {
+                    spanEmail.innerText = testoOriginale;
+                    spanEmail.style.color = "#888";
+                }, 2000);
+            });
+        }
+
+        // Se sei su desktop, fai ingrandire il cursore custom 
+        // anche sui bottoni e link del footer
+        if (window.innerWidth > 992) {
+            const elementiFooter = document.querySelectorAll('.bottone-offset, .copia-email-footer, .apri-modale');
+            
+            elementiFooter.forEach(elemento => {
+                elemento.addEventListener('mouseenter', () => {
+                    cursore.style.width = '80px';
+                    cursore.style.height = '80px';
+                });
+                
+                elemento.addEventListener('mouseleave', () => {
+                    cursore.style.width = '40px';
+                    cursore.style.height = '40px';
+                });
+            });
+        }
+
+    </script>
+
+</body>
+</html>
