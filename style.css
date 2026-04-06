@@ -146,7 +146,7 @@ body {
 .sezione-eroe {
     padding-bottom: 12vh; 
     position: relative;
-    height: 110vh;
+    height: 120vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
