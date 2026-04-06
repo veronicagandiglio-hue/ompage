@@ -681,7 +681,7 @@ body {
     display: flex;
     flex-direction: column;
     align-items: flex-start; 
-    padding-bottom: 70px;
+    padding-bottom: 20px;
 }
 
 .testo-gigante-footer {
