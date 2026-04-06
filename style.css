@@ -268,12 +268,12 @@ body {
         word-wrap: break-word;
         
         /* Stringiamo leggermente l'interlinea per quando va a capo */
-        line-height: 0.9; 
+        line-height: 1; 
         margin-bottom: 10px; /* Un po' di respiro tra i blocchi */
     }
 
 .sezione-eroe {
-    height: 92vh;
+    height: 82vh; 
 }
 
     /* Adeguiamo il testo vuoto per non fare accavallare troppo il bordo */
@@ -484,6 +484,11 @@ body {
     
     .griglia-iphone { gap: 40px; }
     .iphone-mockup { width: 300px; height: 600px; }
+
+    .sezione-punti-forza
+ {
+    padding: 10px 0 150px 0;
+}
 }
 
 
