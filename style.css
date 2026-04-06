@@ -307,7 +307,7 @@ body {
                 box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4);
             }
 
-            .nastro-scorrevole { bottom: 25%; }
+            .nastro-scorrevole { bottom: 15%; }
             .testo-vuoto { -webkit-text-stroke: 1px var(--colore-testo); }
         }
 
