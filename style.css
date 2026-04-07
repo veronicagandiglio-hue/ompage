@@ -759,6 +759,15 @@ body {
     background-color: var(--colore-sfondo);
 }
 
+.titolo-sezione-2 {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: 1;
+    text-transform: uppercase;
+    margin-bottom: 3rem;
+    text-align: right;
+}
+
 .faq-elemento {
     border-bottom: 2px solid #333;
     /* Rende l'intera riga interattiva col cursore custom */
