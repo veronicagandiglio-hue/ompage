@@ -75,20 +75,29 @@ body {
 .logo-container {
     display: flex;
     align-items: center;
+    gap: 8px; /* Spazio tra il tuo logo grafico e la scritta PAGE */
 }
 
-.testo-logo {
+/* La scritta PAGE con l'effetto Neon Brutalista */
+.testo-logo-neon {
     font-family: var(--font-display);
     font-size: 1.8rem;
     text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--colore-testo);
+    letter-spacing: 2px;
+    color: var(--colore-accento); /* Il tuo Fucsia/Rosa */
+    
+    /* Il Glow (Neon) Effect */
+    text-shadow: 
+        0 0 5px rgba(255, 0, 127, 0.8),
+        0 0 15px rgba(255, 0, 127, 0.5),
+        0 0 30px rgba(255, 0, 127, 0.3);
 }
 
+
 .img-logo {
-    display: none; /* Immagine nascosta su Desktop di default */
     height: 30px; 
     width: auto;
+    display: block; /* Ora è sempre visibile, sia su Desktop che Mobile */
 }
 
 /* Link di Navigazione Desktop */
