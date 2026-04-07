@@ -53,7 +53,7 @@ body {
 .nav-pillola {
     max-width: 1200px; 
     position: fixed;
-    top: 20px;
+    top: 10px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -182,7 +182,7 @@ body {
     text-align: center;
     z-index: 2;
     pointer-events: none; /* Mantengo la tua proprietà essenziale */
-    
+    margin-top: 20px;
     /* AGGIUNTA: Forza i figli (i testi) a stare in una cornice che li "taglia" */
     overflow: hidden; 
 }
