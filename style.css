@@ -768,6 +768,28 @@ body {
     text-align: right;
 }
 
+/* ==========================================
+   ANIMAZIONE: RIVELA DA DESTRA (Slide-In)
+   ========================================== */
+
+/* Stato iniziale: invisibile e spostato a destra di 100px */
+.rivela-da-destra {
+    opacity: 0;
+    transform: translateX(100px); 
+    /* La transizione è morbida ma ha uno scatto brutale alla fine (cubic-bezier) */
+    transition: opacity 0.8s ease-out, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    
+    /* OPZIONALE: se vuoi che il testo non faccia allargare la pagina su mobile
+       mentre è nascosto a destra, assicurati che il contenitore padre abbia overflow-x: hidden
+       (Dovrebbe già esserci sul body, ma nel dubbio te lo ricordo) */
+}
+
+/* Stato finale (Aggiunto dal JS quando si scrolla sulla sezione) */
+.rivela-da-destra.animazione-conclusa {
+    opacity: 1;
+    transform: translateX(0); /* Torna alla posizione naturale (a destra, come hai impostato in .titolo-sezione-2) */
+}
+
 .faq-elemento {
     border-bottom: 2px solid #333;
     /* Rende l'intera riga interattiva col cursore custom */

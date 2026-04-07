@@ -272,9 +272,10 @@
     <!-- ==========================================
          BLOCCO 3.3: FAQ ACCORDION BRUTALISTA
          ========================================== -->
-    <section class="sezione-faq">
+    <section class="sezione-faq" id="faq">
         <div class="contenitore-centrato">
-            <h2 class="titolo-sezione-2">ALTRE<br>DOMANDE<br>FREQUENTI</h2>
+            <!-- Aggiunta la classe "rivela-da-destra" -->
+            <h2 class="titolo-sezione-2 rivela-da-destra">ALTRE<br>DOMANDE<br>FREQUENTI</h2>
             
             <div class="faq-lista">
 
@@ -341,18 +342,7 @@
                     </div>
                 </div>
 
-                <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>Quali sono i tempi per le modifiche?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>Una volta ricevuta la tua lista scritta (tramite email o whatsapp) di modifiche, le applico e le metto online tra le 24 e le 72 ore lavorative (a seconda della mole di richieste). Appena il sito è aggiornato, ti mando un messaggio e puoi verificare il risultato.</p>
-                        </div>
-                    </div>
-                </div>
-
+        
 
                <div class="faq-elemento">
                     <div class="faq-domanda">
@@ -629,6 +619,38 @@ function copiaEmailHeader() {
         }, 2000);
     });
 }
+
+// ==========================================
+        // LOGICA ANIMAZIONE: TITOLO FAQ (Slide In)
+        // ==========================================
+        
+        // 1. Selezioniamo SOLO gli elementi con la classe .rivela-da-destra
+        const titoloFaq = document.querySelectorAll('.rivela-da-destra');
+
+        // 2. Creiamo un Observer dedicato ESCLUSIVAMENTE a questa animazione
+        const observerTitoloFaq = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                // Se il titolo entra nello schermo visibile...
+                if (entry.isIntersecting) {
+                    // Aggiungiamo la classe che fa partire l'animazione CSS
+                    entry.target.classList.add('animazione-conclusa');
+                    
+                    // Fondamentale: Smettiamo di osservarlo. 
+                    // Vogliamo che l'animazione entri una volta sola e resti lì.
+                    observer.unobserve(entry.target); 
+                }
+            });
+        }, {
+            // Trigger: L'animazione parte quando l'elemento supera il 10% inferiore dello schermo
+            // Questo dà all'utente il tempo di capire che c'è qualcosa che sta entrando
+            rootMargin: "0px 0px -10% 0px",
+            threshold: 0
+        });
+
+        // 3. Attiviamo l'observer sul titolo
+        titoloFaq.forEach(titolo => {
+            observerTitoloFaq.observe(titolo);
+        });
 
 // ==========================================
         // LOGICA COPIA EMAIL FOOTER
