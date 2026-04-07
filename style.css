@@ -1034,36 +1034,65 @@ body {
     pointer-events: all;
 }
 
+/* ==========================================
+   MODALI E COOKIE BANNER (Brutalist UI)
+   ========================================== */
+
+/* ... (lascia .overlay-modale e .overlay-modale.attivo invariati) ... */
+
+/* 1. LA MODALE (Il Contenitore Principale) */
 .modale-legale {
     position: fixed;
     top: 50%; left: 50%;
-    transform: translate(-50%, -40%); /* Parte un po' più in alto */
+    transform: translate(-50%, -40%);
     width: 90%;
     max-width: 600px;
-    background-color: var(--colore-testo); /* Sfondo bianco brutalista */
-    color: var(--colore-sfondo); /* Testo nero */
+    /* Limitiamo l'altezza massima per non farla uscire dallo schermo,
+       lasciando spazio vitale sopra e sotto (es. 85vh) */
+    max-height: 85vh; 
+    
+    /* Disposizione Flexbox per gestire header fisso e corpo scorrevole */
+    display: flex;
+    flex-direction: column;
+
+    background-color: var(--colore-testo); 
+    color: var(--colore-sfondo); 
     border: 4px solid var(--colore-sfondo);
-    padding: 40px;
+    
+    /* Il padding lo togliamo da qui e lo spostiamo nei figli (header e corpo)
+       altrimenti la scrollbar si disegna in modo strano */
+    padding: 0; 
+    
     z-index: 10001;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.4s ease, transform 0.4s ease;
-    box-shadow: 20px 20px 0px var(--colore-accento); /* Ombra rosa fucsia */
+    box-shadow: 20px 20px 0px var(--colore-accento); 
 }
 
 .modale-legale.attivo {
     opacity: 1;
     pointer-events: all;
-    transform: translate(-50%, -50%); /* Cade al centro perfettamente */
+    transform: translate(-50%, -50%); 
 }
 
+/* 2. L'HEADER DELLA MODALE (Sempre visibile in alto) */
 .modale-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     border-bottom: 2px solid var(--colore-sfondo);
-    padding-bottom: 10px;
-    margin-bottom: 20px;
+    
+    /* Spostiamo il padding qui */
+    padding: 20px 30px; 
+    margin-bottom: 0; /* Rimosso, lo spazio lo diamo al corpo */
+    
+    /* Assicuriamo che l'header non si rimpicciolisca se il corpo diventa lungo */
+    flex-shrink: 0; 
+    
+    /* Opzionale: un leggero sfondo se il testo scorre sotto */
+    background-color: var(--colore-testo); 
+    z-index: 2;
 }
 
 .modale-header h3 {
@@ -1078,13 +1107,42 @@ body {
     color: var(--colore-sfondo);
     cursor: pointer;
     line-height: 0.5;
+    padding: 0; /* Pulizia extra per mobile */
+}
+
+/* 3. IL CORPO DELLA MODALE (La parte che scorre) */
+.modale-corpo {
+    /* Il padding lo mettiamo qui per distanziare il testo dai bordi */
+    padding: 20px 30px 40px 30px; 
+    
+    /* QUESTA È LA MAGIA: 
+       Se il testo è più lungo dello spazio a disposizione, crea una barra di scorrimento VERTICALE */
+    overflow-y: auto; 
+    
+    /* Estetica della scrollbar per browser Webkit (Chrome, Safari, Edge) */
+    scrollbar-width: thin; 
+    scrollbar-color: var(--colore-accento) transparent; 
+}
+
+/* Personalizzazione Brutalista della Scrollbar (Opzionale ma fa scena) */
+.modale-corpo::-webkit-scrollbar {
+    width: 8px;
+}
+.modale-corpo::-webkit-scrollbar-track {
+    background: transparent;
+}
+.modale-corpo::-webkit-scrollbar-thumb {
+    background-color: var(--colore-accento);
+    border-radius: 10px;
 }
 
 .modale-corpo p {
-    margin-bottom: 15px;
+    margin-bottom: 20px; /* Aumentato leggermente il respiro tra i paragrafi */
     font-size: 1.1rem;
     line-height: 1.5;
 }
+
+/* ... (lascia il resto del CSS per il Cookie Banner e Mobile invariato) ... */
 
 /* Banner Cookie */
 .banner-cookie {
