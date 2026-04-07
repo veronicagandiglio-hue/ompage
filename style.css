@@ -1120,3 +1120,125 @@ body {
         display: block;
     }
 }
+
+
+/* ==========================================
+   IL TIMBRO PREZZO (Brutalist Stamp)
+   ========================================== */
+/* Il contenitore che allinea il titolo e il timbro sulla stessa riga */
+.header-punti-forza {
+    display: flex;
+    justify-content: space-around; /* Spinge il titolo a sx e il timbro a dx */
+    align-items: center; /* Li centra verticalmente */
+    margin-bottom: 3rem; /* Lo spazio prima delle carte */
+}
+
+/* Modifichiamo il timbro per stare nel flusso della pagina */
+.timbro-prezzo-ancora {
+    position: relative; /* NON PIÙ absolute */
+    /* Abbiamo tolto bottom, right e z-index */
+    width: 140px;
+    height: 140px;
+    /* Evita che il timbro si schiacci se il titolo è troppo lungo */
+    flex-shrink: 0; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    cursor: none; 
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.timbro-prezzo-ancora:hover {
+    transform: scale(1.1); 
+}
+
+/* L'anello rotante dentellato (Effetto Tappo a Corona in CSS Puro) */
+.timbro-rotante {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--colore-accento);
+    /* Il trucco del cerchio dentellato (Scalloped edge) */
+    clip-path: polygon(
+        50% 0%, 61% 11%, 75% 5%, 82% 18%, 96% 18%, 95% 33%, 100% 45%, 
+        90% 56%, 100% 68%, 88% 79%, 92% 93%, 78% 90%, 66% 100%, 53% 92%, 
+        38% 100%, 26% 89%, 12% 95%, 16% 79%, 0% 68%, 10% 55%, 0% 43%, 
+        14% 31%, 6% 16%, 21% 15%, 26% 2%, 40% 12%
+    );
+    animation: rotazione-timbro 15s linear infinite;
+    box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4);
+}
+
+/* Il nucleo nero fisso con i testi */
+.timbro-fisso {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    background-color: var(--colore-sfondo);
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 2;
+    /* Doppio bordo per staccarlo dall'anello rotante fucsia */
+    border: 3px solid var(--colore-accento);
+}
+
+.timbro-cifra {
+    font-family: var(--font-display);
+    font-size: 3rem; /* Enorme */
+    color: var(--colore-testo);
+    line-height: 0.9;
+}
+
+.timbro-testo {
+    font-family: var(--font-corpo);
+    font-weight: 700;
+    font-size: 0.6rem;
+    color: var(--colore-accento); /* Testo fucsia su fondo nero */
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 2px;
+}
+
+@keyframes rotazione-timbro {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================
+   RESPONSIVE MOBILE PER IL TIMBRO
+   ========================================== */
+@media (max-width: 992px) {
+   /* Adattamento Timbro Prezzo per Mobile */
+    .timbro-prezzo-ancora {
+        width: 110px; 
+        height: 110px;
+        bottom: 22%; /* Rialzato per non toccare il nastro e la CTA di WhatsApp */
+        right: 8%;
+    }
+    
+    .timbro-fisso {
+        width: 86px; 
+        height: 86px;
+    }
+    
+    .timbro-cifra { font-size: 2.2rem; }
+    .timbro-testo { font-size: 0.5rem; letter-spacing: 0px; }
+
+    /* Impiliamo Titolo e Timbro su mobile */
+    .header-punti-forza {
+        flex-direction: column;
+        align-items: flex-start; /* Allinea tutto a sinistra */
+        gap: 30px; /* Spazio tra titolo e timbro */
+    }
+
+    /* Il Timbro si adatta al mobile ma resta nel flusso */
+    .timbro-prezzo-ancora {
+        width: 110px; 
+        height: 110px;
+        /* Via le regole bottom e right che c'erano prima */
+    }
+    }
