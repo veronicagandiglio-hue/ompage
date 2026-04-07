@@ -845,7 +845,7 @@ body {
     overflow: hidden; 
     display: flex;
     align-items: flex-end; /* Centra il testo in verticale */
-    border-top: 2px solid #222;
+    
 }
 
 /* LA MAGIA DELL'AVATAR: Incollato allo schermo a sinistra e in basso */
