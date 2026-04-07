@@ -48,12 +48,12 @@ body {
 }
 
 /* ==========================================
-   NAVBAR FLUTTUANTE
+   NAVBAR FLUTTUANTE (Desktop & Mobile Base)
    ========================================== */
 .nav-pillola {
     max-width: 1200px; 
     position: fixed;
-    top: 10px;
+    top: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
@@ -67,8 +67,14 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.1);
     width: 95%;
     z-index: 1000;
+    transition: padding 0.3s ease, top 0.3s ease; /* Fluidità su resize */
 }
 
+/* LOGO */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
 .testo-logo {
     font-family: var(--font-display);
     font-size: 1.8rem;
@@ -76,12 +82,14 @@ body {
     letter-spacing: 1px;
     color: var(--colore-testo);
 }
-
-.nav-links {
-    display: flex;
-    gap: 25px;
+.img-logo {
+    display: none; /* Nascosto su Desktop di default */
+    height: 30px; /* Regola l'altezza in base al tuo logo reale */
+    width: auto;
 }
 
+/* LINK DESKTOP */
+.nav-links { display: flex; gap: 25px; }
 .nav-links a {
     color: var(--colore-testo);
     text-decoration: none;
@@ -91,28 +99,23 @@ body {
     text-transform: uppercase;
     transition: color 0.2s ease;
 }
+.nav-links a:hover { color: var(--colore-accento); }
 
-.nav-links a:hover {
-    color: var(--colore-accento);
-}
-
+/* GRUPPO DESTRA */
 .gruppo-destra-nav {
     display: flex;
     align-items: center;
-    gap: 15px; /* Spazio tra email, avatar e bottone */
+    gap: 15px; 
 }
-
 .copia-email-header {
     font-family: var(--font-corpo);
     font-size: 0.9rem;
     color: #888;
     text-decoration: underline;
     transition: color 0.2s ease;
+    cursor: none;
 }
-
-.copia-email-header:hover {
-    color: var(--colore-testo);
-}
+.copia-email-header:hover { color: var(--colore-testo); }
 
 .avatar-profilo {
     width: 48px;
@@ -122,7 +125,6 @@ body {
     border: 2px solid var(--colore-accento);
 }
 
-/* IL BOTTONE BIANCO NELLA NAVBAR (Che si era perso) */
 .bottone-primario {
     font-family: var(--font-corpo);
     font-weight: 700;
@@ -135,16 +137,37 @@ body {
     font-size: 0.9rem;
     transition: transform 0.2s ease;
 }
+.bottone-primario:hover { transform: scale(1.05); }
 
-.bottone-primario:hover {
-    transform: scale(1.05); /* Effetto pop all'hover */
+/* HAMBURGER MENU ICON (Nascosto su Desktop) */
+.menu-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001; /* Sta sopra all'overlay */
 }
+.menu-hamburger span {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: var(--colore-testo);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+/* Animazione Hamburger -> X */
+.menu-hamburger.aperto span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-hamburger.aperto span:nth-child(2) { transform: translateY(-8px) rotate(-45deg); }
+
+
 
 /* ==========================================
    SEZIONE EROE
    ========================================== */
 .sezione-eroe {
-    padding-bottom: 6vh; 
+    padding-bottom: 12vh; 
     position: relative;
     height: 112vh;
     display: flex;
@@ -243,112 +266,381 @@ body {
     100% { transform: translateX(-50%); }
 }
 
-/* BOTTONE MOBILE (Nascosto su Desktop) */
-.bottone-mobile-fisso {
-    display: none; 
+/* ==========================================
+   VARIABILI GLOBALI
+   ========================================== */
+:root {
+    --colore-sfondo: #050505;
+    --colore-testo: #F4F4F4;
+    --colore-accento: #FF007F; 
+    --font-display: 'Anton', sans-serif;
+    --font-corpo: 'Space Grotesk', sans-serif;
 }
 
 /* ==========================================
-   RESPONSIVE MOBILE
+   RESET E CURSORE CUSTOM
+   ========================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    cursor: none; 
+}
+
+body {
+    background-color: var(--colore-sfondo);
+    color: var(--colore-testo);
+    font-family: var(--font-corpo);
+    overflow-x: hidden;
+    -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+    background-color: var(--colore-accento);
+    color: var(--colore-testo);
+}
+
+.cursore-inversione {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    background-color: var(--colore-accento);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    mix-blend-mode: difference;
+    transition: width 0.2s, height 0.2s;
+}
+
+/* ==========================================
+   NAVBAR FLUTTUANTE (Desktop & Mobile Base)
+   ========================================== */
+.nav-pillola {
+    max-width: 1200px; 
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(20, 20, 20, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 10px 10px 10px 24px;
+    border-radius: 100px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    width: 95%;
+    z-index: 1000;
+    transition: padding 0.3s ease, top 0.3s ease; 
+}
+
+/* LOGO */
+.logo-container {
+    display: flex;
+    align-items: center;
+}
+.testo-logo {
+    font-family: var(--font-display);
+    font-size: 1.8rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--colore-testo);
+}
+.img-logo {
+    display: none; /* Nascosto su Desktop di default */
+    height: 30px; 
+    width: auto;
+}
+
+/* LINK DESKTOP */
+.nav-links { display: flex; gap: 25px; }
+.nav-links a {
+    color: var(--colore-testo);
+    text-decoration: none;
+    font-family: var(--font-corpo);
+    font-weight: 700;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+.nav-links a:hover { color: var(--colore-accento); }
+
+/* GRUPPO DESTRA */
+.gruppo-destra-nav {
+    display: flex;
+    align-items: center;
+    gap: 15px; 
+}
+.copia-email-header {
+    font-family: var(--font-corpo);
+    font-size: 0.9rem;
+    color: #888;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+}
+.copia-email-header:hover { color: var(--colore-testo); }
+
+.avatar-profilo {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--colore-accento);
+}
+
+.bottone-primario {
+    font-family: var(--font-corpo);
+    font-weight: 700;
+    background-color: var(--colore-testo);
+    color: var(--colore-sfondo);
+    padding: 14px 28px;
+    border-radius: 100px;
+    text-decoration: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    transition: transform 0.2s ease;
+}
+.bottone-primario:hover { transform: scale(1.05); }
+
+/* HAMBURGER MENU ICON (Nascosto su Desktop) */
+.menu-hamburger {
+    display: none;
+    background: none;
+    border: none;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001; 
+}
+.menu-hamburger span {
+    display: block;
+    width: 30px;
+    height: 2px;
+    background-color: var(--colore-testo);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+.menu-hamburger.aperto span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
+.menu-hamburger.aperto span:nth-child(2) { transform: translateY(-8px) rotate(-45deg); }
+
+/* ==========================================
+   MENU OVERLAY (Il menu Brutalista a tutto schermo)
+   ========================================== */
+.menu-mobile-overlay {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100vw; height: 100vh;
+    background-color: rgba(5, 5, 5, 0.98); 
+    backdrop-filter: blur(10px);
+    z-index: 999; 
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    pointer-events: none; 
+    transition: opacity 0.4s ease;
+}
+.menu-mobile-overlay.aperto {
+    opacity: 1;
+    pointer-events: all;
+}
+.menu-mobile-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 30px;
+    transform: translateY(30px);
+    transition: transform 0.4s ease;
+}
+.menu-mobile-overlay.aperto .menu-mobile-links {
+    transform: translateY(0); 
+}
+.link-mobile {
+    font-family: var(--font-display);
+    font-size: 3.5rem; 
+    color: var(--colore-testo);
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+}
+.link-mobile:active { color: var(--colore-accento); }
+
+.menu-mobile-contatti {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    border-top: 1px solid #333;
+    padding-top: 30px;
+    width: 100%;
+}
+.testo-grigio { color: #666; font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px;}
+.copia-email-mobile { color: var(--colore-accento); font-size: 1.5rem; text-decoration: underline;}
+
+/* ==========================================
+   SEZIONE EROE CON VIDEO
+   ========================================== */
+.sezione-eroe {
+    padding-bottom: 12vh; 
+    position: relative;
+    height: 118vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+
+
+.contenitore-titolo-eroe {
+    text-align: center;
+    z-index: 2;
+    pointer-events: none; 
+    overflow: hidden; 
+    width: 100%;
+}
+
+.testo-animato {
+    display: block; 
+    transform: translateY(110%); 
+    animation: comparsaDalBasso 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards;
+}
+
+.testo-animato.ritardo-1 { animation-delay: 0.1s; }
+.testo-animato.ritardo-2 { animation-delay: 0.2s; }
+
+@keyframes comparsaDalBasso {
+    0% { transform: translateY(110%); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(0); opacity: 1; }
+}
+
+.testo-gigante {
+    font-family: var(--font-display);
+    font-size: clamp(3rem, 12vw, 13rem); 
+    line-height: 1; 
+    text-transform: uppercase;
+    margin: 0;
+    display: block;
+}
+
+.testo-vuoto {
+    color: transparent;
+    -webkit-text-stroke: 2px var(--colore-testo);
+}
+
+/* NASTRO SCORREVOLE */
+.nastro-scorrevole {
+    bottom: 15%; 
+    position: absolute;
+    left: -10%;
+    width: 120%;
+    background-color: var(--colore-accento);
+    padding: 15px 0;
+    transform: rotate(-3deg);
+    display: flex;
+    overflow: hidden;
+    z-index: 10;
+    box-shadow: 0 0 40px rgba(255, 0, 127, 0.4);
+}
+
+.testo-nastro {
+    font-family: var(--font-corpo);
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: var(--colore-sfondo);
+    text-transform: uppercase;
+    white-space: nowrap;
+    animation: scorri-sinistra 15s linear infinite;
+}
+
+@keyframes scorri-sinistra {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+/* ==========================================
+   L'UNICO RESPONSIVE MOBILE CHE TI SERVE
    ========================================== */
 @media (max-width: 992px) {
     * { cursor: auto !important; }
     .cursore-inversione { display: none; }
     
+    /* 1. COMPATTIAMO LA NAVBAR */
     .nav-pillola {
-        padding: 15px 24px;
-        justify-content: center; /* Centra il logo */
+        padding: 8px 12px; 
+        top: 10px;
+        width: 96%;
+        border-radius: 20px; 
     }
 
-    /* Nascondi i link e la roba di destra su mobile */
-    .nav-links, .gruppo-destra-nav { 
-        display: none; 
+    /* SCAMBIO LOGO: Via testo, dentro immagine */
+    .testo-logo { display: none; }
+    .img-logo { display: block; height: 35px;}
+
+    /* Rimuovi link testuali e email (Vanno nel menu a tendina) */
+    .nav-links, .copia-email-header { display: none; }
+
+    /* 2. SISTEMIAMO IL GRUPPO DESTRA (Avatar + WA + Hamburger) */
+    .gruppo-destra-nav { 
+        display: flex !important; /* Forza la visibilità */
+        gap: 8px; 
     }
 
-    /* Fai comparire il mega-bottone WhatsApp in basso */
-    .bottone-mobile-fisso {
-        display: flex;
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 90%;
-        background-color: var(--colore-accento);
-        color: var(--colore-testo);
-        justify-content: center;
-        padding: 18px;
-        border-radius: 100px;
-        font-family: var(--font-corpo);
-        font-weight: 700;
-        text-transform: uppercase;
-        text-decoration: none;
-        z-index: 1000;
-        box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4);
+    /* Rimpicciolisci l'avatar */
+    .avatar-profilo {
+        width: 35px;
+        height: 35px;
+        border-width: 1px;
     }
-    
-    @media (max-width: 992px) {
-    /* ... (lascia intatto quello che c'è già qui dentro per navbar e cursore) ... */
 
-    /* 1. Blocchiamo la larghezza del contenitore al 90% dello schermo */
+    /* Rimpicciolisci il bottone WA */
+    .bottone-primario {
+        padding: 8px 12px;
+        font-size: 0.75rem;
+    }
+
+    /* Mostra l'hamburger */
+    .menu-hamburger { display: flex; }
+
+    /* 3. SISTEMIAMO LA HERO E IL TESTO "ATTIVITÀ" */
+    .sezione-eroe {
+        height: 65vh; 
+        padding-bottom: 6vh;
+    }
+
     .contenitore-titolo-eroe {
-        width: 90%;
+        width: 95vw; /* Imposta un limite rigoroso allo schermo */
         margin: 0 auto;
+        overflow: visible; /* Permette al testo di non essere tagliato sotto */
     }
 
-    /* 2. Ingrandiamo il font ma gli diciamo di andare a capo */
     .testo-gigante {
-        /* Aumentiamo la base minima da 3rem a 4rem (o anche 4.5rem se vuoi osare). 
-           Il 15vw lo farà scalare perfettamente. */
-        font-size: clamp(3.9rem, 15vw, 6rem); 
+        /* Molto più grande, ma ristretto nei margini */
+        font-size: clamp(3.5rem, 15vw, 6rem); 
+        line-height: 1; 
+        margin-bottom: 5px;
         
-        /* QUESTE SONO LE DUE REGOLE MAGICHE PER NON USCIRE DAI BORDI */
+        /* LE 3 REGOLE D'ORO PER SPEZZARE LA PAROLA: */
         white-space: normal; 
         overflow-wrap: break-word; 
-        word-wrap: break-word;
-        
-        /* Stringiamo leggermente l'interlinea per quando va a capo */
-        line-height: 1; 
-        margin-bottom: 10px; /* Un po' di respiro tra i blocchi */
+        word-break: break-word;
     }
 
-.sezione-eroe {
-    height: 82vh; 
-}
-
-    /* Adeguiamo il testo vuoto per non fare accavallare troppo il bordo */
     .testo-vuoto {
         -webkit-text-stroke: 1px var(--colore-testo);
     }
+
+    .nastro-scorrevole { bottom: 10%; }
 }
-
         
-
-            /* Nascondiamo avatar e bottone dalla navbar, li mettiamo in basso */
-            .gruppo-destra-nav { display: none; }
-
-            .bottone-mobile-fisso {
-                display: flex;
-                position: fixed;
-                bottom: 20px;
-                left: 50%;
-                transform: translateX(-50%);
-                width: 90%;
-                background-color: var(--colore-accento);
-                color: var(--colore-testo);
-                justify-content: center;
-                padding: 18px;
-                border-radius: 100px;
-                font-family: var(--font-corpo);
-                font-weight: 700;
-                text-transform: uppercase;
-                text-decoration: none;
-                z-index: 1000;
-                box-shadow: 0 10px 30px rgba(255, 0, 127, 0.4);
-            }
-
-            .nastro-scorrevole { bottom: 15%; }
-            .testo-vuoto { -webkit-text-stroke: 1px var(--colore-testo); }
-        }
 
         /* ==========================================
    STILI GLOBALI CONDIVISI
@@ -422,7 +714,7 @@ body {
     font-family: var(--font-display);
     font-size: 8rem;
     position: absolute;
-    top: -50px;
+    top: -20px;
     right: 0;
     opacity: 0.1;
     line-height: 1;
@@ -526,13 +818,13 @@ body {
 
     .sezione-punti-forza
  {
-    padding: 10px 0 150px 0;
+    padding: 10px 0 10px 0;
 }
 }
 
 
 /* ==========================================
-   SEZIONE PROCESSO (Come Funziona)
+   SEZIONE PROCESSO (Come Funziona - Animato)
    ========================================== */
 .sezione-processo {
     padding: 150px 0;
@@ -552,28 +844,46 @@ body {
     height: max-content;
 }
 
-.step-singolo {
-    display: flex;
-    gap: 30px;
-    margin-bottom: 80px;
-    padding-top: 30px;
-    border-top: 2px solid #333;
-    opacity: 0;
-    transform: translateY(30px);
-    transition: opacity 0.6s ease, transform 0.6s ease;
+/* Container di ogni step */
+.step-animato {
+    margin-bottom: 60px;
+    opacity: 0.4; /* Parte "spento" */
+    transform: translateY(20px); /* Leggermente abbassato */
+    transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* Classe aggiunta via JS quando si scrolla */
-.step-singolo.visibile {
-    opacity: 1;
-    transform: translateY(0);
+/* La struttura della riga superiore */
+.binario-riga {
+    width: 100%;
+    height: 2px;
+    background-color: #222; /* Riga grigia di base */
+    margin-bottom: 30px;
+    position: relative;
+    overflow: hidden;
+}
+
+/* Il "laser" fucsia che riempie la riga */
+.riga-progresso {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 0%; /* Parte da zero */
+    background-color: var(--colore-accento);
+    transition: width 0.7s cubic-bezier(0.19, 1, 0.22, 1); /* Curva brutale ma fluida */
+}
+
+.step-contenuto {
+    display: flex;
+    gap: 30px;
 }
 
 .step-numero {
     font-family: var(--font-display);
     font-size: 4rem;
-    color: var(--colore-accento);
+    color: #444; /* Numero spento */
     line-height: 0.8;
+    transition: color 0.5s ease;
 }
 
 .step-testo h3 {
@@ -581,12 +891,50 @@ body {
     font-size: 2rem;
     text-transform: uppercase;
     margin-bottom: 15px;
+    color: #888; /* Titolo spento */
+    transition: color 0.5s ease;
 }
 
 .step-testo p {
     font-size: 1.1rem;
     line-height: 1.6;
-    color: #aaa; /* Grigio chiaro per leggibilità */
+    color: #666;
+    transition: color 0.5s ease;
+}
+
+/* ==========================================
+   STATO "ATTIVO" (Aggiunto da JS allo scroll)
+   ========================================== */
+.step-animato.attivo {
+    opacity: 1; /* Si accende totalmente */
+    transform: translateY(0); /* Va al suo posto */
+}
+
+.step-animato.attivo .riga-progresso {
+    width: 100%; /* La riga fucsia si spara da sx a dx */
+}
+
+.step-animato.attivo .step-numero {
+    color: var(--colore-accento); /* Il numero diventa fucsia neon */
+}
+
+.step-animato.attivo .step-testo h3 {
+    color: var(--colore-testo); /* Il titolo diventa bianco candido */
+}
+
+.step-animato.attivo .step-testo p {
+    color: #aaa; /* Il testo diventa leggibile */
+}
+
+/* ==========================================
+   AGGIUNTA RESPONSIVE PER GLI STEP
+   ========================================== */
+@media (max-width: 992px) {
+    /* ... le altre regole rimangono uguali ... */
+    
+    .step-contenuto { flex-direction: column; gap: 10px; }
+    .step-numero { font-size: 3rem; }
+    .step-animato { margin-bottom: 50px; }
 }
 
 /* ==========================================
@@ -975,13 +1323,23 @@ body {
     /* Su mobile l'avatar non è absolute, si appoggia in fondo */
     .footer-avatar { 
         position: relative;
-        width: 100%;
+        width: 120vw; /* 100% della larghezza della viewport (ignora i padding del footer) */
         height: auto;
         display: flex;
         justify-content: center;
+        /* Tiriamo l'avatar fuori da eventuali padding laterali del contenitore padre */
+        margin-left: 50%;
+        transform: translateX(10%);
+        overflow: hidden; /* Taglia eventuali sbavature */
     }
+
+    /* IMMAGINE MOBILE: Copre tutta la larghezza */
     .avatar-immagine { 
-        max-height: 50vh; 
-        object-position: bottom center; 
+        width: 100%; /* L'immagine ORA si espande da bordo a bordo */
+        height: auto; /* L'altezza si adatta proporzionalmente */
+        max-height: none; /* Rimuoviamo il limite di altezza su mobile per permettere l'allargamento */
+        object-fit: cover; /* Assicura che riempia il 100% della larghezza senza deformarsi */
+        object-position: bottom center; /* La testa e il busto restano centrati e ancorati in basso */
+        display: block;
     }
 }
