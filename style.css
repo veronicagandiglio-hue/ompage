@@ -281,7 +281,7 @@ body {
     pointer-events: none; 
     overflow: hidden; 
     width: 100%;
-    margin-top: 20px;
+    margin-top: 25px;
 }
 
 .testo-animato {
@@ -315,7 +315,7 @@ body {
 
 /* NASTRO SCORREVOLE */
 .nastro-scorrevole {
-    bottom: 8%; 
+    bottom: 10%; 
     position: absolute;
     left: -10%;
     width: 120%;
