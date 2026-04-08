@@ -22,6 +22,12 @@
     cursor: none; 
 }
 
+html, body {
+    width: 100%; /* Usa 100% invece di 100vw */
+    max-width: 100%;
+    overflow-x: hidden !important; 
+}
+
 body {
     background-color: var(--colore-sfondo);
     color: var(--colore-testo);
@@ -60,11 +66,21 @@ body {
    NAVBAR FLUTTUANTE (Desktop Base)
    ========================================== */
 .nav-pillola {
-    max-width: 1200px; 
+    /* 1. IL NUOVO METODO DI CENTRAMENTO (Zero Sforamenti) */
     position: fixed;
     top: 20px;
-    left: 50%;
-    transform: translateX(-50%);
+    left: 0; 
+    right: 0; 
+    margin: 0 auto; /* Questo centra perfettamente la barra senza usare transform */
+    
+    /* 2. LE DIMENSIONI BLINDATE */
+    width: 95%; /* Larga il 95% del contenitore padre (lo schermo) */
+    max-width: 1200px; /* Non supera mai questa larghezza su PC grandi */
+    
+    /* 3. LA GABBIA (Il padding non somma larghezza) */
+    box-sizing: border-box; 
+    
+    /* 4. ESTETICA (Rimasta invariata) */
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -74,11 +90,6 @@ body {
     padding: 10px 10px 10px 24px;
     border-radius: 100px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    
-    /* FIX: Usiamo calc() per essere certi che, anche con i bordi, 
-       non superi MAI la larghezza dello schermo */
-    width: calc(100% - 40px); 
-    
     z-index: 1000;
     transition: padding 0.3s ease, top 0.3s ease; 
 }
@@ -372,29 +383,17 @@ body {
     
     /* 1. COMPATTIAMO LA NAVBAR */
     .nav-pillola {
-        /* Il trucco infallibile per ancorarla a destra e sinistra senza larghezze fisse */
-        position: fixed;
-        top: 10px;
-        left: 10px;
-        right: 10px; 
-        transform: none; /* Annulla il centramento del desktop */
+        /* Sovrascriviamo le regole desktop in modo drastico */
+        width: calc(100% - 20px) !important; /* Esattamente il 100% dello schermo meno 10px per lato */
+        left: 10px !important;
+        right: 10px !important;
+        margin: 0 !important; /* Togliamo il margin auto del desktop */
         
-        width: auto; /* Prende automaticamente lo spazio tra left e right */
-        max-width: none;
-        
-        /* Padding ridotto al minimo vitale per schermi piccoli (es. iPhone SE) */
         padding: 8px 12px; 
+        top: 10px;
         border-radius: 20px; 
         
-        /* Flexbox rigido che non sfora */
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        
-        /* GABBIA D'ACCIAIO: Il padding fa parte della larghezza totale */
-        box-sizing: border-box; 
-        
-        /* Se qualcosa cerca di uscire, viene tagliato brutalmente */
+        /* Se qualcosa dentro è troppo largo, taglialo via, non allargare la barra! */
         overflow: hidden; 
     }
 
