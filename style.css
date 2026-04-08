@@ -369,47 +369,72 @@ body {
     
     /* 1. COMPATTIAMO LA NAVBAR */
     .nav-pillola {
-        padding: 8px 12px; 
+        /* Rimuoviamo il posizionamento centrato problematico */
+        left: 10px; /* Ancorata a 10px dal bordo sinistro */
+        right: 10px; /* Ancorata a 10px dal bordo destro */
+        transform: none; /* Annulliamo il translateX(-50%) del desktop */
+        
+        /* La larghezza ora è dettata automaticamente dai margini left e right.
+           Non serve più width: 100% o calc() */
+        width: auto; 
+        max-width: none;
+        
+        /* Questo è il salvavita: dice al browser che padding e border 
+           devono stare DENTRO la larghezza definita, non aggiungersi fuori */
+        box-sizing: border-box; 
+        
+        padding: 8px 15px; 
         top: 10px;
-        
-        /* FIX: Forziamo una larghezza sicura che lasci un po' di margine, 
-           senza mai rischiare il 100% che causa lo sforo */
-        width: calc(100vw - 20px); 
-        max-width: 100%;
-        
         border-radius: 20px; 
         
-        /* Impediamo al contenuto interno di forzare l'allargamento della navbar */
-        box-sizing: border-box;
+        /* Assicuriamoci che i figli non facciano esplodere il padre */
+        justify-content: space-between;
+        align-items: center;
+        overflow: hidden; /* Taglia via brutalmente qualsiasi cosa provi a uscire */
     }
+
     /* SCAMBIO LOGO: Via testo, dentro immagine */
     .testo-logo { display: none; }
-    .img-logo { display: block; height: 35px;}
+    .img-logo { 
+        display: block; 
+        height: 30px; /* Leggermente rimpicciolito per sicurezza */
+        flex-shrink: 0; /* Impedisce al logo di schiacciarsi troppo */
+    }
 
-    /* Rimuovi link testuali e email (Vanno nel menu a tendina) */
+    /* Rimuovi link e email header */
     .nav-links, .copia-email-header { display: none; }
 
-    /* 2. SISTEMIAMO IL GRUPPO DESTRA (Avatar + WA + Hamburger) */
+    /* Riorganizza il gruppo destra per incastrare Avatar, Bottone e Hamburger */
     .gruppo-destra-nav { 
-        display: flex !important; /* Forza la visibilità */
-        gap: 8px; 
+        display: flex !important; 
+        gap: 8px; /* Riduciamo lo spazio tra gli elementi interni */
+        align-items: center;
+        /* Impediamo che questo gruppo spinga la navbar fuori dai bordi */
+        flex-shrink: 1; 
+        min-width: 0;
     }
 
     /* Rimpicciolisci l'avatar */
     .avatar-profilo {
-        width: 35px;
-        height: 35px;
+        width: 32px; /* Ancora più piccolo per sicurezza su schermi stretti (iPhone SE) */
+        height: 32px;
         border-width: 1px;
+        flex-shrink: 0;
     }
 
-    /* Rimpicciolisci il bottone WA */
+    /* Rimpicciolisci il bottone */
     .bottone-primario {
         padding: 8px 12px;
-        font-size: 0.75rem;
+        font-size: 0.7rem;
+        white-space: nowrap; /* Impedisce al testo di andare a capo rompendo il bottone */
+        flex-shrink: 0;
     }
 
     /* Mostra l'hamburger */
-    .menu-hamburger { display: flex; }
+    .menu-hamburger { 
+        display: flex; 
+        flex-shrink: 0;
+    }
 
     /* 3. SISTEMIAMO LA HERO E IL TESTO "ATTIVITÀ" */
     .sezione-eroe {
