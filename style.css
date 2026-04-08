@@ -11,10 +11,6 @@
     --font-corpo: 'Space Grotesk', sans-serif;
 }
 
-* {
-    /* QUESTO È SOLO PER IL TEST - RIMUOVILO DOPO */
-    outline: 1px solid red !important;
-}
 
 /* ==========================================
    RESET E CURSORE CUSTOM
@@ -376,71 +372,95 @@ body {
     
     /* 1. COMPATTIAMO LA NAVBAR */
     .nav-pillola {
-        /* Rimuoviamo il posizionamento centrato problematico */
-        left: 10px; /* Ancorata a 10px dal bordo sinistro */
-        right: 10px; /* Ancorata a 10px dal bordo destro */
-        transform: none; /* Annulliamo il translateX(-50%) del desktop */
+        /* Il trucco infallibile per ancorarla a destra e sinistra senza larghezze fisse */
+        position: fixed;
+        top: 10px;
+        left: 10px;
+        right: 10px; 
+        transform: none; /* Annulla il centramento del desktop */
         
-        /* La larghezza ora è dettata automaticamente dai margini left e right.
-           Non serve più width: 100% o calc() */
-        width: auto; 
+        width: auto; /* Prende automaticamente lo spazio tra left e right */
         max-width: none;
         
-        /* Questo è il salvavita: dice al browser che padding e border 
-           devono stare DENTRO la larghezza definita, non aggiungersi fuori */
-        box-sizing: border-box; 
-        
-        padding: 8px 15px; 
-        top: 10px;
+        /* Padding ridotto al minimo vitale per schermi piccoli (es. iPhone SE) */
+        padding: 8px 12px; 
         border-radius: 20px; 
         
-        /* Assicuriamoci che i figli non facciano esplodere il padre */
+        /* Flexbox rigido che non sfora */
+        display: flex;
         justify-content: space-between;
         align-items: center;
-        overflow: hidden; /* Taglia via brutalmente qualsiasi cosa provi a uscire */
+        
+        /* GABBIA D'ACCIAIO: Il padding fa parte della larghezza totale */
+        box-sizing: border-box; 
+        
+        /* Se qualcosa cerca di uscire, viene tagliato brutalmente */
+        overflow: hidden; 
     }
 
     /* SCAMBIO LOGO: Via testo, dentro immagine */
     .testo-logo { display: none; }
-    .img-logo { 
-        display: block; 
-        height: 30px; /* Leggermente rimpicciolito per sicurezza */
-        flex-shrink: 0; /* Impedisce al logo di schiacciarsi troppo */
+    .logo-container {
+        display: flex;
+        align-items: center;
+        /* Il logo può rimpicciolirsi se manca spazio */
+        flex-shrink: 1; 
+        min-width: 0; /* Previene un bug di Flexbox che impedisce il restringimento */
     }
 
-    /* Rimuovi link e email header */
+    .img-logo { 
+        display: block; 
+        height: 25px; /* Ancora più piccolo per sicurezza (prima era 30/35) */
+        width: auto;
+        max-width: 100%; /* Si restringe se il container è piccolo */
+        object-fit: contain;
+    }
+
+    /* Rimuovi link testuali e email (Vanno nel menu a tendina) */
     .nav-links, .copia-email-header { display: none; }
 
     /* Riorganizza il gruppo destra per incastrare Avatar, Bottone e Hamburger */
     .gruppo-destra-nav { 
         display: flex !important; 
-        gap: 8px; /* Riduciamo lo spazio tra gli elementi interni */
+        gap: 6px; /* Spazio ridotto al minimo (prima era 8/10) */
         align-items: center;
-        /* Impediamo che questo gruppo spinga la navbar fuori dai bordi */
+        
+        /* Fondamentale: permette al gruppo di schiacciarsi se non ci sta */
         flex-shrink: 1; 
         min-width: 0;
+        /* Evita che il testo "Parliamo su WA" vada a capo rompendo il bottone */
+        white-space: nowrap; 
     }
 
-    /* Rimpicciolisci l'avatar */
+    /* Rimpicciolisci l'avatar (Ultimo sacrificio per lo spazio) */
     .avatar-profilo {
-        width: 32px; /* Ancora più piccolo per sicurezza su schermi stretti (iPhone SE) */
-        height: 32px;
+        width: 30px; /* Ridotto (prima era 35) */
+        height: 30px;
         border-width: 1px;
-        flex-shrink: 0;
+        flex-shrink: 0; /* L'avatar non si deforma */
     }
 
-    /* Rimpicciolisci il bottone */
+    /* Rimpicciolisci il bottone WA */
     .bottone-primario {
-        padding: 8px 12px;
-        font-size: 0.7rem;
-        white-space: nowrap; /* Impedisce al testo di andare a capo rompendo il bottone */
-        flex-shrink: 0;
+        padding: 6px 10px; /* Padding minimo per farlo sembrare un bottone */
+        font-size: 0.65rem; /* Font piccolissimo ma leggibile in Anton/Space Grotesk */
+        flex-shrink: 1; /* Il bottone può cedere un po' di spazio se serve */
+        
+        /* Se lo schermo è DAVVERO piccolo (es. iPhone 5/SE), 
+           nascondiamo il testo e mostriamo solo un'icona WA o cambiamo il testo */
+        /* text-overflow: ellipsis; 
+           overflow: hidden; */
     }
 
     /* Mostra l'hamburger */
     .menu-hamburger { 
         display: flex; 
-        flex-shrink: 0;
+        flex-shrink: 0; /* L'hamburger non si schiaccia mai */
+        padding: 4px; /* Padding ridotto per recuperare spazio */
+    }
+    
+    .menu-hamburger span {
+        width: 24px; /* Linee più corte per risparmiare spazio laterale */
     }
 
     /* 3. SISTEMIAMO LA HERO E IL TESTO "ATTIVITÀ" */
