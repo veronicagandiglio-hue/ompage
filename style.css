@@ -1,3 +1,5 @@
+
+
 /* ==========================================
    VARIABILI GLOBALI E SETTINGS
    ========================================== */
@@ -7,6 +9,11 @@
     --colore-accento: #FF007F; 
     --font-display: 'Anton', sans-serif;
     --font-corpo: 'Space Grotesk', sans-serif;
+}
+
+* {
+    /* QUESTO È SOLO PER IL TEST - RIMUOVILO DOPO */
+    outline: 1px solid red !important;
 }
 
 /* ==========================================
