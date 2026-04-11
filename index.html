@@ -170,7 +170,7 @@
                 <div class="dynamic-island"></div>
                 <!-- Sostituisci il src con il tuo video MP4 -->
                 <video class="screen-video" muted playsinline loop>
-                    <source src="Registrazione 2026-04-08 114935.mp4" type="video/mp4">
+                    <source src="prova1.mp4" type="video/mp4">
                 </video>
             </div>
 
@@ -179,7 +179,7 @@
                 <div class="dynamic-island"></div>
                 <!-- Sostituisci il src con il tuo video MP4 -->
                 <video class="screen-video" muted playsinline loop>
-                    <source src="Registrazione 2026-04-08 115212.mp4" type="video/mp4">
+                    <source src="prova2.mp4" type="video/mp4">
                 </video>
             </div>
 
@@ -188,7 +188,7 @@
                 <div class="dynamic-island"></div>
                 <!-- Sostituisci il src con il tuo video MP4 -->
                 <video class="screen-video" muted playsinline loop>
-                    <source src="Registrazione 2026-04-08 115540.mp4" type="video/mp4">
+                    <source src="prova3.mp4" type="video/mp4">
                 </video>
             </div>
 
@@ -725,6 +725,40 @@ function copiaEmailHeader() {
                 document.body.style.overflow = 'auto'; // Riattiva lo scroll
             });
         });
+
+        // ==========================================
+// LOGICA APPARIZIONE TESTO SEQUENZIALE
+// ==========================================
+const pMetodo = document.querySelector('.descrizione-metodo');
+if (pMetodo) {
+    // Salviamo il testo originale e lo svuotiamo
+    const testoOriginale = pMetodo.innerText;
+    pMetodo.innerHTML = '';
+    
+    // Dividiamo il testo in singole parole e creiamo gli span
+    const parole = testoOriginale.split(' ');
+    parole.forEach((parola, index) => {
+        let span = document.createElement('span');
+        span.innerText = parola;
+        span.className = 'parola-animata';
+        // Calcoliamo un ritardo incrementale per ogni parola (30 millisecondi)
+        span.style.transitionDelay = `${index * 0.03}s`;
+        pMetodo.appendChild(span);
+    });
+
+    // Observer per far partire l'animazione
+    const observerParole = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const spans = entry.target.querySelectorAll('.parola-animata');
+                spans.forEach(span => span.classList.add('visibile'));
+                observerParole.unobserve(entry.target);
+            }
+        });
+    }, { rootMargin: "0px 0px -15% 0px" });
+
+    observerParole.observe(pMetodo);
+}
 
     </script>
 

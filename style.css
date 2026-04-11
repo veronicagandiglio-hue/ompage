@@ -819,12 +819,28 @@ body {
     color: var(--colore-accento);
 }
 
+/* Stile per le singole parole generate dal JS */
 .descrizione-metodo {
+    /* Assicurati che il contenitore permetta di andare a capo */
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.3em 0.2em; /* Spazio tra le righe e le parole */
     font-size: 1.5rem;
     line-height: 1.5;
-    max-width: 800px;
-    font-weight: 700;
 }
+
+.parola-animata {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.4s ease, transform 0.4s cubic-bezier(0.2, 0, 0.2, 1);
+}
+
+.parola-animata.visibile {
+    opacity: 1;
+    transform: translateY(0);
+}
+   
 
 /* ==========================================
    SEZIONE FAQ (Accordion)
