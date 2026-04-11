@@ -976,7 +976,7 @@ body {
     position: absolute;
     bottom: 0;
     left: 0;
-    height: 100vh; /* Altezza imponente */
+    height: 120vh; /* Altezza imponente */
     z-index: 1; /* Sta dietro al testo se per caso si toccano */
 }
 
