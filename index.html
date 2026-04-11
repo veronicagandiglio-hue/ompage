@@ -760,6 +760,38 @@ if (pMetodo) {
     observerParole.observe(pMetodo);
 }
 
+// ==========================================
+        // LOGICA SCROLL: CARTE CHE SI IMPILANO (3D Stacking)
+        // ==========================================
+        const cards = document.querySelectorAll('.carta-sticky');
+        
+        // Eseguiamo l'effetto solo su Desktop (su mobile le carte sono normali)
+        if (window.innerWidth > 992) {
+            window.addEventListener('scroll', () => {
+                cards.forEach((card, index) => {
+                    const rect = card.getBoundingClientRect();
+                    
+                    // La prima carta si blocca a 120px dal top (come da tuo CSS)
+                    const triggerPoint = 120 + (index * 20); 
+                    
+                    // Se la carta tocca il punto di blocco o lo supera...
+                    if (rect.top <= triggerPoint) {
+                        // Calcola quanto rimpicciolirla in base a quanto hai scrollato
+                        // Più scendi, più si rimpicciolisce, creando l'effetto profondità
+                        let scale = 1 - ((triggerPoint - rect.top) * 0.001);
+                        
+                        // Non farla rimpicciolire all'infinito, fermati a 0.9 (90% della grandezza)
+                        if (scale < 0.9) scale = 0.9; 
+                        
+                        card.style.transform = `scale(${scale})`;
+                    } else {
+                        // Se scorri in su, riportala alla grandezza originale
+                        card.style.transform = `scale(1)`;
+                    }
+                });
+            });
+        }
+
     </script>
 
 </body>

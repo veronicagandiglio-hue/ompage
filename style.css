@@ -520,6 +520,7 @@ body {
     padding: 100px 0 150px 0;
     background-color: var(--colore-sfondo);
     position: relative;
+    overflow: visible !important; /* FORZIAMO LA VISIBILITÀ, fondamentale per lo sticky! */
 }
 
 .pila-di-carte {
