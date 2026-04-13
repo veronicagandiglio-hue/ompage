@@ -294,6 +294,7 @@ body {
    SEZIONE EROE CON VIDEO
    ========================================== */
 .sezione-eroe {
+    background-color: #050505; /* Fondo nero per far risaltare il neon */
     padding-bottom: 12vh; 
     position: relative;
     height: 118vh;
@@ -302,6 +303,86 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
+}
+
+/* --- IL CAPOLAVORO: GRIGLIA E RAGGI --- */
+.sfondo-tecnico {
+    position: absolute;
+    top: 0; 
+    left: 0; 
+    width: 100%; 
+    height: 100%;
+    
+    /* Disegna una griglia perfetta in puro CSS */
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+    background-size: 60px 60px; /* Grandezza dei quadrati */
+    background-position: center top;
+    z-index: 0;
+    
+    /* Sfuma la griglia verso i bordi dello schermo (Effetto ultra-premium) */
+    mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+    -webkit-mask-image: radial-gradient(circle at center, black 30%, transparent 80%);
+}
+
+/* Base dei Raggi Laser */
+.raggio {
+    position: absolute;
+    /* Usa il tuo colore accento, se non esiste usa il fucsia */
+    --luce-neon: var(--colore-accento, #ff007f); 
+}
+
+/* Raggi che scendono/salgono */
+.raggio.verticale {
+    width: 2px;
+    height: 40vh;
+    background: linear-gradient(to bottom, transparent, var(--luce-neon), transparent);
+    box-shadow: 0 0 20px var(--luce-neon);
+}
+
+/* Raggi che scorrono ai lati */
+.raggio.orizzontale {
+    height: 2px;
+    width: 40vw;
+    background: linear-gradient(to right, transparent, var(--luce-neon), transparent);
+    box-shadow: 0 0 20px var(--luce-neon);
+}
+
+/* Posizionamento geometrico e animazioni */
+/* Raggio 1: Cade da sinistra */
+.raggio-1 { 
+    left: calc(50% - 180px); /* Allineato perfettamente su una linea della griglia */
+    top: -50%; 
+    animation: cadi-laser 5s linear infinite; 
+}
+
+/* Raggio 2: Sale da destra */
+.raggio-2 { 
+    left: calc(50% + 240px); 
+    top: 100%; 
+    animation: sali-laser 7s linear infinite; 
+}
+
+/* Raggio 3: Taglia orizzontalmente */
+.raggio-3 { 
+    top: calc(50% - 120px); 
+    left: -50%; 
+    animation: scorri-laser 8s linear infinite; 
+}
+
+/* KEYFRAMES DEI RAGGI */
+@keyframes cadi-laser {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(200vh); }
+}
+@keyframes sali-laser {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-200vh); }
+}
+@keyframes scorri-laser {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(200vw); }
 }
 
 
