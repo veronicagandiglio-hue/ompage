@@ -1,804 +1,4206 @@
 <!DOCTYPE html>
 <html lang="it">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ompage | Siti D'Impatto Per Professionisti Locali</title>
-    <link rel="icon" type="image/png" href="immagini/Gemini_Generated_Image_l9uebgl9uebgl9ue-removebg-preview.png">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ompage — Il Sito che si Ripaga da Solo</title>
+  <meta name="description" content="Ompage crea siti web di lusso per attività locali e professionisti. Design devastante a 250€, tutto incluso." />
 
-    <link rel="stylesheet" href="style.css">
+  <!-- Fontshare -->
+  <link rel="preconnect" href="https://api.fontshare.com" />
+  <link href="https://api.fontshare.com/v2/css2?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&f[]=cabinet-grotesk@400,500,700,800,900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================
+       ROOT — DESIGN TOKENS
+    ============================================ */
+    :root {
+      --nero: #080808;
+      --nero-card: #111111;
+      --nero-profondo: #050505;
+      --oro: #C9A84C;
+      --oro-chiaro: #FFB800;
+      --crema: #F5F0E8;
+      --bianco: #EFEFEF;
+      --grigio-scuro: #1A1A1A;
+      --grigio-medio: #2A2A2A;
+      --grigio-testo: #888888;
+
+      --font-display: 'Clash Display', sans-serif;
+      --font-body: 'Satoshi', sans-serif;
+      --font-accent: 'Cabinet Grotesk', sans-serif;
+
+      --raggio: 16px;
+      --raggio-grande: 28px;
+      --transizione: 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+
+      --z-nav: 1000;
+      --z-modale: 2000;
+      --z-cookie: 1500;
+    }
+
+    /* ============================================
+       RESET & BASE
+    ============================================ */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      background-color: var(--nero);
+      color: var(--bianco);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      overflow-x: hidden;
+      cursor: none;
+    }
+
+    ::selection {
+      background: var(--oro);
+      color: var(--nero);
+    }
+
+    img, video {
+      max-width: 100%;
+      display: block;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* ============================================
+       CURSORE CUSTOM
+    ============================================ */
+    .cursore {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      background: var(--oro);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: transform 0.1s ease, width 0.3s ease, height 0.3s ease, background 0.3s ease;
+      mix-blend-mode: difference;
+    }
+
+    .cursore-anello {
+      position: fixed;
+      width: 40px;
+      height: 40px;
+      border: 1.5px solid var(--oro);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9998;
+      transform: translate(-50%, -50%);
+      transition: transform 0.18s cubic-bezier(0.16, 1, 0.3, 1),
+                  width 0.4s ease,
+                  height 0.4s ease,
+                  opacity 0.3s ease;
+      opacity: 0.6;
+    }
+
+    .cursore.espanso {
+      width: 20px;
+      height: 20px;
+      background: var(--oro-chiaro);
+    }
+
+    .cursore-anello.espanso {
+      width: 64px;
+      height: 64px;
+      opacity: 0.3;
+    }
+
+    @media (max-width: 768px) {
+      .cursore, .cursore-anello { display: none; }
+      body { cursor: auto; }
+    }
+
+    /* ============================================
+       NOISE TEXTURE OVERLAY
+    ============================================ */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 9997;
+      opacity: 0.35;
+    }
+
+    /* ============================================
+       NAVIGAZIONE
+    ============================================ */
+    .nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: var(--z-nav);
+      padding: 18px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      transition: background var(--transizione), backdrop-filter var(--transizione);
+    }
+
+    .nav.scrollata {
+      background: rgba(8, 8, 8, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid rgba(201, 168, 76, 0.15);
+    }
+
+    .nav__logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--bianco);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .nav__logo-simbolo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background: var(--oro);
+      color: var(--nero);
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 900;
+      font-family: var(--font-accent);
+    }
+
+    .nav__links {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      list-style: none;
+    }
+
+    .nav__links a {
+      font-family: var(--font-accent);
+      font-weight: 700;
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 6px 14px;
+      border: 1.5px solid transparent;
+      border-radius: 999px;
+      transition: all var(--transizione);
+      color: var(--grigio-testo);
+    }
+
+    .nav__links a:hover {
+      color: var(--nero);
+      border-color: var(--oro);
+      background: var(--oro);
+    }
+
+    .nav__links a.attivo {
+      color: var(--nero);
+      background: var(--oro);
+      border-color: var(--oro);
+    }
+
+    .nav__cta {
+      font-family: var(--font-accent);
+      font-weight: 800;
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 10px 22px;
+      background: var(--bianco);
+      color: var(--nero);
+      border: none;
+      border-radius: 999px;
+      cursor: none;
+      transition: all var(--transizione);
+      white-space: nowrap;
+    }
+
+    .nav__cta:hover {
+      background: var(--oro);
+      transform: scale(1.04);
+    }
+
+    .nav__hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: none;
+      padding: 4px;
+    }
+
+    .nav__hamburger span {
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--bianco);
+      transition: all var(--transizione);
+      border-radius: 2px;
+    }
+
+    @media (max-width: 768px) {
+      .nav {
+        padding: 14px 20px;
+      }
+
+      .nav__links {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: var(--nero-profondo);
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        z-index: calc(var(--z-nav) - 1);
+      }
+
+      .nav__links.aperto {
+        display: flex;
+      }
+
+      .nav__links a {
+        font-size: 1.1rem;
+        padding: 12px 28px;
+      }
+
+      .nav__hamburger {
+        display: flex;
+        z-index: calc(var(--z-nav) + 1);
+        cursor: pointer;
+      }
+
+      .nav__hamburger.aperto span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+
+      .nav__hamburger.aperto span:nth-child(2) {
+        opacity: 0;
+      }
+
+      .nav__hamburger.aperto span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
+      .nav__cta {
+        display: none;
+      }
+    }
+
+    /* ============================================
+       HERO
+    ============================================ */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 0 32px 60px;
+      overflow: hidden;
+      background: var(--nero-profondo);
+    }
+
+    /* Griglia di sfondo ambientale */
+    .hero::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(201, 168, 76, 0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(201, 168, 76, 0.04) 1px, transparent 1px);
+      background-size: 80px 80px;
+      pointer-events: none;
+    }
+
+    /* Bagliore ambientale top-left */
+    .hero__bagliore {
+      position: absolute;
+      width: 600px;
+      height: 600px;
+      top: -100px;
+      left: -150px;
+      background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulsaBagliore 6s ease-in-out infinite;
+    }
+
+    .hero__bagliore-2 {
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      bottom: 100px;
+      right: -80px;
+      background: radial-gradient(circle, rgba(255, 184, 0, 0.08) 0%, transparent 70%);
+      pointer-events: none;
+      animation: pulsaBagliore 8s ease-in-out infinite reverse;
+    }
+
+    @keyframes pulsaBagliore {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.6; transform: scale(1.15); }
+    }
+
+    /* Testo intro stile heyvalentin — piccolo tag in alto */
+    .hero__tag-intro {
+      position: absolute;
+      top: 100px;
+      left: 32px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--grigio-scuro);
+      border: 1px solid rgba(201, 168, 76, 0.3);
+      border-radius: 999px;
+      padding: 8px 18px;
+      font-family: var(--font-accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--oro);
+      opacity: 0;
+      transform: translateY(-12px);
+      animation: fadeScendi 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s forwards;
+    }
+
+    .hero__tag-intro::before {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--oro-chiaro);
+      border-radius: 50%;
+      animation: pulsaPunto 2s ease-in-out infinite;
+    }
+
+    @keyframes pulsaPunto {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.7); }
+    }
+
+    @keyframes fadeScendi {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* Titolo principale */
+    .hero__titolo {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(5rem, 13vw, 14rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--bianco);
+      margin-bottom: 40px;
+      overflow: hidden;
+    }
+
+    .hero__titolo .linea {
+      display: block;
+      overflow: hidden;
+    }
+
+    .hero__titolo .linea span {
+      display: block;
+      transform: translateY(110%);
+      animation: saliLinea 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    .hero__titolo .linea:nth-child(1) span { animation-delay: 0.1s; }
+    .hero__titolo .linea:nth-child(2) span { animation-delay: 0.2s; }
+    .hero__titolo .linea:nth-child(3) span { animation-delay: 0.3s; }
+
+    @keyframes saliLinea {
+      to { transform: translateY(0); }
+    }
+
+    /* Parola highlight oro */
+    .hero__titolo .oro {
+      color: var(--oro);
+      -webkit-text-stroke: 0px;
+    }
+
+    /* Parola outline */
+    .hero__titolo .outline {
+      -webkit-text-stroke: 2px var(--bianco);
+      color: transparent;
+    }
+
+    /* Riga sotto al titolo — info + cta */
+    .hero__sotto {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      border-top: 1px solid rgba(201, 168, 76, 0.2);
+      padding-top: 28px;
+      opacity: 0;
+      animation: fadeScendi 0.9s cubic-bezier(0.16, 1, 0.3, 1) 0.7s forwards;
+    }
+
+    .hero__sotto-testo {
+      font-family: var(--font-body);
+      font-size: clamp(0.85rem, 1.8vw, 1.05rem);
+      color: var(--grigio-testo);
+      max-width: 400px;
+      line-height: 1.5;
+    }
+
+    .hero__sotto-testo strong {
+      color: var(--crema);
+      font-weight: 700;
+    }
+
+    .hero__badge-prezzo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .hero__prezzo-numero {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2rem, 4vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--oro);
+    }
+
+    .hero__prezzo-label {
+      font-family: var(--font-accent);
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--grigio-testo);
+      line-height: 1.3;
+    }
+
+    .hero__cta-principale {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--oro);
+      color: var(--nero);
+      font-family: var(--font-accent);
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 16px 32px;
+      border-radius: 999px;
+      border: none;
+      cursor: none;
+      transition: all var(--transizione);
+      white-space: nowrap;
+    }
+
+    .hero__cta-principale:hover {
+      background: var(--oro-chiaro);
+      transform: scale(1.04) translateY(-2px);
+      box-shadow: 0 20px 60px rgba(201, 168, 76, 0.35);
+    }
+
+    .hero__cta-principale .freccia {
+      transition: transform var(--transizione);
+    }
+
+    .hero__cta-principale:hover .freccia {
+      transform: translate(4px, -4px);
+    }
+
+    /* Linea decorativa verticale */
+    .hero__linea-verticale {
+      position: absolute;
+      right: 120px;
+      top: 100px;
+      bottom: 120px;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201, 168, 76, 0.3), transparent);
+      z-index: 1;
+    }
+
+    /* Numero decorativo grande */
+    .hero__numero-deco {
+      position: absolute;
+      right: 32px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-family: var(--font-display);
+      font-size: clamp(8rem, 18vw, 22rem);
+      font-weight: 700;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201, 168, 76, 0.08);
+      letter-spacing: -0.05em;
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+      z-index: 1;
+      animation: flotante 8s ease-in-out infinite;
+    }
+
+    @keyframes flotante {
+      0%, 100% { transform: translateY(-50%); }
+      50% { transform: translateY(calc(-50% - 20px)); }
+    }
+
+    @media (max-width: 768px) {
+      .hero {
+        padding: 0 20px 48px;
+        min-height: 100svh;
+        justify-content: flex-end;
+      }
+
+      .hero__tag-intro {
+        top: 80px;
+        left: 20px;
+        font-size: 0.65rem;
+      }
+
+      .hero__titolo {
+        font-size: clamp(3.8rem, 16vw, 7rem);
+        margin-bottom: 28px;
+      }
+
+      .hero__sotto {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 20px;
+      }
+
+      .hero__cta-principale {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .hero__linea-verticale,
+      .hero__numero-deco {
+        display: none;
+      }
+    }
+
+    /* ============================================
+       TICKER / NASTRO SCORREVOLE
+    ============================================ */
+    .ticker-wrap {
+      position: relative;
+      overflow: hidden;
+      background: var(--oro);
+      padding: 14px 0;
+      border-top: 2px solid var(--oro-chiaro);
+      border-bottom: 2px solid var(--oro-chiaro);
+    }
+
+    .ticker {
+      display: flex;
+      width: max-content;
+      animation: tickerScorri 28s linear infinite;
+    }
+
+    .ticker:hover {
+      animation-play-state: paused;
+    }
+
+    .ticker__item {
+      display: inline-flex;
+      align-items: center;
+      gap: 20px;
+      padding: 0 28px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--nero);
+      white-space: nowrap;
+    }
+
+    .ticker__separatore {
+      display: inline-block;
+      width: 6px;
+      height: 6px;
+      background: var(--nero);
+      border-radius: 50%;
+      opacity: 0.5;
+    }
+
+    @keyframes tickerScorri {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+
+    /* ============================================
+       SEZIONE VANTAGGI
+    ============================================ */
+    .vantaggi {
+      position: relative;
+      background: var(--nero);
+      padding: 120px 32px 80px;
+      overflow: hidden;
+    }
+
+    /* Linea decorativa sinistra verticale */
+    .vantaggi::before {
+      content: '';
+      position: absolute;
+      left: 32px;
+      top: 0;
+      bottom: 0;
+      width: 1px;
+      background: linear-gradient(to bottom, transparent, rgba(201,168,76,0.15), transparent);
+      pointer-events: none;
+    }
+
+    /* Intestazione sezione */
+    .vantaggi__intestazione {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 40px;
+      margin-bottom: 80px;
+      position: relative;
+      z-index: 2;
+    }
+
+    .vantaggi__titolo-grande {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(3rem, 8vw, 8rem);
+      line-height: 0.9;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--bianco);
+      flex: 1;
+    }
+
+    .vantaggi__titolo-grande .oro {
+      color: var(--oro);
+    }
+
+    .vantaggi__titolo-grande .outline {
+      -webkit-text-stroke: 2px var(--bianco);
+      color: transparent;
+    }
+
+    /* Badge prezzo rotante */
+    .vantaggi__badge {
+      flex-shrink: 0;
+      position: relative;
+      width: 130px;
+      height: 130px;
+      margin-top: 8px;
+    }
+
+    .vantaggi__badge-cerchio {
+      position: absolute;
+      inset: 0;
+      border-radius: 50%;
+      background: var(--oro);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      animation: ruotaBadge 12s linear infinite;
+    }
+
+    .vantaggi__badge-testo-giro {
+      position: absolute;
+      inset: 0;
+      animation: ruotaBadge 12s linear infinite;
+    }
+
+    .vantaggi__badge-testo-giro svg {
+      width: 100%;
+      height: 100%;
+    }
+
+    .vantaggi__badge-testo-giro textPath {
+      font-family: var(--font-accent);
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      fill: var(--nero);
+    }
+
+    .vantaggi__badge-centro {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .vantaggi__badge-prezzo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 2.2rem;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--nero);
+    }
+
+    .vantaggi__badge-sub {
+      font-family: var(--font-accent);
+      font-size: 0.55rem;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--nero);
+      opacity: 0.7;
+    }
+
+    @keyframes ruotaBadge {
+      from { transform: rotate(0deg); }
+      to   { transform: rotate(360deg); }
+    }
+
+    /* Sottotitolo sezione */
+    .vantaggi__sottotitolo {
+      font-family: var(--font-body);
+      font-size: clamp(0.85rem, 1.5vw, 1rem);
+      color: var(--grigio-testo);
+      max-width: 320px;
+      line-height: 1.6;
+      margin-top: 16px;
+      flex-basis: 280px;
+      flex-shrink: 0;
+      align-self: flex-end;
+      padding-bottom: 8px;
+    }
+
+    /* Grid delle card vantaggi */
+    .vantaggi__griglia {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 2px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Card singolo vantaggio */
+    .vantaggio-card {
+      position: relative;
+      background: var(--nero-card);
+      border: 1px solid rgba(201,168,76,0.1);
+      border-radius: var(--raggio-grande);
+      padding: 48px 48px 48px 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 24px;
+      align-items: center;
+      overflow: hidden;
+      transition: border-color var(--transizione), transform var(--transizione);
+      cursor: none;
+    }
+
+    .vantaggio-card:hover {
+      border-color: rgba(201,168,76,0.4);
+      transform: translateX(6px);
+    }
+
+    /* Linea accent sinistra */
+    .vantaggio-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 24px;
+      bottom: 24px;
+      width: 3px;
+      background: var(--oro);
+      border-radius: 0 3px 3px 0;
+      transform: scaleY(0);
+      transform-origin: bottom;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .vantaggio-card:hover::before {
+      transform: scaleY(1);
+    }
+
+    /* Card con sfondo oro (card highlight) */
+    .vantaggio-card--highlight {
+      background: var(--oro);
+      border-color: var(--oro);
+    }
+
+    .vantaggio-card--highlight::before {
+      background: var(--nero);
+    }
+
+    .vantaggio-card--highlight .vantaggio-card__titolo,
+    .vantaggio-card--highlight .vantaggio-card__testo,
+    .vantaggio-card--highlight .vantaggio-card__numero {
+      color: var(--nero);
+    }
+
+    .vantaggio-card--highlight:hover {
+      transform: translateX(6px);
+    }
+
+    .vantaggio-card__contenuto {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .vantaggio-card__titolo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--bianco);
+      line-height: 1.1;
+    }
+
+    /* Icona decorativa nel titolo */
+    .vantaggio-card__titolo .icona-inline {
+      display: inline-block;
+      font-size: 0.8em;
+      margin-right: 6px;
+      color: var(--oro);
+    }
+
+    .vantaggio-card--highlight .vantaggio-card__titolo .icona-inline {
+      color: var(--nero);
+    }
+
+    .vantaggio-card__testo {
+      font-family: var(--font-body);
+      font-size: clamp(0.85rem, 1.5vw, 0.95rem);
+      color: var(--grigio-testo);
+      line-height: 1.65;
+      max-width: 560px;
+    }
+
+    .vantaggio-card--highlight .vantaggio-card__testo {
+      color: rgba(8,8,8,0.7);
+    }
+
+    .vantaggio-card__testo strong {
+      color: var(--bianco);
+      font-weight: 700;
+    }
+
+    .vantaggio-card--highlight .vantaggio-card__testo strong {
+      color: var(--nero);
+    }
+
+    .vantaggio-card__numero {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(4rem, 8vw, 7rem);
+      line-height: 1;
+      letter-spacing: -0.05em;
+      color: rgba(201,168,76,0.12);
+      user-select: none;
+      transition: color var(--transizione);
+      flex-shrink: 0;
+    }
+
+    .vantaggio-card:hover .vantaggio-card__numero {
+      color: rgba(201,168,76,0.25);
+    }
+
+    .vantaggio-card--highlight .vantaggio-card__numero {
+      color: rgba(8,8,8,0.15);
+    }
+
+    /* Tag chip dentro le card */
+    .vantaggio-card__chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201,168,76,0.12);
+      border: 1px solid rgba(201,168,76,0.3);
+      border-radius: 999px;
+      padding: 4px 12px;
+      font-family: var(--font-accent);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--oro);
+      width: fit-content;
+      margin-bottom: 4px;
+    }
+
+    .vantaggio-card--highlight .vantaggio-card__chip {
+      background: rgba(8,8,8,0.15);
+      border-color: rgba(8,8,8,0.25);
+      color: var(--nero);
+    }
+
+    /* Separatore visivo tra card */
+    .vantaggi__separatore {
+      height: 1px;
+      background: linear-gradient(to right, transparent, rgba(201,168,76,0.15), transparent);
+      margin: 0 48px;
+    }
+
+    /* ============================================
+       SEPARATORE GRAFICO TRA SEZIONI
+    ============================================ */
+    .divisore {
+      position: relative;
+      height: 2px;
+      background: rgba(201,168,76,0.2);
+      overflow: visible;
+    }
+
+    .divisore::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      height: 2px;
+      width: 120px;
+      background: var(--oro);
+      animation: scorriLinea 3s ease-in-out infinite;
+    }
+
+    @keyframes scorriLinea {
+      0%   { left: 0; width: 120px; }
+      50%  { left: calc(100% - 120px); width: 120px; }
+      100% { left: 0; width: 120px; }
+    }
+
+    /* ============================================
+       SEZIONE REVEAL — OBSERVER
+    ============================================ */
+    .rivela {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .rivela.visibile {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .rivela--sinistra {
+      opacity: 0;
+      transform: translateX(-40px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .rivela--sinistra.visibile {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .rivela--destra {
+      opacity: 0;
+      transform: translateX(40px);
+      transition: opacity 0.8s cubic-bezier(0.16,1,0.3,1),
+                  transform 0.8s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .rivela--destra.visibile {
+      opacity: 1;
+      transform: translateX(0);
+    }
+
+    .ritardo-1 { transition-delay: 0.1s; }
+    .ritardo-2 { transition-delay: 0.2s; }
+    .ritardo-3 { transition-delay: 0.3s; }
+    .ritardo-4 { transition-delay: 0.4s; }
+
+    @media (max-width: 768px) {
+      .vantaggi {
+        padding: 80px 20px 60px;
+      }
+
+      .vantaggi::before { display: none; }
+
+      .vantaggi__intestazione {
+        flex-direction: column;
+        gap: 24px;
+        margin-bottom: 48px;
+      }
+
+      .vantaggi__sottotitolo {
+        flex-basis: auto;
+        max-width: 100%;
+      }
+
+      .vantaggio-card {
+        padding: 32px 24px;
+        grid-template-columns: 1fr;
+      }
+
+      .vantaggio-card__numero {
+        display: none;
+      }
+
+      .vantaggi__badge {
+        width: 100px;
+        height: 100px;
+      }
+
+      .vantaggi__badge-prezzo {
+        font-size: 1.8rem;
+      }
+    }
+
+        /* ============================================
+       SEZIONE IPHONE MOCKUP
+    ============================================ */
+    .lavori {
+      position: relative;
+      background: var(--nero-profondo);
+      padding: 120px 32px 100px;
+      overflow: hidden;
+    }
+
+    /* Sfondo texture puntini */
+    .lavori::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: radial-gradient(
+        circle,
+        rgba(201,168,76,0.07) 1px,
+        transparent 1px
+      );
+      background-size: 32px 32px;
+      pointer-events: none;
+    }
+
+    /* Bagliore centrale ambientale */
+    .lavori::after {
+      content: '';
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px;
+      height: 700px;
+      background: radial-gradient(
+        circle,
+        rgba(201,168,76,0.06) 0%,
+        transparent 65%
+      );
+      pointer-events: none;
+    }
+
+    /* Titolo sezione lavori */
+    .lavori__intestazione {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      margin-bottom: 80px;
+    }
+
+    .lavori__etichetta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 20px;
+    }
+
+    .lavori__etichetta::before,
+    .lavori__etichetta::after {
+      content: '';
+      display: block;
+      width: 32px;
+      height: 1px;
+      background: var(--oro);
+      opacity: 0.5;
+    }
+
+    .lavori__titolo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(3.5rem, 10vw, 10rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--bianco);
+    }
+
+    .lavori__titolo .oro { color: var(--oro); }
+
+    .lavori__titolo .outline {
+      -webkit-text-stroke: 2px rgba(201,168,76,0.4);
+      color: transparent;
+    }
+
+    /* ============================================
+       GRIGLIA 3 IPHONE
+    ============================================ */
+    .iphone-griglia {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+      align-items: end;
+      max-width: 960px;
+      margin: 0 auto 60px;
+    }
+
+    /* iPhone singolo wrapper */
+    .iphone-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+      cursor: none;
+    }
+
+    /* Offset verticale centrale */
+    .iphone-wrapper:nth-child(2) {
+      transform: translateY(-48px);
+    }
+
+    /* Label sotto il dispositivo */
+    .iphone-wrapper__label {
+      text-align: center;
+    }
+
+    .iphone-wrapper__nome {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--bianco);
+      margin-bottom: 4px;
+    }
+
+    .iphone-wrapper__categoria {
+      font-family: var(--font-accent);
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--oro);
+    }
+
+    /* ============================================
+       IPHONE FRAME
+    ============================================ */
+    .iphone-frame {
+      position: relative;
+      width: 100%;
+      max-width: 220px;
+      aspect-ratio: 9/19.5;
+      border-radius: 44px;
+      background: #1a1a1a;
+      box-shadow:
+        0 0 0 2px #2a2a2a,
+        0 0 0 4px #111,
+        0 30px 80px rgba(0,0,0,0.8),
+        0 0 0 1px rgba(255,255,255,0.06) inset;
+      overflow: hidden;
+      transition: transform var(--transizione), box-shadow var(--transizione);
+    }
+
+    .iphone-frame:hover {
+      transform: scale(1.03) translateY(-8px);
+      box-shadow:
+        0 0 0 2px #2a2a2a,
+        0 0 0 4px #111,
+        0 50px 100px rgba(0,0,0,0.9),
+        0 0 60px rgba(201,168,76,0.15),
+        0 0 0 1px rgba(255,255,255,0.06) inset;
+    }
+
+    /* Notch / Dynamic Island */
+    .iphone-frame__notch {
+      position: absolute;
+      top: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 38%;
+      height: 28px;
+      background: #080808;
+      border-radius: 20px;
+      z-index: 10;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .iphone-frame__notch::before {
+      content: '';
+      width: 10px;
+      height: 10px;
+      background: #111;
+      border-radius: 50%;
+      border: 1.5px solid #222;
+    }
+
+    .iphone-frame__notch::after {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: #1a1a1a;
+      border-radius: 50%;
+    }
+
+    /* Bordo riflesso superiore */
+    .iphone-frame__riflesso {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 50%;
+      background: linear-gradient(
+        to bottom,
+        rgba(255,255,255,0.04) 0%,
+        transparent 100%
+      );
+      pointer-events: none;
+      z-index: 5;
+      border-radius: 44px 44px 0 0;
+    }
+
+    /* Pulsanti laterali */
+    .iphone-frame__pulsante-volume {
+      position: absolute;
+      left: -3px;
+      top: 90px;
+      width: 3px;
+      height: 32px;
+      background: #2a2a2a;
+      border-radius: 2px 0 0 2px;
+    }
+
+    .iphone-frame__pulsante-volume + .iphone-frame__pulsante-volume {
+      top: 132px;
+    }
+
+    .iphone-frame__pulsante-power {
+      position: absolute;
+      right: -3px;
+      top: 110px;
+      width: 3px;
+      height: 48px;
+      background: #2a2a2a;
+      border-radius: 0 2px 2px 0;
+    }
+
+    /* Screen dentro l'iPhone */
+    .iphone-frame__schermo {
+      position: absolute;
+      inset: 0;
+      border-radius: 44px;
+      overflow: hidden;
+      background: #000;
+    }
+
+    .iphone-frame__schermo video,
+    .iphone-frame__schermo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: top center;
+      border-radius: 44px;
+      display: block;
+    }
+
+    /* Overlay gradiente sul basso dello schermo */
+    .iphone-frame__overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 35%;
+      background: linear-gradient(
+        to top,
+        rgba(0,0,0,0.7) 0%,
+        transparent 100%
+      );
+      z-index: 4;
+      border-radius: 0 0 44px 44px;
+      pointer-events: none;
+    }
+
+    /* Home indicator bar */
+    .iphone-frame__home {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 35%;
+      height: 4px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 2px;
+      z-index: 6;
+    }
+
+    /* ============================================
+       CHAT BUBBLE CTA — sotto i mockup
+       (stile heyvalentin)
+    ============================================ */
+    .lavori__cta-area {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+    }
+
+    .chat-bubble {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      font-weight: 500;
+      position: relative;
+      max-width: 380px;
+      animation: bubbleEntra 0.6s cubic-bezier(0.16,1,0.3,1) both;
+    }
+
+    .chat-bubble--domanda {
+      background: var(--grigio-scuro);
+      color: var(--bianco);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-bottom-left-radius: 4px;
+      align-self: flex-start;
+      margin-left: 10%;
+    }
+
+    .chat-bubble--risposta {
+      background: var(--oro);
+      color: var(--nero);
+      font-weight: 700;
+      border-bottom-right-radius: 4px;
+      align-self: flex-end;
+      margin-right: 10%;
+      cursor: none;
+      transition: transform var(--transizione), box-shadow var(--transizione);
+    }
+
+    .chat-bubble--risposta:hover {
+      transform: scale(1.04) translateY(-2px);
+      box-shadow: 0 16px 48px rgba(201,168,76,0.4);
+    }
+
+    .chat-bubble--risposta .freccia {
+      transition: transform var(--transizione);
+    }
+
+    .chat-bubble--risposta:hover .freccia {
+      transform: translate(3px, -3px);
+    }
+
+    @keyframes bubbleEntra {
+      from {
+        opacity: 0;
+        transform: scale(0.88) translateY(12px);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    /* ============================================
+       RESPONSIVE IPHONE
+    ============================================ */
+    @media (max-width: 900px) {
+      .iphone-griglia {
+        gap: 16px;
+      }
+
+      .iphone-frame {
+        border-radius: 32px;
+      }
+
+      .iphone-frame__schermo {
+        border-radius: 32px;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .lavori {
+        padding: 80px 20px 80px;
+      }
+
+      .iphone-griglia {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        max-width: 280px;
+        margin: 0 auto 48px;
+      }
+
+      .iphone-wrapper:nth-child(2) {
+        transform: none;
+      }
+
+      .iphone-frame {
+        max-width: 100%;
+        border-radius: 36px;
+      }
+
+      .iphone-frame__schermo {
+        border-radius: 36px;
+      }
+
+      .chat-bubble--domanda {
+        margin-left: 0;
+      }
+
+      .chat-bubble--risposta {
+        margin-right: 0;
+      }
+
+      .lavori__titolo {
+        font-size: clamp(3rem, 14vw, 5rem);
+      }
+    }
+
+        /* ============================================
+       SEZIONE METODO — IL PIANO D'AZIONE
+    ============================================ */
+    .metodo {
+      position: relative;
+      background: var(--nero);
+      padding: 120px 32px 120px;
+      overflow: hidden;
+    }
+
+    /* Layout interno a due colonne asimmetriche */
+    .metodo__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 80px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Colonna sinistra — titolo sticky */
+    .metodo__colonna-sinistra {
+      position: sticky;
+      top: 100px;
+    }
+
+    .metodo__etichetta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 24px;
+    }
+
+    .metodo__etichetta::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--oro);
+    }
+
+    .metodo__titolo-grande {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(4rem, 7vw, 8rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--bianco);
+    }
+
+    .metodo__titolo-grande .oro {
+      color: var(--oro);
+      display: block;
+    }
+
+    .metodo__titolo-grande .outline {
+      -webkit-text-stroke: 2px var(--bianco);
+      color: transparent;
+      display: block;
+    }
+
+    /* Decorazione grafica sinistra */
+    .metodo__deco {
+      margin-top: 48px;
+      width: 80px;
+      height: 2px;
+      background: linear-gradient(to right, var(--oro), transparent);
+    }
+
+    .metodo__deco-testo {
+      margin-top: 16px;
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--grigio-testo);
+      line-height: 1.6;
+      max-width: 260px;
+    }
+
+    /* Colonna destra — step */
+    .metodo__colonna-destra {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Singolo step */
+    .metodo__step {
+      position: relative;
+      padding: 48px 0;
+      border-top: 1px solid rgba(201,168,76,0.15);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 28px;
+      align-items: start;
+      transition: border-color var(--transizione);
+    }
+
+    .metodo__step:last-child {
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .metodo__step:hover {
+      border-color: rgba(201,168,76,0.4);
+    }
+
+    /* Numero step */
+    .metodo__step-numero {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 3rem;
+      line-height: 1;
+      letter-spacing: -0.04em;
+      color: var(--oro);
+      min-width: 72px;
+      padding-top: 4px;
+      position: relative;
+    }
+
+    /* Pallino connettore verticale */
+    .metodo__step-numero::after {
+      content: '';
+      position: absolute;
+      bottom: -48px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 1px;
+      height: 48px;
+      background: linear-gradient(to bottom, rgba(201,168,76,0.3), transparent);
+    }
+
+    .metodo__step:last-child .metodo__step-numero::after {
+      display: none;
+    }
+
+    .metodo__step-contenuto {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .metodo__step-titolo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--bianco);
+      line-height: 1.1;
+    }
+
+    .metodo__step-testo {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--grigio-testo);
+      line-height: 1.7;
+    }
+
+    .metodo__step-testo strong {
+      color: var(--crema);
+      font-weight: 600;
+    }
+
+    /* Tag inline nello step */
+    .metodo__step-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: 6px;
+      padding: 3px 10px;
+      font-family: var(--font-accent);
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--oro);
+      width: fit-content;
+    }
+
+    /* ============================================
+       SEPARATORE CAMBIO TEMA — nero→crema
+    ============================================ */
+    .cambio-tema {
+      position: relative;
+      height: 120px;
+      background: linear-gradient(
+        to bottom,
+        var(--nero) 0%,
+        var(--crema) 100%
+      );
+      overflow: hidden;
+    }
+
+    /* Linea orizzontale decorativa al centro */
+    .cambio-tema::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(201,168,76,0.4),
+        transparent
+      );
+    }
+
+    /* Testo decorativo al centro del cambio tema */
+    .cambio-tema__testo {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-family: var(--font-accent);
+      font-size: 0.65rem;
+      font-weight: 800;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: rgba(201,168,76,0.5);
+      white-space: nowrap;
+      background: var(--nero);
+      padding: 0 16px;
+    }
+
+    /* ============================================
+       SEZIONE PERCHÉ COSTO COSÌ POCO
+    ============================================ */
+    .perche {
+      position: relative;
+      background: var(--crema);
+      padding: 100px 32px 120px;
+      overflow: hidden;
+    }
+
+    /* Elemento decorativo angolo */
+    .perche::before {
+      content: '€';
+      position: absolute;
+      right: -40px;
+      top: -60px;
+      font-family: var(--font-display);
+      font-size: 400px;
+      font-weight: 700;
+      color: rgba(201,168,76,0.07);
+      line-height: 1;
+      pointer-events: none;
+      user-select: none;
+    }
+
+    /* Domanda principale */
+    .perche__domanda {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.8rem, 7vw, 7.5rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--nero);
+      margin-bottom: 32px;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Righe barrate — testo crossed out */
+    .perche__barrate {
+      position: relative;
+      z-index: 2;
+      margin-bottom: 48px;
+    }
+
+    .perche__riga-barrata {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.8rem, 5vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: rgba(8,8,8,0.25);
+      position: relative;
+      padding: 4px 0;
+    }
+
+    /* La linea che barra il testo */
+    .perche__riga-barrata::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      width: 0;
+      height: 3px;
+      background: var(--oro);
+      transform: translateY(-50%);
+      transition: width 1.2s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .perche__riga-barrata.barrata::after {
+      width: 100%;
+    }
+
+    /* Testo positivo finale */
+    .perche__positivo {
+      display: block;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(2.5rem, 6vw, 7rem);
+      line-height: 0.92;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--nero);
+    }
+
+    .perche__positivo .oro {
+      color: var(--oro);
+    }
+
+    /* Paragrafo descrittivo */
+    .perche__paragrafo {
+      position: relative;
+      z-index: 2;
+      font-family: var(--font-body);
+      font-size: clamp(0.95rem, 1.8vw, 1.15rem);
+      color: rgba(8,8,8,0.65);
+      line-height: 1.75;
+      max-width: 700px;
+      margin-top: 52px;
+      padding-top: 40px;
+      border-top: 1px solid rgba(8,8,8,0.12);
+    }
+
+    .perche__paragrafo strong {
+      color: var(--nero);
+      font-weight: 700;
+    }
+
+    /* Highlight box dentro il paragrafo */
+    .perche__highlight {
+      display: inline-block;
+      background: var(--oro);
+      color: var(--nero);
+      font-family: var(--font-accent);
+      font-weight: 800;
+      font-size: 0.85em;
+      letter-spacing: 0.04em;
+      padding: 2px 10px;
+      border-radius: 4px;
+      margin: 0 2px;
+    }
+
+    /* CTA nella sezione perché */
+    .perche__cta-wrap {
+      position: relative;
+      z-index: 2;
+      margin-top: 52px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .perche__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--nero);
+      color: var(--crema);
+      font-family: var(--font-accent);
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 16px 36px;
+      border-radius: 999px;
+      border: none;
+      cursor: none;
+      transition: all var(--transizione);
+    }
+
+    .perche__cta:hover {
+      background: var(--oro);
+      color: var(--nero);
+      transform: scale(1.04) translateY(-2px);
+      box-shadow: 0 20px 60px rgba(8,8,8,0.25);
+    }
+
+    .perche__cta .freccia {
+      transition: transform var(--transizione);
+    }
+
+    .perche__cta:hover .freccia {
+      transform: translate(4px,-4px);
+    }
+
+    .perche__nota {
+      font-family: var(--font-body);
+      font-size: 0.8rem;
+      color: rgba(8,8,8,0.45);
+    }
+
+    /* ============================================
+       RESPONSIVE METODO + PERCHE
+    ============================================ */
+    @media (max-width: 900px) {
+      .metodo__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .metodo__colonna-sinistra {
+        position: static;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .metodo {
+        padding: 80px 20px 80px;
+      }
+
+      .metodo__step {
+        padding: 36px 0;
+        grid-template-columns: auto 1fr;
+        gap: 16px;
+      }
+
+      .metodo__step-numero {
+        font-size: 2.2rem;
+        min-width: 56px;
+      }
+
+      .metodo__titolo-grande {
+        font-size: clamp(3.2rem, 12vw, 5rem);
+      }
+
+      .perche {
+        padding: 80px 20px 100px;
+      }
+
+      .perche::before {
+        font-size: 200px;
+        right: -20px;
+        top: -30px;
+      }
+
+      .perche__cta-wrap {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .perche__cta {
+        width: 100%;
+        justify-content: center;
+      }
+
+      .cambio-tema {
+        height: 80px;
+      }
+    }
+
+        /* ============================================
+       SEZIONE FAQ
+    ============================================ */
+    .faq {
+      position: relative;
+      background: var(--nero);
+      padding: 120px 32px 100px;
+      overflow: hidden;
+    }
+
+    /* Griglia interna — titolo sx, accordion dx */
+    .faq__inner {
+      display: grid;
+      grid-template-columns: 1fr 1.4fr;
+      gap: 80px;
+      align-items: start;
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Titolo FAQ — allineato in alto a destra */
+    .faq__intestazione {
+      position: sticky;
+      top: 100px;
+      text-align: right;
+    }
+
+    .faq__etichetta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-accent);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin-bottom: 20px;
+      justify-content: flex-end;
+    }
+
+    .faq__etichetta::after {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 1px;
+      background: var(--oro);
+    }
+
+    .faq__titolo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(3.5rem, 6vw, 7rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--bianco);
+    }
+
+    .faq__titolo .oro   { color: var(--oro); }
+    .faq__titolo .block { display: block; }
+
+    /* Nome decorativo — stile reference */
+    .faq__nome-deco {
+      margin-top: 32px;
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.2rem, 2.5vw, 2rem);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: transparent;
+      -webkit-text-stroke: 1px rgba(201,168,76,0.3);
+      line-height: 1.2;
+    }
+
+    /* ============================================
+       ACCORDION FAQ
+    ============================================ */
+    .faq__lista {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    .faq__item {
+      border-top: 1px solid rgba(201,168,76,0.15);
+      overflow: hidden;
+      transition: border-color var(--transizione);
+    }
+
+    .faq__item:last-child {
+      border-bottom: 1px solid rgba(201,168,76,0.15);
+    }
+
+    .faq__item:hover {
+      border-color: rgba(201,168,76,0.35);
+    }
+
+    /* Trigger domanda */
+    .faq__domanda {
+      width: 100%;
+      background: none;
+      border: none;
+      padding: 28px 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      cursor: none;
+      text-align: left;
+    }
+
+    .faq__domanda-testo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+      letter-spacing: -0.01em;
+      text-transform: uppercase;
+      color: var(--bianco);
+      line-height: 1.2;
+      transition: color var(--transizione);
+    }
+
+    .faq__item.aperto .faq__domanda-testo {
+      color: var(--oro);
+    }
+
+    /* Icona +/− */
+    .faq__icona {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(201,168,76,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all var(--transizione);
+      position: relative;
+    }
+
+    .faq__icona::before,
+    .faq__icona::after {
+      content: '';
+      position: absolute;
+      background: var(--oro);
+      border-radius: 2px;
+      transition: transform var(--transizione), opacity var(--transizione);
+    }
+
+    .faq__icona::before {
+      width: 12px;
+      height: 1.5px;
+    }
+
+    .faq__icona::after {
+      width: 1.5px;
+      height: 12px;
+    }
+
+    .faq__item.aperto .faq__icona {
+      background: var(--oro);
+      border-color: var(--oro);
+      transform: rotate(45deg);
+    }
+
+    .faq__item.aperto .faq__icona::before,
+    .faq__item.aperto .faq__icona::after {
+      background: var(--nero);
+    }
+
+    /* Risposta — pannello collassabile */
+    .faq__risposta {
+      height: 0;
+      overflow: hidden;
+      transition: height 0.5s cubic-bezier(0.16,1,0.3,1);
+    }
+
+    .faq__risposta-inner {
+      padding: 0 0 28px 0;
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--grigio-testo);
+      line-height: 1.75;
+      max-width: 520px;
+    }
+
+    .faq__risposta-inner strong {
+      color: var(--crema);
+      font-weight: 600;
+    }
+
+    .faq__risposta-inner a {
+      color: var(--oro);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* ============================================
+       SEZIONE CTA FINALE
+    ============================================ */
+    .cta-finale {
+      position: relative;
+      background: var(--nero-profondo);
+      padding: 120px 32px 0;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      align-items: end;
+      min-height: 600px;
+    }
+
+    /* Bagliore di sfondo */
+    .cta-finale::before {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 60%;
+      height: 100%;
+      background: radial-gradient(
+        ellipse at right center,
+        rgba(201,168,76,0.08) 0%,
+        transparent 60%
+      );
+      pointer-events: none;
+    }
+
+    /* Colonna sinistra — foto polaroid */
+    .cta-finale__polaroid-wrap {
+      position: relative;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 0;
+      z-index: 2;
+    }
+
+    .cta-finale__polaroid {
+      position: relative;
+      width: 280px;
+      background: #f0ebe0;
+      padding: 16px 16px 52px;
+      box-shadow:
+        0 30px 80px rgba(0,0,0,0.7),
+        0 0 0 1px rgba(255,255,255,0.05);
+      transform: rotate(-4deg);
+      transition: transform var(--transizione);
+      cursor: none;
+    }
+
+    .cta-finale__polaroid:hover {
+      transform: rotate(-1deg) scale(1.03) translateY(-8px);
+    }
+
+    .cta-finale__polaroid-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
+      filter: saturate(0.9) contrast(1.05);
+    }
+
+    /* Scritta a mano sulla polaroid */
+    .cta-finale__polaroid-caption {
+      position: absolute;
+      bottom: 12px;
+      left: 0;
+      right: 0;
+      text-align: center;
+      font-family: var(--font-accent);
+      font-style: italic;
+      font-size: 0.85rem;
+      color: rgba(8,8,8,0.6);
+      letter-spacing: 0.02em;
+    }
+
+    /* Nastro adesivo sulla polaroid */
+    .cta-finale__nastro {
+      position: absolute;
+      top: -14px;
+      left: 50%;
+      transform: translateX(-50%) rotate(2deg);
+      width: 60px;
+      height: 28px;
+      background: rgba(201,168,76,0.4);
+      border-radius: 2px;
+      backdrop-filter: blur(4px);
+    }
+
+    /* Colonna destra — testo + CTA */
+    .cta-finale__contenuto {
+      position: relative;
+      z-index: 2;
+      padding: 0 0 80px 48px;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 32px;
+    }
+
+    .cta-finale__titolo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(3rem, 7vw, 8rem);
+      line-height: 0.88;
+      letter-spacing: -0.03em;
+      text-transform: uppercase;
+      color: var(--bianco);
+    }
+
+    .cta-finale__titolo .oro   { color: var(--oro); }
+    .cta-finale__titolo .block { display: block; }
+
+    .cta-finale__sottotitolo {
+      font-family: var(--font-body);
+      font-size: 1rem;
+      color: var(--grigio-testo);
+      line-height: 1.65;
+      max-width: 340px;
+    }
+
+    .cta-finale__sottotitolo strong {
+      color: var(--crema);
+    }
+
+    /* Pulsante WA grande */
+    .cta-finale__wa {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--oro);
+      color: var(--nero);
+      font-family: var(--font-accent);
+      font-weight: 800;
+      font-size: 1rem;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      padding: 20px 40px;
+      border-radius: 999px;
+      border: none;
+      cursor: none;
+      transition: all var(--transizione);
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Shimmer effect sul pulsante */
+    .cta-finale__wa::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,0.25),
+        transparent
+      );
+      transition: left 0.5s ease;
+    }
+
+    .cta-finale__wa:hover::before {
+      left: 100%;
+    }
+
+    .cta-finale__wa:hover {
+      background: var(--oro-chiaro);
+      transform: scale(1.04) translateY(-3px);
+      box-shadow: 0 24px 70px rgba(201,168,76,0.4);
+    }
+
+    .cta-finale__wa-icona {
+      font-size: 1.3rem;
+      line-height: 1;
+    }
+
+    .cta-finale__wa .freccia {
+      transition: transform var(--transizione);
+    }
+
+    .cta-finale__wa:hover .freccia {
+      transform: translate(4px,-4px);
+    }
+
+    /* ============================================
+       FOOTER
+    ============================================ */
+    .footer {
+      position: relative;
+      background: var(--nero-profondo);
+      border-top: 1px solid rgba(201,168,76,0.15);
+      padding: 52px 32px 36px;
+      z-index: 2;
+    }
+
+    .footer__inner {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      gap: 32px;
+    }
+
+    /* Logo e info */
+    .footer__brand {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .footer__logo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: -0.02em;
+      color: var(--bianco);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .footer__logo-simbolo {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      background: var(--oro);
+      color: var(--nero);
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 900;
+      font-family: var(--font-accent);
+    }
+
+    .footer__info {
+      font-family: var(--font-body);
+      font-size: 0.75rem;
+      color: rgba(201,168,76,0.5);
+      line-height: 1.6;
+    }
+
+    .footer__info a {
+      color: var(--oro);
+      transition: opacity var(--transizione);
+    }
+
+    .footer__info a:hover { opacity: 0.7; }
+
+    /* Social links — centro */
+    .footer__social {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .footer__social-tasto {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: transparent;
+      color: var(--bianco);
+      font-family: var(--font-accent);
+      font-weight: 700;
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 10px 24px;
+      border: 1.5px solid rgba(201,168,76,0.3);
+      border-radius: 999px;
+      cursor: none;
+      transition: all var(--transizione);
+      white-space: nowrap;
+      min-width: 160px;
+      justify-content: center;
+    }
+
+    .footer__social-tasto:hover {
+      background: var(--oro);
+      color: var(--nero);
+      border-color: var(--oro);
+      transform: translateY(-2px);
+    }
+
+    /* Link legali — destra */
+    .footer__legali {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+
+    .footer__legali-links {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .footer__legali-links a {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.3);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      transition: color var(--transizione);
+      cursor: none;
+    }
+
+    .footer__legali-links a:hover {
+      color: var(--oro);
+    }
+
+    .footer__copyright {
+      font-family: var(--font-body);
+      font-size: 0.72rem;
+      color: rgba(255,255,255,0.2);
+    }
+
+    /* Linea divisoria footer */
+    .footer__linea {
+      grid-column: 1 / -1;
+      height: 1px;
+      background: linear-gradient(
+        to right,
+        transparent,
+        rgba(201,168,76,0.15),
+        transparent
+      );
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 900px) {
+      .faq__inner {
+        grid-template-columns: 1fr;
+        gap: 48px;
+      }
+
+      .faq__intestazione {
+        position: static;
+        text-align: left;
+      }
+
+      .faq__etichetta {
+        justify-content: flex-start;
+        flex-direction: row-reverse;
+      }
+
+      .faq__etichetta::after { display: none; }
+      .faq__etichetta::before {
+        content: '';
+        display: block;
+        width: 24px;
+        height: 1px;
+        background: var(--oro);
+      }
+
+      .cta-finale {
+        grid-template-columns: 1fr;
+        padding: 80px 20px 0;
+        min-height: auto;
+      }
+
+      .cta-finale__polaroid-wrap {
+        order: 2;
+        justify-content: flex-start;
+        padding-left: 20px;
+      }
+
+      .cta-finale__polaroid {
+        width: 200px;
+      }
+
+      .cta-finale__contenuto {
+        order: 1;
+        padding: 0 0 48px;
+      }
+
+      .footer__inner {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 24px;
+      }
+
+      .footer__brand { align-items: center; }
+      .footer__legali { align-items: center; }
+      .footer__legali-links { justify-content: center; }
+    }
+
+    @media (max-width: 768px) {
+      .faq {
+        padding: 80px 20px 80px;
+      }
+
+      .faq__domanda {
+        padding: 20px 0;
+      }
+
+      .footer {
+        padding: 40px 20px 28px;
+      }
+    }
+
+    /* ============================================
+       COOKIE BANNER
+    ============================================ */
+    .cookie-banner {
+      position: fixed;
+      bottom: 24px;
+      left: 24px;
+      right: 24px;
+      max-width: 520px;
+      background: var(--grigio-scuro);
+      border: 1px solid rgba(201,168,76,0.25);
+      border-radius: var(--raggio-grande);
+      padding: 24px 28px;
+      z-index: var(--z-cookie);
+      box-shadow: 0 24px 80px rgba(0,0,0,0.6);
+      transform: translateY(120%);
+      opacity: 0;
+      transition: transform 0.6s cubic-bezier(0.16,1,0.3,1),
+                  opacity 0.6s ease;
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .cookie-banner.visibile {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .cookie-banner__testo {
+      font-family: var(--font-body);
+      font-size: 0.85rem;
+      color: var(--grigio-testo);
+      line-height: 1.6;
+    }
+
+    .cookie-banner__testo strong {
+      color: var(--bianco);
+      font-weight: 600;
+    }
+
+    .cookie-banner__testo a {
+      color: var(--oro);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    .cookie-banner__bottoni {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .cookie-banner__accetta {
+      flex: 1;
+      background: var(--oro);
+      color: var(--nero);
+      font-family: var(--font-accent);
+      font-weight: 800;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--transizione);
+    }
+
+    .cookie-banner__accetta:hover {
+      background: var(--oro-chiaro);
+      transform: scale(1.02);
+    }
+
+    .cookie-banner__rifiuta {
+      background: transparent;
+      color: var(--grigio-testo);
+      font-family: var(--font-accent);
+      font-weight: 700;
+      font-size: 0.78rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 12px 20px;
+      border: 1.5px solid rgba(255,255,255,0.1);
+      border-radius: 999px;
+      cursor: pointer;
+      transition: all var(--transizione);
+    }
+
+    .cookie-banner__rifiuta:hover {
+      border-color: rgba(255,255,255,0.3);
+      color: var(--bianco);
+    }
+
+    @media (max-width: 480px) {
+      .cookie-banner {
+        bottom: 12px;
+        left: 12px;
+        right: 12px;
+        border-radius: var(--raggio);
+      }
+    }
+
+    /* ============================================
+       MODALI
+    ============================================ */
+    .modale-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(5,5,5,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: var(--z-modale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.4s ease;
+    }
+
+    .modale-overlay.aperta {
+      opacity: 1;
+      pointer-events: all;
+    }
+
+    .modale {
+      background: var(--grigio-scuro);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: var(--raggio-grande);
+      padding: 48px;
+      max-width: 600px;
+      width: 100%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      transform: scale(0.92) translateY(20px);
+      transition: transform 0.5s cubic-bezier(0.16,1,0.3,1);
+      scrollbar-width: thin;
+      scrollbar-color: var(--oro) transparent;
+    }
+
+    .modale-overlay.aperta .modale {
+      transform: scale(1) translateY(0);
+    }
+
+    .modale__chiudi {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 36px;
+      height: 36px;
+      background: rgba(201,168,76,0.1);
+      border: 1px solid rgba(201,168,76,0.2);
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      color: var(--grigio-testo);
+      transition: all var(--transizione);
+      font-family: var(--font-body);
+      line-height: 1;
+    }
+
+    .modale__chiudi:hover {
+      background: var(--oro);
+      color: var(--nero);
+      border-color: var(--oro);
+      transform: rotate(90deg);
+    }
+
+    .modale__titolo {
+      font-family: var(--font-display);
+      font-weight: 700;
+      font-size: clamp(1.4rem, 3vw, 2rem);
+      letter-spacing: -0.02em;
+      text-transform: uppercase;
+      color: var(--bianco);
+      margin-bottom: 20px;
+      padding-right: 40px;
+    }
+
+    .modale__titolo .oro { color: var(--oro); }
+
+    .modale__testo {
+      font-family: var(--font-body);
+      font-size: 0.9rem;
+      color: var(--grigio-testo);
+      line-height: 1.75;
+    }
+
+    .modale__testo strong {
+      color: var(--crema);
+      font-weight: 600;
+    }
+
+    .modale__testo h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--oro);
+      margin: 24px 0 8px;
+      letter-spacing: 0.04em;
+    }
+
+    .modale__testo ul {
+      padding-left: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      margin-top: 8px;
+    }
+
+    .modale__separatore {
+      height: 1px;
+      background: rgba(201,168,76,0.15);
+      margin: 24px 0;
+    }
+
+    @media (max-width: 768px) {
+      .modale {
+        padding: 32px 24px;
+        border-radius: var(--raggio);
+      }
+    }
+
+  </style>
 </head>
-<body>  
 
-    <!-- Cursore Custom (Visibile solo su Desktop) -->
-    <div class="cursore-inversione"></div>
+<body>
 
-    <!-- Modulo 1: Navbar Fluttuante -->
-    <nav class="nav-pillola">  
-        
-        <!-- LOGO (Testo su Desktop, Immagine su Mobile) -->
-        <div class="logo-container">
-           
-            <!-- Inserisci qui l'URL del tuo Logo VERO -->
-            <img src="immagini/Gemini_Generated_Image_l9uebgl9uebgl9ue-removebg-preview.png" alt="Logo Ompage" class="img-logo">
-        <!-- La scritta PAGE in Neon -->
-            <span class="testo-logo-neon">PAGE</span>
+  <!-- CURSORE CUSTOM -->
+  <div class="cursore" id="cursore"></div>
+  <div class="cursore-anello" id="cursoreAnello"></div>
+
+  <!-- ============================================
+       NAVIGAZIONE
+  ============================================ -->
+  <nav class="nav" id="nav" role="navigation" aria-label="Navigazione principale">
+    <a href="#" class="nav__logo" aria-label="Ompage homepage">
+      <span class="nav__logo-simbolo">ॐ</span>
+      PAGE
+    </a>
+
+    <ul class="nav__links" id="navLinks" role="list">
+      <li><a href="#vantaggi" class="attivo">Vantaggi</a></li>
+      <li><a href="#lavori">Lavori</a></li>
+      <li><a href="#metodo">Metodo</a></li>
+      <li><a href="#faq">FAQ</a></li>
+    </ul>
+
+    <a href="https://wa.me/39XXXXXXXXXX" class="nav__cta" target="_blank" rel="noopener">
+      Scrivimi su WA ↗
+    </a>
+
+    <button class="nav__hamburger" id="hamburger" aria-label="Apri menu" aria-expanded="false">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- ============================================
+       HERO
+  ============================================ -->
+  <section class="hero" id="hero" aria-label="Sezione principale">
+    <div class="hero__bagliore" aria-hidden="true"></div>
+    <div class="hero__bagliore-2" aria-hidden="true"></div>
+    <div class="hero__linea-verticale" aria-hidden="true"></div>
+    <div class="hero__numero-deco" aria-hidden="true">ॐ</div>
+
+    <span class="hero__tag-intro" aria-label="Design per attività locali">
+      Web Design · Torino & Ovunque
+    </span>
+
+    <h1 class="hero__titolo" aria-label="La tua attività merita di più. Mostriamolo.">
+      <span class="linea"><span>La Tua <span class="oro">Attività</span></span></span>
+      <span class="linea"><span>Merita <span class="outline">di Più.</span></span></span>
+      <span class="linea"><span>Mostriamolo.</span></span>
+    </h1>
+
+    <div class="hero__sotto">
+      <p class="hero__sotto-testo">
+        Siti in <strong>HTML/CSS puro</strong> che sembrano Silicon Valley.<br>
+        Per attività locali e professionisti che vogliono dominare.
+      </p>
+
+      <div class="hero__badge-prezzo" aria-label="Prezzo 250 euro tutto incluso">
+        <div>
+          <div class="hero__prezzo-numero">250€</div>
+          <div class="hero__prezzo-label">Tutto<br>Incluso</div>
         </div>
-        
-        <!-- LINK DESKTOP --> 
-        <div class="nav-links">
-            <a href="#punti-forza">Vantaggi</a>
-            <a href="#portfolio">Lavori</a>
-            <a href="#metodo">Metodo</a>
-            <a href="#faq">FAQ</a>
-        </div>
+      </div>
 
-        <!-- GRUPPO DESTRA (Avatar, WA, Hamburger) -->
-        <div class="gruppo-destra-nav">
-            <span class="copia-email-header" onclick="copiaEmailHeader()">ciao@ompage.it</span>
-            
-            <img src="immagini\e94e84d4-13b3-42f0-8980-9fdc3dd3670b_Nero_AI_Cartoonize_Photo_MiniME_Nero_AI_Background_Remover_transparent.webp" alt="Avatar Ompage" class="avatar-profilo">
-            
-            <a href="https://wa.me/tuonumero" class="bottone-primario" target="_blank">Scrivimi su WA</a>
+      <a href="https://wa.me/39XXXXXXXXXX"
+         class="hero__cta-principale"
+         target="_blank"
+         rel="noopener"
+         aria-label="Contattami su WhatsApp">
+        Voglio il Mio Sito
+        <span class="freccia" aria-hidden="true">↗</span>
+      </a>
+    </div>
+  </section>
 
-            <!-- MENU HAMBURGER (Visibile solo su Mobile) -->
-            <button class="menu-hamburger" id="btn-hamburger" aria-label="Menu">
-                <span></span>
-                <span></span>
-            </button>
-        </div>
-    </nav>
+  <!-- ============================================
+       TICKER
+  ============================================ -->
+  <div class="ticker-wrap" aria-hidden="true" role="marquee">
+    <div class="ticker">
+      <div class="ticker__item">Design a Prezzo Unico <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">Il Sito che si Ripaga da Solo <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">Basta Siti Noiosi <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">Lusso Moderno Inaspettato <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">250€ Tutto Incluso <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">HTML Puro, Zero Compromessi <span class="ticker__separatore"></span></div>
+      <!-- Duplicato per loop continuo -->
+      <div class="ticker__item">Design a Prezzo Unico <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">Il Sito che si Ripaga da Solo <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">Basta Siti Noiosi <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">Lusso Moderno Inaspettato <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">250€ Tutto Incluso <span class="ticker__separatore"></span></div>
+      <div class="ticker__item">HTML Puro, Zero Compromessi <span class="ticker__separatore"></span></div>
+    </div>
+  </div>
 
-    <!-- ==========================================
-         MENU MOBILE A TUTTO SCHERMO (Overlay)
-         ========================================== -->
-    <div class="menu-mobile-overlay" id="menu-overlay">
-        <div class="menu-mobile-links">
-            <a href="#punti-forza" class="link-mobile">01. Vantaggi</a>
-            <a href="#portfolio" class="link-mobile">02. Lavori</a>
-            <a href="#metodo" class="link-mobile">03. Metodo</a>
-            <a href="#faq" class="link-mobile">04. FAQ</a>
-            
-            <div class="menu-mobile-contatti">
-                <span class="testo-grigio">Scrivimi direttamente:</span>
-                <span class="copia-email-mobile" onclick="copiaEmailHeader()">ciao@ompage.it</span>
-            </div>
+    <!-- ============================================
+       DIVISORE ANIMATO
+  ============================================ -->
+  <div class="divisore" aria-hidden="true"></div>
+
+  <!-- ============================================
+       SEZIONE VANTAGGI
+  ============================================ -->
+  <section class="vantaggi" id="vantaggi" aria-label="Vantaggi del servizio">
+
+    <!-- Intestazione -->
+    <div class="vantaggi__intestazione">
+      <h2 class="vantaggi__titolo-grande rivela">
+        Non Vendo<br>
+        <span class="outline">Siti.</span><br>
+        <span class="oro">Procuro</span><br>
+        Clienti.
+      </h2>
+
+      <!-- Badge prezzo rotante -->
+      <div class="vantaggi__badge rivela ritardo-2" aria-label="250 euro tutto incluso">
+        <div class="vantaggi__badge-cerchio">
+          <!-- Testo circolare SVG -->
+          <svg class="vantaggi__badge-testo-giro" viewBox="0 0 130 130" aria-hidden="true">
+            <defs>
+              <path id="circoloBadge"
+                d="M 65,65
+                   m -47,0
+                   a 47,47 0 1,1 94,0
+                   a 47,47 0 1,1 -94,0"
+              />
+            </defs>
+            <text>
+              <textPath href="#circoloBadge">
+                TUTTO INCLUSO · 250€ · TUTTO INCLUSO · 250€ ·
+              </textPath>
+            </text>
+          </svg>
+          <!-- Centro statico -->
+          <div class="vantaggi__badge-centro">
+            <span class="vantaggi__badge-prezzo">250€</span>
+            <span class="vantaggi__badge-sub">tutto incl.</span>
+          </div>
         </div>
+      </div>
+
+      <p class="vantaggi__sottotitolo rivela ritardo-3">
+        Il tuo sito non è una spesa. È un commerciale che lavora
+        24 ore su 24, senza stipendio e senza ferie.
+      </p>
     </div>
 
-    <!-- Modulo 2: Hero Brutalista con Cyber Grid Beam --> 
-<section class="sezione-eroe">
-    
-    <!-- IL NUOVO EFFETTO: GRIGLIA E RAGGI LASER -->
-    <div class="sfondo-tecnico">
-        <div class="raggio verticale raggio-1"></div>
-        <div class="raggio verticale raggio-2"></div>
-        <div class="raggio orizzontale raggio-3"></div>
+    <!-- Griglia card vantaggi -->
+    <div class="vantaggi__griglia" role="list">
+
+      <!-- Card 01 -->
+      <article class="vantaggio-card rivela ritardo-1" role="listitem">
+        <div class="vantaggio-card__contenuto">
+          <span class="vantaggio-card__chip">&#9679; Investimento</span>
+          <h3 class="vantaggio-card__titolo">
+            <span class="icona-inline" aria-hidden="true">◈</span>
+            Ritorno Sicuro
+          </h3>
+          <p class="vantaggio-card__testo">
+            Il sito costa <strong>250 euro</strong>, una frazione di quello che fatturi in un mese.
+            Ti basta acquisire qualche nuovo cliente grazie al sito per
+            <strong>ripagarti</strong> l'intero investimento. Subito.
+            Le agenzie blasonate chiedono tremila euro per lo stesso risultato.
+          </p>
+        </div>
+        <div class="vantaggio-card__numero" aria-hidden="true">01</div>
+      </article>
+
+      <div class="vantaggi__separatore" aria-hidden="true"></div>
+
+      <!-- Card 02 -->
+      <article class="vantaggio-card rivela ritardo-2" role="listitem">
+        <div class="vantaggio-card__contenuto">
+          <span class="vantaggio-card__chip">&#9679; Presenza</span>
+          <h3 class="vantaggio-card__titolo">
+            <span class="icona-inline" aria-hidden="true">◈</span>
+            Design che Spicca
+          </h3>
+          <p class="vantaggio-card__testo">
+            I tuoi concorrenti usano tutti lo stesso template vecchio e noioso.
+            Io ti costruisco una <strong>vetrina moderna e devastante</strong>.
+            Quando un cliente apre il tuo sito, capisce immediatamente
+            che sei tu il <strong>leader locale</strong>.
+          </p>
+        </div>
+        <div class="vantaggio-card__numero" aria-hidden="true">02</div>
+      </article>
+
+      <div class="vantaggi__separatore" aria-hidden="true"></div>
+
+      <!-- Card 03 — Highlight -->
+      <article class="vantaggio-card vantaggio-card--highlight rivela ritardo-3" role="listitem">
+        <div class="vantaggio-card__contenuto">
+          <span class="vantaggio-card__chip">&#9679; Garanzia</span>
+          <h3 class="vantaggio-card__titolo">
+            <span class="icona-inline" aria-hidden="true">◈</span>
+            Zero Ricatti
+          </h3>
+          <p class="vantaggio-card__testo">
+            Modifico la bozza come vuoi finché non sei soddisfatto.
+            Il rinnovo annuale è <strong>assolutamente opzionale</strong>.
+            Se non sei felice, sei libero. Nessuna clausola nascosta,
+            nessuna dipendenza da piattaforme terze.
+          </p>
+        </div>
+        <div class="vantaggio-card__numero" aria-hidden="true">03</div>
+      </article>
+
+    </div>
+  </section>
+
+  <!-- ============================================
+       SEZIONE IPHONE MOCKUP — LE MIE MACCHINE
+  ============================================ -->
+  <section class="lavori" id="lavori" aria-label="Portfolio lavori">
+
+    <!-- Intestazione -->
+    <div class="lavori__intestazione rivela">
+      <div class="lavori__etichetta" aria-hidden="true">Portfolio</div>
+      <h2 class="lavori__titolo">
+        Le Mie<br>
+        <span class="oro">Macchine</span><br>
+        <span class="outline">da Soldi</span>
+      </h2>
     </div>
 
-    <!-- IL TUO TESTO BRUTALISTA (Invariato) -->
-    <div class="contenitore-titolo-eroe">
-        <h1 class="testo-gigante">
-            <div class="testo-animato">
-                LA TUA ATTIVITA'
-            </div>
-            
-            <div class="testo-animato ritardo-1">
-                <span class="outline">MERITA DI PIU'.</span> 
-            </div>
-            
-            <div class="testo-animato ritardo-2">
-                MOSTRIAMOLO.
-            </div> 
-        </h1>
+    <!-- Griglia 3 iPhone -->
+    <div class="iphone-griglia" role="list" aria-label="Esempi di siti realizzati">
+
+      <!-- iPhone 1 — Grooming / Pet -->
+      <div class="iphone-wrapper rivela ritardo-1" role="listitem">
+        <div class="iphone-frame" aria-label="Sito Maison du Grooming">
+
+          <!-- Pulsanti fisici -->
+          <div class="iphone-frame__pulsante-volume" aria-hidden="true"></div>
+          <div class="iphone-frame__pulsante-volume" aria-hidden="true"></div>
+          <div class="iphone-frame__pulsante-power"  aria-hidden="true"></div>
+
+          <!-- Notch -->
+          <div class="iphone-frame__notch" aria-hidden="true"></div>
+
+          <!-- Riflesso vetro -->
+          <div class="iphone-frame__riflesso" aria-hidden="true"></div>
+
+          <!-- Schermo -->
+          <div class="iphone-frame__schermo">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Anteprima sito grooming"
+              poster="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80"
+            >
+              <source
+                src="https://www.pexels.com/download/video/855029/?fps=25.0&h=1920&w=1080"
+                type="video/mp4"
+              />
+            </video>
+            <!-- Fallback immagine se video non carica -->
+            <img
+              src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80"
+              alt="Anteprima sito Grooming — cane ben curato"
+              loading="lazy"
+              style="position:absolute;inset:0;z-index:1;"
+            />
+            <div class="iphone-frame__overlay" aria-hidden="true"></div>
+            <div class="iphone-frame__home"    aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="iphone-wrapper__label">
+          <div class="iphone-wrapper__nome">Maison Grooming</div>
+          <div class="iphone-wrapper__categoria">Pet Care · Lusso</div>
+        </div>
+      </div>
+
+      <!-- iPhone 2 — Bar / Cocktail (centrale, sollevato) -->
+      <div class="iphone-wrapper rivela ritardo-2" role="listitem">
+        <div class="iphone-frame" aria-label="Sito cocktail bar">
+
+          <div class="iphone-frame__pulsante-volume" aria-hidden="true"></div>
+          <div class="iphone-frame__pulsante-volume" aria-hidden="true"></div>
+          <div class="iphone-frame__pulsante-power"  aria-hidden="true"></div>
+          <div class="iphone-frame__notch"    aria-hidden="true"></div>
+          <div class="iphone-frame__riflesso" aria-hidden="true"></div>
+
+          <div class="iphone-frame__schermo">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Anteprima sito cocktail bar"
+              poster="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80"
+            >
+              <source
+                src="https://www.pexels.com/download/video/3015478/?fps=25.0&h=1920&w=1080"
+                type="video/mp4"
+              />
+            </video>
+            <img
+              src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80"
+              alt="Anteprima sito cocktail bar — drink elegante"
+              loading="lazy"
+              style="position:absolute;inset:0;z-index:1;"
+            />
+            <div class="iphone-frame__overlay" aria-hidden="true"></div>
+            <div class="iphone-frame__home"    aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="iphone-wrapper__label">
+          <div class="iphone-wrapper__nome">Pala Cocktails</div>
+          <div class="iphone-wrapper__categoria">Bar · Mixology</div>
+        </div>
+      </div>
+
+      <!-- iPhone 3 — Personal Brand / Coach -->
+      <div class="iphone-wrapper rivela ritardo-3" role="listitem">
+        <div class="iphone-frame" aria-label="Sito personal brand coach">
+
+          <div class="iphone-frame__pulsante-volume" aria-hidden="true"></div>
+          <div class="iphone-frame__pulsante-volume" aria-hidden="true"></div>
+          <div class="iphone-frame__pulsante-power"  aria-hidden="true"></div>
+          <div class="iphone-frame__notch"    aria-hidden="true"></div>
+          <div class="iphone-frame__riflesso" aria-hidden="true"></div>
+
+          <div class="iphone-frame__schermo">
+            <video
+              autoplay
+              muted
+              loop
+              playsinline
+              preload="none"
+              aria-label="Anteprima sito personal brand"
+              poster="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=80"
+            >
+              <source
+                src="https://www.pexels.com/download/video/3571264/?fps=25.0&h=1920&w=1080"
+                type="video/mp4"
+              />
+            </video>
+            <img
+              src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=80"
+              alt="Anteprima sito personal brand — professionista"
+              loading="lazy"
+              style="position:absolute;inset:0;z-index:1;"
+            />
+            <div class="iphone-frame__overlay" aria-hidden="true"></div>
+            <div class="iphone-frame__home"    aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <div class="iphone-wrapper__label">
+          <div class="iphone-wrapper__nome">Controllo Assoluto</div>
+          <div class="iphone-wrapper__categoria">Coach · Personal Brand</div>
+        </div>
+      </div>
+
+    </div><!-- fine iphone-griglia -->
+
+    <!-- Chat bubble CTA stile heyvalentin -->
+    <div class="lavori__cta-area rivela ritardo-4" aria-label="Invito all'azione">
+      <div class="chat-bubble chat-bubble--domanda" role="note">
+        💬 Vuoi un sito così anche tu?
+      </div>
+      <a
+        href="https://wa.me/39XXXXXXXXXX"
+        class="chat-bubble chat-bubble--risposta"
+        target="_blank"
+        rel="noopener"
+        aria-label="Contattami su WhatsApp"
+      >
+        Sì, voglio il mio! <span class="freccia" aria-hidden="true">↗</span>
+      </a>
     </div>
 
-    <!-- Ticker Tape Infinito (Invariato) -->
-    <div class="nastro-scorrevole">
-        <div class="testo-nastro">
-            BASTA SITI NOIOSI • DESIGN A PREZZO UNICO • IL SITO CHE SI RIPAGA DA SOLO • BASTA SITI NOIOSI • DESIGN A PREZZO UNICO • IL SITO CHE SI RIPAGA DA SOLO • 
-        </div>
-    </div>
+  </section>
 
-</section>
+    <!-- ============================================
+       SEZIONE METODO — IL PIANO D'AZIONE
+  ============================================ -->
+  <section class="metodo" id="metodo" aria-label="Il metodo di lavoro">
 
-    
+    <div class="metodo__inner">
 
+      <!-- Colonna sinistra sticky -->
+      <div class="metodo__colonna-sinistra">
+        <div class="metodo__etichetta rivela--sinistra visibile">Il Metodo</div>
+        <h2 class="metodo__titolo-grande rivela--sinistra visibile">
+          <span>Il</span>
+          <span class="oro">Piano</span>
+          <span class="outline">d'Azione.</span>
+        </h2>
+        <div class="metodo__deco rivela--sinistra visibile"></div>
+        <p class="metodo__deco-testo rivela--sinistra visibile">
+          Tre passi. Zero burocrazia.
+          Dal briefing al sito live in tempi che le agenzie
+          non potrebbero nemmeno sognare.
+        </p>
+      </div>
 
-<!-- ==========================================
-         BLOCCO 2.1: I PUNTI DI FORZA (Sticky Stacking)
-         ========================================== -->
-    <section class="sezione-punti-forza" id="punti-forza">
-        <div class="contenitore-centrato">
-            
-            <!-- CONTENITORE HEADER: Titolo + Timbro Prezzo -->
-            <div class="header-punti-forza">
-                <h2 class="titolo-sezione" style="margin-bottom: 0;">NON VENDO SITI.<br><span class="testo-vuoto">PROCURO CLIENTI.</span></h2>
-                
-                <!-- IL TIMBRO PREZZO SPOSTATO QUI -->
-                <a href="#prezzo" class="timbro-prezzo-ancora">
-                    <div class="timbro-rotante"></div>
-                    <div class="timbro-fisso">
-                        <span class="timbro-cifra">190€</span>
-                        <span class="timbro-testo">TUTTO INCLUSO</span>
-                    </div>
-                </a>
-            </div>
-            
-            
-            <div class="pila-di-carte">
-                
-                <!-- Carta 1 -->
-                <div class="carta-sticky" id="carta-1">
-                    <div class="contenuto-carta">
-                        <div class="numero-carta">01</div>
-                        <h3>RITORNO SICURO</h3>
-                        <p>Il mio sito costa 190 euro, una frazione delle agenzie blasonate, e ti basta acquisire qualche nuovo cliente grazie al sito per <strong>ripagarti</strong> l'intero investimento. Subito.</p>
-                    </div>
-                </div>
+      <!-- Colonna destra — step -->
+      <div class="metodo__colonna-destra">
 
-                <!-- Carta 2 -->
-                <div class="carta-sticky" id="carta-2">
-                    
-                    <div class="contenuto-carta">
-                        <div class="numero-carta">02</div>
-                        <h3>DESIGN CHE SPICCA</h3>
-                        <p>I tuoi concorrenti usano tutti lo stesso design vecchio e noioso. Io ti costruisco una <strong>vetrina</strong> moderna ed elegante. Quando un cliente aprirà il tuo sito, saprà che sei tu il leader locale.</p>
-                    </div>
-                </div>
-
-                <!-- Carta 3 (Carta Accento) -->
-                <div class="carta-sticky carta-accento" id="carta-3">
-                    <div class="contenuto-carta">
-                        <div class="numero-carta">03</div>
-                        <h3>ZERO RICATTI</h3>
-                        <p>Modifico la bozza come vuoi finché non sei soddisfatto. E l'anno prossimo? Il rinnovo di dominio e assistenza costa solo 70€ ed è assolutamente <strong>opzionale</strong>. Se non sei felice, sei libero.</p>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         BLOCCO 2.2: PORTFOLIO IPHONE (CSS Puro)
-         ========================================== -->
-    <section class="sezione-portfolio" id="portfolio">
-        <h2 class="titolo-sezione text-center">LE MIE MACCHINE<br>DA SOLDI</h2>
-        
-        <div class="griglia-iphone"> 
-            
-            <!-- iPhone 1 -->
-            <div class="iphone-mockup">
-                <div class="dynamic-island"></div>
-                <!-- Sostituisci il src con il tuo video MP4 -->
-                <video class="screen-video" muted playsinline loop>
-                    <source src="prova1.mp4" type="video/mp4">
-                </video>
-            </div>
-
-            <!-- iPhone 2 -->
-            <div class="iphone-mockup">
-                <div class="dynamic-island"></div>
-                <!-- Sostituisci il src con il tuo video MP4 -->
-                <video class="screen-video" muted playsinline loop>
-                    <source src="prova2.mp4" type="video/mp4">
-                </video>
-            </div>
-
-            <!-- iPhone 3 -->
-            <div class="iphone-mockup">
-                <div class="dynamic-island"></div>
-                <!-- Sostituisci il src con il tuo video MP4 -->
-                <video class="screen-video" muted playsinline loop>
-                    <source src="prova3.mp4" type="video/mp4">
-                </video>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- ==========================================
-         BLOCCO 3.1: COME FUNZIONA (Processo Animato)
-         ========================================== -->
-    <section class="sezione-processo" id="metodo">
-        <div class="contenitore-centrato griglia-processo">
-            
-            <!-- Colonna Sinistra (Sticky Title) -->
-            <div class="processo-titolo-colonna">
-                <h2 class="titolo-sezione" style="margin-bottom: 0;">IL<br>PIANO<br><span style="color: var(--colore-accento);">D'AZIONE.</span></h2>
-            </div>
-
-            <!-- Colonna Destra (Gli Step) -->
-            <div class="processo-step-colonna">
-                
-                <!-- STEP 1 -->
-                <div class="step-animato">
-                    <!-- La riga che si "disegna" -->
-                    <div class="binario-riga"><div class="riga-progresso"></div></div>
-                    
-                    <div class="step-contenuto">
-                        <div class="step-numero">01</div>
-                        <div class="step-testo">
-                            <h3>LA BOZZA VA ONLINE</h3>
-                            <p>Niente mesi di attesa. Scegliamo il dominio e in poco tempo metto online una bozza strutturata dal design sbalorditivo.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 2 -->
-                <div class="step-animato">
-                    <div class="binario-riga"><div class="riga-progresso"></div></div>
-                    
-                    <div class="step-contenuto">
-                        <div class="step-numero">02</div>
-                        <div class="step-testo">
-                            <h3>APPLICO LE MODIFICHE</h3>
-                            <p>Guardi il sito e mi chiedi le revisioni. Sposto, cambio e ottimizzo finché non guardi lo schermo e dici: "Wow, ora ci siamo".</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- STEP 3 -->
-                <div class="step-animato">
-                    <div class="binario-riga"><div class="riga-progresso"></div></div>
-                    
-                    <div class="step-contenuto">
-                        <div class="step-numero">03</div>
-                        <div class="step-testo">
-                            <h3>IL SITO È TUO. ZERO RICATTI.</h3>
-                            <p>Prima della scadenza annuale, ti propongo il rinnovo del servizio (solo 70€ compreso il dominio). Non ti va? Sei libero di andare. Nessuna clausola nascosta.</p>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <!-- ==========================================
-         BLOCCO 3.2: IL METODO (Inversione Cromatica)
-         ========================================== -->
-    <section class="sezione-metodo">
-        <div class="contenitore-centrato">
-            <h2 class="testo-gigante-metodo">
-                PERCHÉ COSTO COSÌ POCO?<br>
-                <span class="testo-barrato">NIENTE FUFFA SEO.</span><br>
-                <span class="testo-barrato">NIENTE PAGINE CHE NESSUNO LEGGE.</span><br>
-                COSTRUISCO VETRINE<br>
-                PER <span class="evidenziatore-fucsia">GUADAGNARE.</span>
-            </h2>
-            <p class="descrizione-metodo">
-                Le agenzie tradizionali ti vendono pacchetti complessi e superflui solo per alzare il prezzo. Ai tuoi clienti non serve un'enciclopedia. Serve vedere chi sei, percepire che sei un professionista top e trovare subito un bottone per contattarti. Io faccio questo: siti One-Page per ottenere fiducia e clienti. Meno tempo per me, prezzo imbattibile per te.
+        <!-- Step 01 -->
+        <article class="metodo__step rivela ritardo-1" aria-label="Step 1">
+          <div class="metodo__step-numero" aria-hidden="true">01</div>
+          <div class="metodo__step-contenuto">
+            <span class="metodo__step-tag">⚡ Velocità</span>
+            <h3 class="metodo__step-titolo">La Bozza va Online</h3>
+            <p class="metodo__step-testo">
+              Niente mesi di attesa. Scelgo il dominio e in pochi giorni
+              metto online una <strong>bozza strutturata</strong> dal design
+              sbalorditivo. La vedi, la tocchi, la mostri ai tuoi amici.
             </p>
+          </div>
+        </article>
+
+        <!-- Step 02 -->
+        <article class="metodo__step rivela ritardo-2" aria-label="Step 2">
+          <div class="metodo__step-numero" aria-hidden="true">02</div>
+          <div class="metodo__step-contenuto">
+            <span class="metodo__step-tag">✏️ Revisioni</span>
+            <h3 class="metodo__step-titolo">Applico le Modifiche</h3>
+            <p class="metodo__step-testo">
+              Guardi il sito e mi chiedi le revisioni. Sposto, cambio e
+              ottimizzo finché non guardi lo schermo e dici:
+              <strong>"Wow, ora ci siamo."</strong>
+              Nessun limite al numero di round di feedback.
+            </p>
+          </div>
+        </article>
+
+        <!-- Step 03 -->
+        <article class="metodo__step rivela ritardo-3" aria-label="Step 3">
+          <div class="metodo__step-numero" aria-hidden="true">03</div>
+          <div class="metodo__step-contenuto">
+            <span class="metodo__step-tag">🔓 Zero Vincoli</span>
+            <h3 class="metodo__step-titolo">Il Sito è Tuo. Zero Ricatti.</h3>
+            <p class="metodo__step-testo">
+              Prima della scadenza annuale, ti propongo il rinnovo del
+              servizio (<strong>solo 70€</strong> compreso il dominio).
+              Non ti va? Sei libero di andare.
+              <strong>Nessuna clausola nascosta.</strong>
+              Il codice è tuo, punto.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       SEPARATORE CAMBIO TEMA nero → crema
+  ============================================ -->
+  <div class="cambio-tema" aria-hidden="true">
+    <span class="cambio-tema__testo">· · ·</span>
+  </div>
+
+  <!-- ============================================
+       SEZIONE PERCHÉ COSTO COSÌ POCO
+  ============================================ -->
+  <section class="perche" id="perche" aria-label="Perché costo così poco">
+
+    <h2 class="perche__domanda rivela">
+      Perché Costo<br>Così Poco?
+    </h2>
+
+    <div class="perche__barrate" aria-label="Cosa non offro">
+      <span
+        class="perche__riga-barrata rivela ritardo-1"
+        data-barra="true"
+        aria-label="Niente fuffa SEO — cancellato"
+      >
+        Niente Fuffa SEO.
+      </span>
+      <span
+        class="perche__riga-barrata rivela ritardo-2"
+        data-barra="true"
+        aria-label="Niente pagine che nessuno legge — cancellato"
+      >
+        Niente Pagine Che<br>Nessuno Legge.
+      </span>
+      <span
+        class="perche__riga-barrata rivela ritardo-3"
+        data-barra="true"
+        aria-label="Niente blog inutili — cancellato"
+      >
+        Niente Blog Inutili.
+      </span>
+    </div>
+
+    <div aria-label="Cosa offro invece">
+      <span class="perche__positivo rivela ritardo-4">
+        Costruisco Vetrine<br>
+        Per <span class="oro">Guadagnare.</span>
+      </span>
+    </div>
+
+    <p class="perche__paragrafo rivela">
+      Le agenzie tradizionali ti vendono pacchetti complessi e superflui
+      solo per alzare il prezzo. Ai tuoi clienti non serve
+      un'enciclopedia. Serve
+      <span class="perche__highlight">vedere chi sei</span>,
+      percepire che sei un professionista top e trovare subito
+      un bottone per contattarti.
+      <br><br>
+      <strong>Io faccio questo:</strong> siti One-Page per ottenere fiducia
+      e clienti. Meno tempo per me, prezzo imbattibile per te.
+    </p>
+
+    <div class="perche__cta-wrap rivela ritardo-2">
+      <a
+        href="https://wa.me/39XXXXXXXXXX"
+        class="perche__cta"
+        target="_blank"
+        rel="noopener"
+        aria-label="Contattami su WhatsApp"
+      >
+        Iniziamo Ora
+        <span class="freccia" aria-hidden="true">↗</span>
+      </a>
+      <span class="perche__nota">
+        Rispondo entro poche ore · Nessun impegno
+      </span>
+    </div>
+
+  </section>
+
+  <!-- ============================================
+       DIVISORE — crema→nero
+  ============================================ -->
+  <div style="height:2px;background:linear-gradient(to right,var(--crema),var(--oro),var(--crema));" aria-hidden="true"></div>
+
+  <!-- ============================================
+       SEZIONE FAQ
+  ============================================ -->
+  <section class="faq" id="faq" aria-label="Domande frequenti">
+    <div class="faq__inner">
+
+      <!-- Intestazione sticky destra -->
+      <div class="faq__intestazione rivela--destra">
+        <div class="faq__etichetta">Hai Dubbi?</div>
+        <h2 class="faq__titolo">
+          <span class="block oro">Domande</span>
+          <span class="block">Frequenti</span>
+        </h2>
+        <div class="faq__nome-deco">
+          Ompage<br>Studio
         </div>
-    </section>
+      </div>
 
-    <!-- ==========================================
-         BLOCCO 3.3: FAQ ACCORDION BRUTALISTA
-         ========================================== -->
-    <section class="sezione-faq" id="faq">
-        <div class="contenitore-centrato">
-            <!-- Aggiunta la classe "rivela-da-destra" -->
-            <h2 class="titolo-sezione-2 rivela-da-destra">ALTRE<br>DOMANDE<br>FREQUENTI</h2>
-            
-            <div class="faq-lista">
+      <!-- Accordion -->
+      <div class="faq__lista" role="list">
 
-                <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>A chi è adatto questo servizio?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>A professionisti e attività locali che non vogliono spendere 1.000€ per un sito, e/o non hanno tempo e voglia di starci dietro, ma allo stesso tempo sanno che un sito d'impatto genera fiducia istantanea e contatti.</p>
-                </div>
-                    </div>
-                </div>
-
-                <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>Cosa avrò esattamente?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>Un sito One-Page completo, studiato su misura per il tuo settore, il dominio e l'hosting. Ti consegno un sito già montato con testi, foto e una struttura progettata per far cliccare il cliente sul tasto WhatsApp o chiamarti. Lo mettiamo online col nome che avrai scelto e a quel punto interverrò con le modifiche richieste finché non sarà perfetto. Inoltre avrai questa assistenza continua per un anno fino alla scadenza del dominio.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>Che tipo di modifiche posso chiederti?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>Alla bozza iniziale possiamo cambiare i testi, sostituire le foto, adattare la palette colori al tuo logo. Manca un servizio? Aggiungiamo una sezione. Vuoi mostrare più lavori? Inseriamo una galleria estesa. Hai attivato una nuova promozione? Creiamo un box annunci dedicato. Non stravolgiamo però la struttura del sito.</p>
-                        </div>
-                    </div>
-                </div>
-
-                            
-                <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>Ci sono costi nascosti oltre al setup?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <!-- Il trucco Grid CSS è applicato qui -->
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>Assolutamente no. Il prezzo iniziale copre la creazione del sito e le modifiche. Dopo un anno, il sito andrebbe offline senza rinnovo del dominio, perciò un mese prima della scadenza ti contatterò per il rinnovo (70€ per mantenere per un altro anno l'infrastruttura e l'assistenza). Se decidi di fermarti perchè il sito ti è sembrato inutile, non paghi nulla, il sito andrà semplicemente offline. Se vuoi gestirlo da solo o farti seguire da un'altra agenzia avrai tutto chiavi in mano in qualunque momento.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Domanda 2 -->
-                <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>Perché un sito One-Page?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>L'attenzione degli utenti sul web è di 3 secondi. Se li fai navigare tra le pagine "Chi Siamo", "Storia" e "Mission", li perdi. Una One-Page concentra tutte le tue armi migliori in una singola pagina a scorrimento, guidando l'utente dritto al pulsante WhatsApp. Inoltre è proprio eliminando il superfluo che posso offrire un prezzo così competitivo.</p>
-                        </div>
-                    </div>
-                </div>
-
-        
-
-               <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>Come funziona il supporto? E quali sono i tempi per le modifiche?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>Questo modello di business si basa sull'efficienza. Dal primo messaggio fino alla consegna finale, comunichiamo per iscritto. Non faccio call e non seguo orari d'ufficio.<br><br>
-                            Tu mi lasci scritte le tue richieste, io le metto online in 24-72 ore. Quando il sito è aggiornato, ti rispondo e puoi verificare il risultato.</p>
-                        </div>
-                    </div>
-                </div> 
-
-                <!-- Domanda 3 -->
-                <div class="faq-elemento">
-                    <div class="faq-domanda">
-                        <h3>A chi non è adatto questo servizio? E cosa NON è incluso nel servizio?</h3>
-                        <div class="faq-icona">+</div>
-                    </div>
-                    <div class="faq-risposta-wrapper">
-                        <div class="faq-risposta-interna">
-                            <p>Non faccio miracoli e non vendo fumo. Se vuoi essere al primo posto su Google, questo non è possibile senza un piano di marketing, e non mi occupo di questo. Questo sito è una vetrina di lusso da mostrare per generare fiducia e conquistare nuovi clienti, ma non tramite il posizionamento su Google. Inoltre, non sviluppo e-commerce o blog: il mio focus è al 100% sui professionisti. Infine, non puoi chiedermi di stravolgere la struttura del sito, il che significherebbe ore di lavoro (e magari peggioriamo la situazione). Ompage nasce per chi vuole un sito d'impatto, pronto in tempi record e a un prezzo fuori mercato. E per mantenere questa promessa, lavoro su strutture studiate. Per lo stesso motivo, un'email dedicata la creo solo su richiesta. Risparm(iam)o tempo e denaro.</p>
-                        </div>
-                    </div>
-                </div>
-
-
-                
-
-            
-    </section>
-
-   <!-- ==========================================
-         BLOCCO 4.1: FOOTER (The Boss CTA)
-         ========================================== -->
-    <footer class="sezione-boss-footer">
-        
-        <!-- LATO SINISTRO: AVATAR ASSOLUTO (Fuori dalla griglia) -->
-        <div class="footer-avatar">
-            <img src="immagini\e94e84d4-13b3-42f0-8980-9fdc3dd3670b_Nero_AI_Cartoonize_Photo_MiniME_Nero_AI_Background_Remover_transparent.webp" alt="Avatar Fondatore" class="avatar-immagine" id="avatar-boss">
-        </div>
-
-        <!-- LATO DESTRO: TESTI (Dentro la griglia centrata) -->
-        <div class="contenitore-centrato footer-layout">
-            <div class="footer-testo"> 
-                <h2 class="testo-gigante-footer">
-                    PRONTI A<br>DOMINARE IL<br>MERCATO?
-                </h2> 
-                
-                <!-- Bottone Offset Brutalista -->
-                <a href="https://wa.me/tuonumero" class="bottone-offset" target="_blank">
-                    <span class="testo-bottone">SCRIVIMI ORA ↗</span>
-                </a>
-
-                <!-- Link Legali e Copia Email -->
-                <div class="link-legali">
-                    <span class="dettaglio-legale">Ompage di Veronica Gandiglio - P.IVA 1234567890</span><br>
-                    <span class="dettaglio-legale copia-email-footer" onclick="copiaEmailFooter()">ciao@ompage.it</span>
-<!-- ==========================================
-                     LINK SOCIAL BRUTALISTI
-                     ========================================== -->
-                <div class="social-brutalisti">
-                    <a href="URL_DEL_TUO_INSTAGRAM" target="_blank" class="social-stamp stamp-ig">INSTAGRAM ↗</a>
-                    <a href="URL_DEL_TUO_FACEBOOK" target="_blank" class="social-stamp stamp-fb">FACEBOOK ↗</a>
-                </div> 
-                    <div class="lista-link-privacy">
-                        <button class="apri-modale" data-target="modale-termini">Termini e Condizioni</button>
-                        <button class="apri-modale" data-target="modale-privacy">Privacy Policy</button>
-                        <button class="apri-modale" data-target="modale-cookie">Cookie Policy</button>
-                    </div>
-                </div>
+        <div class="faq__item" role="listitem">
+          <button
+            class="faq__domanda"
+            aria-expanded="false"
+            aria-controls="faq-risposta-1"
+          >
+            <span class="faq__domanda-testo">
+              A chi è adatto questo servizio?
+            </span>
+            <span class="faq__icona" aria-hidden="true"></span>
+          </button>
+          <div class="faq__risposta" id="faq-risposta-1" role="region">
+            <div class="faq__risposta-inner">
+              Perfetto per <strong>artigiani, ristoratori, estetiste,
+              personal trainer, avvocati, psicologi, fotografi</strong>
+              e qualsiasi professionista locale che vuole una presenza
+              online degna del suo talento. Se vendi un servizio e hai
+              bisogno che i clienti ti trovino e si fidino di te
+              al primo click, sei nel posto giusto.
             </div>
-        </div> 
-
-    </footer>
-
-    <!-- ==========================================
-         BLOCCO 4.2: INFRASTRUTTURA LEGALE (Modali)
-         ========================================== -->
-    
-    <!-- Sfondo scuro per le modali -->
-    <div class="overlay-modale" id="overlay"></div>
-
-    <!-- Modale Privacy Policy -->
-    <div class="modale-legale" id="modale-privacy">
-        <div class="modale-header">
-            <h3>PRIVACY POLICY</h3>
-            <button class="chiudi-modale">&times;</button>
+          </div>
         </div>
-        <div class="modale-corpo">
-            <p><strong>INFORMATIVA SUL TRATTAMENTO DEI DATI PERSONALI</strong><br>In questa sezione inserirai i testi della tua Privacy Policy. Essendo una vetrina senza form di contatto (usi WhatsApp direttamente), il tracciamento dei dati è quasi nullo. Assicurati di specificare come gestisci i dati se i clienti ti contattano via email o WhatsApp.</p>
-            <p>I dati non verranno mai ceduti a terzi o usati per profilazione aggressiva. Siamo sviluppatori, non spie.</p>
+
+        <div class="faq__item" role="listitem">
+          <button
+            class="faq__domanda"
+            aria-expanded="false"
+            aria-controls="faq-risposta-2"
+          >
+            <span class="faq__domanda-testo">
+              Cosa avrò esattamente?
+            </span>
+            <span class="faq__icona" aria-hidden="true"></span>
+          </button>
+          <div class="faq__risposta" id="faq-risposta-2" role="region">
+            <div class="faq__risposta-inner">
+              Ricevi un <strong>sito One-Page in HTML/CSS/JS puro</strong>
+              — velocissimo, senza dipendenze da piattaforme terze.
+              Include: dominio .it o .com per un anno, hosting incluso,
+              design completamente personalizzato, ottimizzazione mobile,
+              cookie banner, form di contatto via WhatsApp e
+              <strong>tutte le revisioni</strong> che vuoi fino alla
+              tua soddisfazione.
+            </div>
+          </div>
         </div>
+
+        <div class="faq__item" role="listitem">
+          <button
+            class="faq__domanda"
+            aria-expanded="false"
+            aria-controls="faq-risposta-3"
+          >
+            <span class="faq__domanda-testo">
+              Che tipo di modifiche posso chiederti?
+            </span>
+            <span class="faq__icona" aria-hidden="true"></span>
+          </button>
+          <div class="faq__risposta" id="faq-risposta-3" role="region">
+            <div class="faq__risposta-inner">
+              Qualsiasi cosa: <strong>testi, colori, immagini,
+              struttura delle sezioni, animazioni</strong>, aggiunta di
+              sezioni nuove, cambi di font, palette colori. Non esiste
+              una richiesta troppo piccola o troppo grande. L'obiettivo
+              è che tu sia orgoglioso di mostrare il sito.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button
+            class="faq__domanda"
+            aria-expanded="false"
+            aria-controls="faq-risposta-4"
+          >
+            <span class="faq__domanda-testo">
+              Ci sono costi nascosti oltre al setup?
+            </span>
+            <span class="faq__icona" aria-hidden="true"></span>
+          </button>
+          <div class="faq__risposta" id="faq-risposta-4" role="region">
+            <div class="faq__risposta-inner">
+              <strong>Zero costi nascosti.</strong> Paghi 250€ una volta
+              sola e il sito è live per un anno, dominio e hosting
+              inclusi. Alla scadenza annuale ti propongo il rinnovo a
+              <strong>soli 70€</strong> (dominio + hosting). Non ti
+              interessa rinnovare? Il codice è tuo, puoi portarlo
+              dove vuoi. Nessuna penale.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button
+            class="faq__domanda"
+            aria-expanded="false"
+            aria-controls="faq-risposta-5"
+          >
+            <span class="faq__domanda-testo">
+              Perché un sito One-Page?
+            </span>
+            <span class="faq__icona" aria-hidden="true"></span>
+          </button>
+          <div class="faq__risposta" id="faq-risposta-5" role="region">
+            <div class="faq__risposta-inner">
+              Perché <strong>funziona</strong>. I visitatori hanno
+              l'attenzione di un pesce rosso: o li colpisci in 3 secondi
+              o li perdi. Un sito One-Page concentra tutto il necessario
+              in un'unica esperienza fluida e potente, senza dispersione.
+              Le pagine multiple servono agli e-commerce e ai colossi.
+              Tu hai bisogno di <strong>impatto immediato</strong>.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button
+            class="faq__domanda"
+            aria-expanded="false"
+            aria-controls="faq-risposta-6"
+          >
+            <span class="faq__domanda-testo">
+              Come funziona il supporto? Quali sono i tempi?
+            </span>
+            <span class="faq__icona" aria-hidden="true"></span>
+          </button>
+          <div class="faq__risposta" id="faq-risposta-6" role="region">
+            <div class="faq__risposta-inner">
+              Tutto via <strong>WhatsApp</strong>, senza ticket,
+              senza attese infinite. La bozza è pronta entro
+              <strong>5-7 giorni</strong> lavorativi dal briefing.
+              Le modifiche vengono applicate entro 24-48 ore.
+              Sono una persona sola, il che significa comunicazione
+              diretta, nessun passaggio di consegne e
+              <strong>zero burocrazia</strong>.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq__item" role="listitem">
+          <button
+            class="faq__domanda"
+            aria-expanded="false"
+            aria-controls="faq-risposta-7"
+          >
+            <span class="faq__domanda-testo">
+              A chi non è adatto? Cosa non è incluso?
+            </span>
+            <span class="faq__icona" aria-hidden="true"></span>
+          </button>
+          <div class="faq__risposta" id="faq-risposta-7" role="region">
+            <div class="faq__risposta-inner">
+              Non faccio <strong>e-commerce</strong>, siti multipagina
+              complessi, gestionali o piattaforme SaaS. Non è incluso:
+              copywriting professionale (ti aiuto a strutturarlo ma i
+              testi li fornisci tu), fotografie professionali,
+              campagne pubblicitarie o gestione social.
+              Se hai bisogno di tutto questo, probabilmente hai
+              bisogno di un'agenzia — e di un budget molto più grande.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================
+       DIVISORE
+  ============================================ -->
+  <div class="divisore" aria-hidden="true"></div>
+
+  <!-- ============================================
+       SEZIONE CTA FINALE
+  ============================================ -->
+  <section
+    class="cta-finale"
+    id="contatti"
+    aria-label="Contatti e chiamata all'azione"
+  >
+    <!-- Foto polaroid -->
+    <div class="cta-finale__polaroid-wrap rivela--sinistra">
+      <div class="cta-finale__polaroid">
+        <div class="cta-finale__nastro" aria-hidden="true"></div>
+        <img
+          src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&q=85"
+          alt="Foto del designer — da sostituire con foto reale"
+          class="cta-finale__polaroid-img"
+          loading="lazy"
+        />
+        <span class="cta-finale__polaroid-caption">sono io, ciao! 👋</span>
+      </div>
     </div>
 
-    <!-- Modale Cookie Policy -->
-    <div class="modale-legale" id="modale-cookie">
-        <div class="modale-header">
-            <h3>COOKIE POLICY</h3>
-            <button class="chiudi-modale">&times;</button>
-        </div>
-        <div class="modale-corpo">
-            <p><strong>INFORMATIVA SUI COOKIE</strong><br>Questo sito è costruito per essere una macchina da guerra. Non usiamo script di profilazione invadenti, non ti seguiamo su Facebook e non usiamo Pixel di terze parti.</p>
-            <p>Utilizziamo ESCLUSIVAMENTE cookie tecnici necessari per il corretto funzionamento dell'interfaccia (come ad esempio ricordare se hai chiuso il banner dei cookie). Navigando su questo sito, accetti l'uso di questi cookie tecnici.</p>
-        </div>
+    <!-- Testo + CTA -->
+    <div class="cta-finale__contenuto rivela--destra">
+      <h2 class="cta-finale__titolo">
+        <span class="block">Pronti a</span>
+        <span class="block oro">Dominare</span>
+        <span class="block">il Mercato?</span>
+      </h2>
+      <p class="cta-finale__sottotitolo">
+        Scrivimi su WhatsApp adesso.
+        <strong>Rispondo entro poche ore</strong> e in pochi giorni
+        la tua vetrina digitale è online.
+        Nessun form, nessuna attesa, nessuna burocrazia.
+      </p>
+      <a
+        href="https://wa.me/39XXXXXXXXXX"
+        class="cta-finale__wa"
+        target="_blank"
+        rel="noopener"
+        aria-label="Contattami su WhatsApp"
+      >
+        <span class="cta-finale__wa-icona" aria-hidden="true">💬</span>
+        Scrivimi su WhatsApp
+        <span class="freccia" aria-hidden="true">↗</span>
+      </a>
     </div>
+  </section>
 
-    <!-- ==========================================
-         MODALE TERMINI E CONDIZIONI (Accordo)
-         ========================================== -->
-    <div class="modale-legale" id="modale-termini">
-        <div class="modale-header">
-            <h3>TERMINI E CONDIZIONI</h3>
-            <button class="chiudi-modale">&times;</button>
+  <!-- ============================================
+       FOOTER
+  ============================================ -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer__inner">
+
+      <div class="footer__linea" aria-hidden="true"></div>
+
+      <!-- Brand -->
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <span class="footer__logo-simbolo">ॐ</span>
+          PAGE
         </div>
-        <div class="modale-corpo">
-            <p><strong>1. PATTI CHIARI, SITI STUPENDI</strong><br>
-            L'acquisto di un sito web "Ompage" comprende il design, la strutturazione e la messa online di una Landing Page ad alta conversione. Non sono inclusi servizi di SEO tecnica continuativa o redazione di articoli blog.</p>
-            
-            <p><strong>2. MODIFICHE INFINITE E APPROVAZIONE</strong><br>
-            Il Cliente ha diritto a modifiche illimitate durante la fase di "Bozza". Il lavoro si intende completato e approvato nel momento in cui il Cliente dà il consenso per la messa online definitiva (Go-Live) sul dominio scelto.</p>
-            
-            <p><strong>3. RINNOVO NON OBBLIGATORIO (Zero Ricatti)</strong><br>
-            Il primo anno di hosting e dominio è incluso. Dal secondo anno, il costo per il mantenimento online dell'infrastruttura è di 100€/anno. Il rinnovo <strong>non è un abbonamento vincolante</strong>: un mese prima della scadenza, sarai libero di decidere se rinnovare o lasciar spegnere il sito. Senza penali.</p>
-
-            <p><strong>4. DIRITTO DI RECESSO</strong><br>
-            Trattandosi di un contratto B2B (tra professionisti/aziende) per la fornitura di un bene digitale confezionato su misura (Art. 59 Codice del Consumo), <strong>il diritto di recesso non è applicabile</strong> una volta iniziato il lavoro di design e/o acquistato il dominio per conto del Cliente.</p>
+        <div class="footer__info">
+          Ompage di Veronica Gandiglio<br>
+          P.IVA 12345678910<br>
+          <a href="mailto:ciao@ompage.it">ciao@ompage.it</a>
         </div>
-    </div>
+      </div>
 
-    <!-- ==========================================
-         BLOCCO 4.3: COOKIE BANNER (Solo Tecnici)
-         ========================================== -->
-    <div class="banner-cookie" id="banner-cookie">
-        <p><strong>NESSUN TRACCIAMENTO.</strong> Questo sito utilizza solo cookie tecnici strettamente necessari al suo funzionamento. Niente profilazione, niente noie.</p>
-        <button id="accetta-cookie" class="bottone-primario" style="padding: 10px 20px; font-size: 0.8rem;">HO CAPITO</button>
-    </div>
+      <!-- Social -->
+      <div class="footer__social">
+        <a
+          href="https://instagram.com"
+          class="footer__social-tasto"
+          target="_blank"
+          rel="noopener"
+          aria-label="Seguimi su Instagram"
+        >
+          Instagram ↗
+        </a>
+        <a
+          href="https://facebook.com"
+          class="footer__social-tasto"
+          target="_blank"
+          rel="noopener"
+          aria-label="Seguimi su Facebook"
+        >
+          Facebook ↗
+        </a>
+        <a
+          href="https://wa.me/39XXXXXXXXXX"
+          class="footer__social-tasto"
+          target="_blank"
+          rel="noopener"
+          aria-label="Contattami su WhatsApp"
+        >
+          WhatsApp ↗
+        </a>
+      </div>
 
+      <!-- Legali -->
+      <div class="footer__legali">
+        <div class="footer__legali-links">
+          <a
+            href="#"
+            data-modale="termini"
+            aria-label="Apri Termini e Condizioni"
+          >
+            Termini e Condizioni
+          </a>
+          <a
+            href="#"
+            data-modale="privacy"
+            aria-label="Apri Privacy Policy"
+          >
+            Privacy Policy
+          </a>
+          <a
+            href="#"
+            data-modale="cookie"
+            aria-label="Apri Cookie Policy"
+          >
+            Cookie Policy
+          </a>
+        </div>
+        <div class="footer__copyright">
+          © 2025 Ompage — Tutti i diritti riservati
+        </div>
+      </div>
+
+    </div>
+  </footer>
+
+  <!-- ============================================
+       COOKIE BANNER
+  ============================================ -->
+  <div
+    class="cookie-banner"
+    id="cookieBanner"
+    role="dialog"
+    aria-label="Consenso cookie"
+    aria-modal="true"
+  >
+    <p class="cookie-banner__testo">
+      <strong>Questo sito usa i cookie 🍪</strong><br>
+      Utilizziamo cookie tecnici per il funzionamento del sito e,
+      con il tuo consenso, cookie analitici per migliorare
+      l'esperienza. Leggi la
+      <a href="#" data-modale="cookie">Cookie Policy</a>.
+    </p>
+    <div class="cookie-banner__bottoni">
+      <button class="cookie-banner__accetta" id="cookieAccetta">
+        Accetto tutto
+      </button>
+      <button class="cookie-banner__rifiuta" id="cookieRifiuta">
+        Solo necessari
+      </button>
+    </div>
+  </div>
+
+  <!-- ============================================
+       MODALI
+  ============================================ -->
+
+  <!-- Modale Termini -->
+  <div
+    class="modale-overlay"
+    id="modale-termini"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modale-termini-titolo"
+  >
+    <div class="modale">
+      <button class="modale__chiudi" data-chiudi="termini" aria-label="Chiudi">✕</button>
+      <h2 class="modale__titolo" id="modale-termini-titolo">
+        Termini e <span class="oro">Condizioni</span>
+      </h2>
+      <div class="modale__testo">
+        <h3>Servizio Offerto</h3>
+        <p>Ompage fornisce servizi di progettazione e sviluppo di siti web
+        One-Page in HTML/CSS/JS per professionisti e attività locali.
+        Il prezzo di 250€ include design, sviluppo, dominio e hosting
+        per 12 mesi.</p>
+        <div class="modale__separatore"></div>
+        <h3>Revisioni e Consegna</h3>
+        <p>Il cliente ha diritto a <strong>revisioni illimitate</strong>
+        fino alla propria soddisfazione. I tempi di consegna della
+        bozza sono di 5-7 giorni lavorativi. Le modifiche successive
+        vengono applicate entro 24-48 ore dalla richiesta.</p>
+        <div class="modale__separatore"></div>
+        <h3>Rinnovo Annuale</h3>
+        <p>Il rinnovo del servizio (hosting + dominio) è proposto
+        annualmente a <strong>70€</strong> ed è completamente opzionale.
+        Il cliente può richiedere il trasferimento del codice in qualsiasi
+        momento senza penali.</p>
+        <div class="modale__separatore"></div>
+        <h3>Proprietà Intellettuale</h3>
+        <p>Il codice del sito diventa di proprietà del cliente al
+        completamento del pagamento. Ompage si riserva il diritto di
+        mostrare il lavoro nel proprio portfolio, salvo diverso accordo.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Privacy -->
+  <div
+    class="modale-overlay"
+    id="modale-privacy"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modale-privacy-titolo"
+  >
+    <div class="modale">
+      <button class="modale__chiudi" data-chiudi="privacy" aria-label="Chiudi">✕</button>
+      <h2 class="modale__titolo" id="modale-privacy-titolo">
+        Privacy <span class="oro">Policy</span>
+      </h2>
+      <div class="modale__testo">
+        <h3>Titolare del Trattamento</h3>
+        <p>Ompage di Veronica Gandiglio — P.IVA 12345678910<br>
+        Email: <strong>ciao@ompage.it</strong></p>
+        <div class="modale__separatore"></div>
+        <h3>Dati Raccolti</h3>
+        <p>Questo sito non raccoglie dati personali tramite form.
+        Il contatto avviene esclusivamente via WhatsApp.
+        I dati tecnici di navigazione (indirizzo IP, browser,
+        pagine visitate) possono essere raccolti dall'hosting
+        a fini di sicurezza.</p>
+        <div class="modale__separatore"></div>
+        <h3>Cookie</h3>
+        <p>Utilizziamo esclusivamente cookie tecnici necessari
+        al funzionamento del sito. Non utilizziamo cookie di
+        profilazione o tracciamento di terze parti.</p>
+        <div class="modale__separatore"></div>
+        <h3>I Tuoi Diritti</h3>
+        <p>Hai il diritto di accedere, rettificare o cancellare
+        i tuoi dati in qualsiasi momento. Per esercitare questi
+        diritti scrivi a <strong>ciao@ompage.it</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modale Cookie Policy -->
+  <div
+    class="modale-overlay"
+    id="modale-cookie"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modale-cookie-titolo"
+  >
+    <div class="modale">
+      <button class="modale__chiudi" data-chiudi="cookie" aria-label="Chiudi">✕</button>
+      <h2 class="modale__titolo" id="modale-cookie-titolo">
+        Cookie <span class="oro">Policy</span>
+      </h2>
+      <div class="modale__testo">
+        <h3>Cosa Sono i Cookie</h3>
+        <p>I cookie sono piccoli file di testo salvati nel tuo
+        browser quando visiti un sito web. Servono a far funzionare
+        il sito correttamente e a ricordare le tue preferenze.</p>
+        <div class="modale__separatore"></div>
+        <h3>Cookie Tecnici (Necessari)</h3>
+        <ul>
+          <li><strong>cookie_consent</strong> — Salva la tua scelta
+          sul consenso cookie. Durata: 365 giorni.</li>
+        </ul>
+        <div class="modale__separatore"></div>
+        <h3>Cookie Analitici (Opzionali)</h3>
+        <p>Potremmo utilizzare strumenti di analisi anonima
+        per capire come i visitatori usano il sito. Questi
+        cookie sono attivati solo con il tuo esplicito consenso.</p>
+        <div class="modale__separatore"></div>
+        <h3>Come Gestire i Cookie</h3>
+        <p>Puoi modificare le tue preferenze in qualsiasi momento
+        tramite le impostazioni del tuo browser o contattandoci
+        a <strong>ciao@ompage.it</strong>.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ============================================
+       DIVISORE
+  ============================================ -->
+  <div class="divisore" aria-hidden="true"></div>
+
+  <!-- ============================================
+       DIVISORE GRAFICO DOPPIO
+  ============================================ -->
+  <div class="divisore" aria-hidden="true"></div>
+
+  <!-- ============================================
+       JAVASCRIPT — HERO & NAV
+  ============================================ -->
     <script>
+    /* -------------------------------------------
+       1. CURSORE MAGNETICO CUSTOM
+    ------------------------------------------- */
+    (function() {
+      const cursore = document.getElementById('cursore');
+      const anello  = document.getElementById('cursoreAnello');
+      if (!cursore || !anello) return;
 
-// ==========================================
-// 1. LOGICA CURSORE CUSTOM (Inversione)
-// ==========================================
-const cursore = document.querySelector('.cursore-inversione');
-const elementiInterattivi = document.querySelectorAll('a, .bottone-primario, .bottone-mobile-fisso, .nav-links a, .copia-email-header, .faq-domanda');
+      let mouseX = 0, mouseY = 0;
+      let anelloX = 0, anelloY = 0;
 
-if (window.innerWidth > 992) {
-    window.addEventListener('mousemove', (e) => {
-        cursore.style.left = e.clientX + 'px';
-        cursore.style.top = e.clientY + 'px';
-    });
+      document.addEventListener('mousemove', (e) => {
+        mouseX = e.clientX;
+        mouseY = e.clientY;
+        cursore.style.left = mouseX + 'px';
+        cursore.style.top  = mouseY + 'px';
+      });
 
-    elementiInterattivi.forEach(elemento => {
-        elemento.addEventListener('mouseenter', () => {
-            cursore.style.width = '80px';
-            cursore.style.height = '80px';
-        });
-        
-        elemento.addEventListener('mouseleave', () => {
-            cursore.style.width = '40px';
-            cursore.style.height = '40px';
-        });
-    });
-}
+      function animaAnello() {
+        anelloX += (mouseX - anelloX) * 0.12;
+        anelloY += (mouseY - anelloY) * 0.12;
+        anello.style.left = anelloX + 'px';
+        anello.style.top  = anelloY + 'px';
+        requestAnimationFrame(animaAnello);
+      }
+      animaAnello();
 
-// ==========================================
-// 2. LOGICA VIDEO PORTFOLIO (Intersection Observer)
-// ==========================================
-const videoPortfolio = document.querySelectorAll('.screen-video');
-let videoObserver = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.play();
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button, .vantaggio-card, .iphone-frame')) {
+          cursore.classList.add('espanso');
+          anello.classList.add('espanso');
         } else {
-            entry.target.pause();
+          cursore.classList.remove('espanso');
+          anello.classList.remove('espanso');
         }
-    });
-}, { threshold: 0.3 });
+      });
+    })();
 
-videoPortfolio.forEach(video => {
-    videoObserver.observe(video);
-});
+    /* -------------------------------------------
+       2. NAV — SCROLL + HAMBURGER
+    ------------------------------------------- */
+    (function() {
+      const nav       = document.getElementById('nav');
+      const hamburger = document.getElementById('hamburger');
+      const navLinks  = document.getElementById('navLinks');
 
-// ==========================================
-// 3. LOGICA FAQ ACCORDION  
-// ==========================================
-const faqElementi = document.querySelectorAll('.faq-elemento');
-faqElementi.forEach(elemento => {
-    const domanda = elemento.querySelector('.faq-domanda');
-    domanda.addEventListener('click', () => {
-        const eraGiaAttivo = elemento.classList.contains('attivo');
-        faqElementi.forEach(faq => faq.classList.remove('attivo'));
-        if (!eraGiaAttivo) {
-            elemento.classList.add('attivo');
-        }
-    });
-});
+      window.addEventListener('scroll', () => {
+        nav.classList.toggle('scrollata', window.scrollY > 60);
+      }, { passive: true });
 
-// ==========================================
-        // LOGICA SCROLL: ACCENSIONE DEGLI STEP
-        // ==========================================
-        const steps = document.querySelectorAll('.step-animato');
+      hamburger.addEventListener('click', () => {
+        const aperto = hamburger.classList.toggle('aperto');
+        navLinks.classList.toggle('aperto');
+        hamburger.setAttribute('aria-expanded', aperto);
+        document.body.style.overflow = aperto ? 'hidden' : '';
+      });
 
-        // Configuriamo l'osservatore
-        const stepObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    // Quando lo step entra nell'area trigger, accendilo
-                    entry.target.classList.add('attivo');
-                }
-            });
-        }, {
-            // rootMargin: Il trucco per mobile.
-            // Dice al browser: "Fai scattare l'animazione solo quando l'elemento
-            // è al centro dello schermo (ignorando il 20% in alto e il 20% in basso)"
-            // Così l'utente vede l'animazione accendersi proprio mentre legge!
-            rootMargin: "-20% 0px -20% 0px",
-            threshold: 0
+      navLinks.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+          hamburger.classList.remove('aperto');
+          navLinks.classList.remove('aperto');
+          hamburger.setAttribute('aria-expanded', 'false');
+          document.body.style.overflow = '';
         });
+      });
+    })();
 
-        // Applichiamo l'osservatore a ogni step
-        steps.forEach(step => {
-            stepObserver.observe(step);
+    /* -------------------------------------------
+       3. PARALLAX HERO BAGLIORE
+    ------------------------------------------- */
+    (function() {
+      const b1 = document.querySelector('.hero__bagliore');
+      const b2 = document.querySelector('.hero__bagliore-2');
+      if (!b1 || !b2) return;
+      document.addEventListener('mousemove', (e) => {
+        const px = (e.clientX / window.innerWidth  - 0.5) * 30;
+        const py = (e.clientY / window.innerHeight - 0.5) * 30;
+        b1.style.transform = `translate(${px}px, ${py}px)`;
+        b2.style.transform = `translate(${-px * 0.6}px, ${-py * 0.6}px)`;
+      });
+    })();
+
+    /* -------------------------------------------
+       4. INTERSECTION OBSERVER — REVEAL
+    ------------------------------------------- */
+    (function() {
+      const els = document.querySelectorAll(
+        '.rivela, .rivela--sinistra, .rivela--destra'
+      );
+      if (!els.length) return;
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            e.target.classList.add('visibile');
+            obs.unobserve(e.target);
+          }
         });
+      }, { rootMargin: '0px 0px -80px 0px', threshold: 0.08 });
 
-// ==========================================
-// 5. LOGICA MODALI (Privacy / Cookie)
-// ==========================================
-const bottoniApriModale = document.querySelectorAll('.apri-modale');
-const bottoniChiudiModale = document.querySelectorAll('.chiudi-modale');
-const overlay = document.getElementById('overlay');
+      els.forEach(el => obs.observe(el));
+    })();
 
-function chiudiTutteLeModali() {
-    document.querySelectorAll('.modale-legale').forEach(modale => modale.classList.remove('attivo'));
-    overlay.classList.remove('attivo');
-} 
-
-bottoniApriModale.forEach(bottone => {
-    bottone.addEventListener('click', () => {
-        const targetId = bottone.getAttribute('data-target');
-        document.getElementById(targetId).classList.add('attivo');
-        overlay.classList.add('attivo');
-    });
-});
-
-bottoniChiudiModale.forEach(bottone => bottone.addEventListener('click', chiudiTutteLeModali));
-overlay.addEventListener('click', chiudiTutteLeModali);
-
-// ==========================================
-// 6. LOGICA COOKIE BANNER
-// ==========================================
-const bannerCookie = document.getElementById('banner-cookie');
-const bottoneAccettaCookie = document.getElementById('accetta-cookie');
-
-if (!localStorage.getItem('cookieAccettati_Ompage')) {
-    setTimeout(() => { bannerCookie.classList.add('visibile'); }, 2000);
-}
-
-bottoneAccettaCookie.addEventListener('click', () => {
-    bannerCookie.classList.remove('visibile');
-    localStorage.setItem('cookieAccettati_Ompage', 'true');
-});
-
-// ==========================================
-// 7. PARALLASSE AVATAR & COPIA EMAIL
-// ==========================================
-
-
-function copiaEmailHeader() {
-    const emailDaCopiare = "ciao@ompage.it"; 
-    const spanEmail = document.querySelector('.copia-email-header');
-    navigator.clipboard.writeText(emailDaCopiare).then(() => {
-        const testoOriginale = spanEmail.innerText;
-        spanEmail.innerText = "COPIATA!";
-        spanEmail.style.color = "var(--colore-accento)"; 
-        setTimeout(() => {
-            spanEmail.innerText = testoOriginale;
-            spanEmail.style.color = "#888";
-        }, 2000);
-    });
-}
-
-// ==========================================
-        // LOGICA ANIMAZIONE: TITOLO FAQ (Slide In)
-        // ==========================================
-        
-        // 1. Selezioniamo SOLO gli elementi con la classe .rivela-da-destra
-        const titoloFaq = document.querySelectorAll('.rivela-da-destra');
-
-        // 2. Creiamo un Observer dedicato ESCLUSIVAMENTE a questa animazione
-        const observerTitoloFaq = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                // Se il titolo entra nello schermo visibile...
-                if (entry.isIntersecting) {
-                    // Aggiungiamo la classe che fa partire l'animazione CSS
-                    entry.target.classList.add('animazione-conclusa');
-                    
-                    // Fondamentale: Smettiamo di osservarlo. 
-                    // Vogliamo che l'animazione entri una volta sola e resti lì.
-                    observer.unobserve(entry.target); 
-                }
-            });
-        }, {
-            // Trigger: L'animazione parte quando l'elemento supera il 10% inferiore dello schermo
-            // Questo dà all'utente il tempo di capire che c'è qualcosa che sta entrando
-            rootMargin: "0px 0px -10% 0px",
-            threshold: 0
+    /* -------------------------------------------
+       5. TILT 3D CARD
+    ------------------------------------------- */
+    (function() {
+      const cards = document.querySelectorAll('.vantaggio-card');
+      const forza = 6;
+      cards.forEach(card => {
+        card.addEventListener('mousemove', (e) => {
+          const r  = card.getBoundingClientRect();
+          const px = (e.clientX - r.left - r.width  / 2) / (r.width  / 2);
+          const py = (e.clientY - r.top  - r.height / 2) / (r.height / 2);
+          card.style.transform =
+            `translateX(6px) perspective(800px) rotateX(${-py*forza}deg) rotateY(${px*forza}deg)`;
         });
-
-        // 3. Attiviamo l'observer sul titolo
-        titoloFaq.forEach(titolo => {
-            observerTitoloFaq.observe(titolo);
+        card.addEventListener('mouseleave', () => {
+          card.style.transition = 'transform 0.6s cubic-bezier(0.16,1,0.3,1)';
+          card.style.transform  = '';
+          setTimeout(() => { card.style.transition = ''; }, 600);
         });
+      });
+    })();
 
-// ==========================================
-        // LOGICA COPIA EMAIL FOOTER
-        // ==========================================
-        function copiaEmailFooter() {
-            const emailDaCopiare = "ciao@ompage.it"; 
-            const spanEmail = document.querySelector('.copia-email-footer');
-            
-            navigator.clipboard.writeText(emailDaCopiare).then(() => {
-                const testoOriginale = spanEmail.innerText;
-                spanEmail.innerText = "COPIATA!";
-                spanEmail.style.color = "var(--colore-accento)"; 
-                
-                setTimeout(() => {
-                    spanEmail.innerText = testoOriginale;
-                    spanEmail.style.color = "#888";
-                }, 2000);
-            });
-        }
-
-        // Se sei su desktop, fai ingrandire il cursore custom 
-        // anche sui bottoni e link del footer
-        if (window.innerWidth > 992) {
-            const elementiFooter = document.querySelectorAll('.bottone-offset, .copia-email-footer, .apri-modale');
-            
-            elementiFooter.forEach(elemento => {
-                elemento.addEventListener('mouseenter', () => {
-                    cursore.style.width = '80px';
-                    cursore.style.height = '80px';
-                });
-                
-                elemento.addEventListener('mouseleave', () => {
-                    cursore.style.width = '40px';
-                    cursore.style.height = '40px';
-                });
-            });
-        }
-
-        // ==========================================
-        // LOGICA MENU HAMBURGER (Mobile)
-        // ==========================================
-        const btnHamburger = document.getElementById('btn-hamburger');
-        const menuOverlay = document.getElementById('menu-overlay');
-        const linkMobiles = document.querySelectorAll('.link-mobile'); // Tutti i link nel menu
-
-        // 1. Apri/Chiudi cliccando l'icona
-        btnHamburger.addEventListener('click', () => {
-            btnHamburger.classList.toggle('aperto'); // Trasforma hamburger in X
-            menuOverlay.classList.toggle('aperto');  // Mostra/Nascondi l'overlay nero
-            
-            // Blocca lo scroll del sito in background quando il menu è aperto
-            if(menuOverlay.classList.contains('aperto')) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = 'auto';
-            }
-        });
-
-        // 2. Chiudi il menu automaticamente quando clicco un link (es. Vantaggi)
-        linkMobiles.forEach(link => {
-            link.addEventListener('click', () => {
-                btnHamburger.classList.remove('aperto');
-                menuOverlay.classList.remove('aperto');
-                document.body.style.overflow = 'auto'; // Riattiva lo scroll
-            });
-        });
-
-        // ==========================================
-// LOGICA APPARIZIONE TESTO SEQUENZIALE
-// ==========================================
-const pMetodo = document.querySelector('.descrizione-metodo');
-if (pMetodo) {
-    // Salviamo il testo originale e lo svuotiamo
-    const testoOriginale = pMetodo.innerText;
-    pMetodo.innerHTML = '';
-    
-    // Dividiamo il testo in singole parole e creiamo gli span
-    const parole = testoOriginale.split(' ');
-    parole.forEach((parola, index) => {
-        let span = document.createElement('span');
-        span.innerText = parola;
-        span.className = 'parola-animata';
-        // Calcoliamo un ritardo incrementale per ogni parola (30 millisecondi)
-        span.style.transitionDelay = `${index * 0.03}s`;
-        pMetodo.appendChild(span);
-    });
-
-    // Observer per far partire l'animazione
-    const observerParole = new IntersectionObserver((entries) => {
+    /* -------------------------------------------
+       6. IPHONE VIDEO LAZY
+    ------------------------------------------- */
+    (function() {
+      const videos = document.querySelectorAll('.iphone-frame__schermo video');
+      if (!videos.length) return;
+      const obs = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const spans = entry.target.querySelectorAll('.parola-animata');
-                spans.forEach(span => span.classList.add('visibile'));
-                observerParole.unobserve(entry.target);
-            }
+          const v = entry.target;
+          if (entry.isIntersecting) {
+            v.play().then(() => {
+              const img = v.parentElement.querySelector('img');
+              if (img) img.style.opacity = '0';
+            }).catch(() => {});
+          } else {
+            v.pause();
+          }
         });
-    }, { rootMargin: "0px 0px -15% 0px" });
+      }, { threshold: 0.3 });
+      videos.forEach(v => obs.observe(v));
+    })();
 
-    observerParole.observe(pMetodo);
-}
-
-// ==========================================
-        // LOGICA SCROLL: CARTE CHE SI IMPILANO (3D Stacking)
-        // ==========================================
-        const cards = document.querySelectorAll('.carta-sticky');
-        
-        // Eseguiamo l'effetto solo su Desktop (su mobile le carte sono normali)
-        if (window.innerWidth > 992) {
-            window.addEventListener('scroll', () => {
-                cards.forEach((card, index) => {
-                    const rect = card.getBoundingClientRect();
-                    
-                    // La prima carta si blocca a 120px dal top (come da tuo CSS)
-                    const triggerPoint = 120 + (index * 20); 
-                    
-                    // Se la carta tocca il punto di blocco o lo supera...
-                    if (rect.top <= triggerPoint) {
-                        // Calcola quanto rimpicciolirla in base a quanto hai scrollato
-                        // Più scendi, più si rimpicciolisce, creando l'effetto profondità
-                        let scale = 1 - ((triggerPoint - rect.top) * 0.001);
-                        
-                        // Non farla rimpicciolire all'infinito, fermati a 0.9 (90% della grandezza)
-                        if (scale < 0.9) scale = 0.9; 
-                        
-                        card.style.transform = `scale(${scale})`;
-                    } else {
-                        // Se scorri in su, riportala alla grandezza originale
-                        card.style.transform = `scale(1)`;
-                    }
-                });
+    /* -------------------------------------------
+       7. IPHONE PARALLAX SCROLL
+    ------------------------------------------- */
+    (function() {
+      const ws = document.querySelectorAll('.iphone-wrapper');
+      if (!ws.length) return;
+      const isMob = () => window.innerWidth <= 768;
+      let tick = false;
+      window.addEventListener('scroll', () => {
+        if (tick) return;
+        requestAnimationFrame(() => {
+          if (!isMob()) {
+            ws.forEach((w, i) => {
+              const r   = w.getBoundingClientRect();
+              const p   = (window.innerHeight / 2 - (r.top + r.height / 2)) / window.innerHeight;
+              const mol = [-18, -28, -14];
+              const base = (i === 1) ? -48 : 0;
+              w.style.transform = `translateY(${base + p * mol[i % 3]}px)`;
             });
-        }
+          }
+          tick = false;
+        });
+        tick = true;
+      }, { passive: true });
+    })();
 
-    </script>
+    /* -------------------------------------------
+       8. TESTO BARRATO ANIMATO
+    ------------------------------------------- */
+    (function() {
+      const righe = document.querySelectorAll('[data-barra="true"]');
+      if (!righe.length) return;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const i = Array.from(righe).indexOf(entry.target);
+            setTimeout(() => entry.target.classList.add('barrata'), i * 200);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.4, rootMargin: '0px 0px -60px 0px' });
+      righe.forEach(r => obs.observe(r));
+    })();
+
+    /* -------------------------------------------
+       9. COUNTER ANIMATO STEP
+    ------------------------------------------- */
+    (function() {
+      const steps = document.querySelectorAll('.metodo__step-numero');
+      if (!steps.length) return;
+      const anima = (el, fine, dur) => {
+        let start = null;
+        const tick = (ts) => {
+          if (!start) start = ts;
+          const p = Math.min((ts - start) / dur, 1);
+          const e = 1 - Math.pow(1 - p, 4);
+          el.textContent = String(Math.round(e * fine)).padStart(2, '0');
+          if (p < 1) requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      };
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const n = parseInt(entry.target.textContent, 10);
+            if (!isNaN(n)) anima(entry.target, n, 800);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      steps.forEach(s => obs.observe(s));
+    })();
+
+    /* -------------------------------------------
+       10. FAQ ACCORDION
+    ------------------------------------------- */
+    (function() {
+      const items = document.querySelectorAll('.faq__item');
+      if (!items.length) return;
+
+      items.forEach(item => {
+        const btn     = item.querySelector('.faq__domanda');
+        const panel   = item.querySelector('.faq__risposta');
+        const inner   = item.querySelector('.faq__risposta-inner');
+        if (!btn || !panel || !inner) return;
+
+        btn.addEventListener('click', () => {
+          const isAperto = item.classList.contains('aperto');
+
+          // Chiudi tutti gli altri
+          items.forEach(altro => {
+            if (altro !== item && altro.classList.contains('aperto')) {
+              const altroPanel = altro.querySelector('.faq__risposta');
+              altro.classList.remove('aperto');
+              altro.querySelector('.faq__domanda')
+                   .setAttribute('aria-expanded', 'false');
+              altroPanel.style.height = '0';
+            }
+          });
+
+          // Toggle corrente
+          if (isAperto) {
+            item.classList.remove('aperto');
+            btn.setAttribute('aria-expanded', 'false');
+            panel.style.height = '0';
+          } else {
+            item.classList.add('aperto');
+            btn.setAttribute('aria-expanded', 'true');
+            panel.style.height = inner.offsetHeight + 'px';
+          }
+        });
+      });
+    })();
+
+    /* -------------------------------------------
+       11. MODALI — APRI / CHIUDI
+    ------------------------------------------- */
+    (function() {
+      const overlay = (id) => document.getElementById('modale-' + id);
+
+      // Apri
+      document.addEventListener('click', (e) => {
+        const trigger = e.target.closest('[data-modale]');
+        if (!trigger) return;
+        e.preventDefault();
+        const id = trigger.dataset.modale;
+        const ov = overlay(id);
+        if (!ov) return;
+        ov.classList.add('aperta');
+        document.body.style.overflow = 'hidden';
+        // Focus trap base
+        const chiudi = ov.querySelector('.modale__chiudi');
+        if (chiudi) setTimeout(() => chiudi.focus(), 100);
+      });
+
+      // Chiudi via pulsante ✕
+      document.addEventListener('click', (e) => {
+        const btn = e.target.closest('[data-chiudi]');
+        if (!btn) return;
+        const id = btn.dataset.chiudi;
+        const ov = overlay(id);
+        if (!ov) return;
+        ov.classList.remove('aperta');
+        document.body.style.overflow = '';
+      });
+
+      // Chiudi click overlay
+      document.querySelectorAll('.modale-overlay').forEach(ov => {
+        ov.addEventListener('click', (e) => {
+          if (e.target === ov) {
+            ov.classList.remove('aperta');
+            document.body.style.overflow = '';
+          }
+        });
+      });
+
+      // Chiudi ESC
+      document.addEventListener('keydown', (e) => {
+        if (e.key !== 'Escape') return;
+        document.querySelectorAll('.modale-overlay.aperta').forEach(ov => {
+          ov.classList.remove('aperta');
+          document.body.style.overflow = '';
+        });
+      });
+    })();
+
+    /* -------------------------------------------
+       12. COOKIE BANNER
+    ------------------------------------------- */
+    (function() {
+      const banner   = document.getElementById('cookieBanner');
+      const accetta  = document.getElementById('cookieAccetta');
+      const rifiuta  = document.getElementById('cookieRifiuta');
+      if (!banner) return;
+
+      const CHIAVE = 'ompage_cookie_consent';
+
+      // Mostra solo se non già scelto
+      if (!localStorage.getItem(CHIAVE)) {
+        setTimeout(() => banner.classList.add('visibile'), 1800);
+      }
+
+      const nascondi = (scelta) => {
+        localStorage.setItem(CHIAVE, scelta);
+        banner.classList.remove('visibile');
+        setTimeout(() => banner.remove(), 700);
+      };
+
+      accetta.addEventListener('click', () => nascondi('accettato'));
+      rifiuta.addEventListener('click', () => nascondi('rifiutato'));
+    })();
+
+    /* -------------------------------------------
+       10b. ACTIVE NAV LINK su scroll
+    ------------------------------------------- */
+    (function() {
+      const sezioni = document.querySelectorAll('section[id]');
+      const links   = document.querySelectorAll('.nav__links a');
+      if (!sezioni.length || !links.length) return;
+
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (!entry.isIntersecting) return;
+          links.forEach(link => {
+            link.classList.toggle(
+              'attivo',
+              link.getAttribute('href') === '#' + entry.target.id
+            );
+          });
+        });
+      }, { rootMargin: '-40% 0px -55% 0px' });
+
+      sezioni.forEach(s => obs.observe(s));
+    })();
+  </script>
 
 </body>
 </html>
