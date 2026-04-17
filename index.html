@@ -2363,6 +2363,29 @@
       transition: left 0.5s ease;
     }
 
+    .cta-finale__email-copy {
+    border: none; /* Rimuove bordi di default dei bottoni */
+    width: 100%;  /* Opzionale: per averli uguali in larghezza */
+    max-width: 420px;
+    justify-content: center;
+}
+
+
+.testo-feedback {
+    display: none !important;
+}
+
+/* 2. Quando il bottone ha la classe .successo... */
+.cta-finale__email-copy.successo .testo-principale,
+.cta-finale__email-copy.successo .cta-finale__wa-icona,
+.cta-finale__email-copy.successo .freccia {
+    display: none !important; /* Spegne il testo normale, l'icona e la freccia */
+}
+
+.cta-finale__email-copy.successo .testo-feedback {
+    display: inline-block !important; /* Accende solo il feedback */
+}
+
     .cta-finale__wa:hover::before {
       left: 100%;
     }
@@ -2571,29 +2594,8 @@
         
       }
 
-      /* Applichiamo lo stile del tasto WA anche al bottone */
-.cta-finale__email-copy {
-    border: none; /* Rimuove bordi di default dei bottoni */
-    width: 100%;  /* Opzionale: per averli uguali in larghezza */
-    max-width: 420px;
-    justify-content: center;
-}
+      
 
-
-.testo-feedback {
-    display: none !important;
-}
-
-/* 2. Quando il bottone ha la classe .successo... */
-.cta-finale__email-copy.successo .testo-principale,
-.cta-finale__email-copy.successo .cta-finale__wa-icona,
-.cta-finale__email-copy.successo .freccia {
-    display: none !important; /* Spegne il testo normale, l'icona e la freccia */
-}
-
-.cta-finale__email-copy.successo .testo-feedback {
-    display: inline-block !important; /* Accende solo il feedback */
-}
 
 
 
