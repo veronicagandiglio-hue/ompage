@@ -2581,17 +2581,18 @@
 
 
 .testo-feedback {
-    display: none;
+    display: none !important;
 }
 
+/* 2. Quando il bottone ha la classe .successo... */
 .cta-finale__email-copy.successo .testo-principale,
 .cta-finale__email-copy.successo .cta-finale__wa-icona,
 .cta-finale__email-copy.successo .freccia {
-    display: none; /* Nasconde tutto il resto quando copi */
+    display: none !important; /* Spegne il testo normale, l'icona e la freccia */
 }
 
 .cta-finale__email-copy.successo .testo-feedback {
-    display: inline-block;
+    display: inline-block !important; /* Accende solo il feedback */
 }
 
 
