@@ -2342,6 +2342,8 @@
       transition: all var(--transizione);
       position: relative;
       overflow: hidden;
+      width: 100%;
+      justify-content: center;
     }
 
     /* Shimmer effect sul pulsante */
@@ -2568,6 +2570,37 @@
         justify-content: center;
         
       }
+
+      /* Applichiamo lo stile del tasto WA anche al bottone */
+.cta-finale__email-copy {
+    border: none; /* Rimuove bordi di default dei bottoni */
+    width: 100%;  /* Opzionale: per averli uguali in larghezza */
+    max-width: 420px;
+    justify-content: center;
+}
+
+/* Gestione del testo quando copi */
+.testo-feedback {
+    display: none;
+}
+
+.cta-finale__email-copy.successo .testo-principale,
+.cta-finale__email-copy.successo .cta-finale__wa-icona,
+.cta-finale__email-copy.successo .freccia {
+    display: none; /* Nasconde tutto il resto quando copi */
+}
+
+.cta-finale__email-copy.successo .testo-feedback {
+    display: inline-block;
+}
+
+
+.cta-finale__email-copy {
+    background: var(--nero);
+    color: var(--oro);
+    border: 2px solid var(--oro);
+}
+*/
 
       .cta-finale__contenuto {
        align-items: center;
@@ -3595,6 +3628,24 @@
         Scrivimi su WhatsApp
         <span class="freccia" aria-hidden="true">↗</span>
       </a>
+
+<div class="cta-finale__contenuto rivela--destra">
+  <h2 class="cta-finale__titolo">...</h2>
+  
+  <a href="https://wa.me/..." class="cta-finale__wa" target="_blank">
+    <span class="cta-finale__wa-icona">💬</span>
+    Scrivimi su WhatsApp
+    <span class="freccia">↗</span>
+  </a>
+
+  <button class="cta-finale__wa cta-finale__email-copy" id="btnCopiaEmail" data-email="tuaemail@esempio.it">
+    <span class="cta-finale__wa-icona">✉️</span>
+    <span class="testo-principale">Copia la mia email</span>
+    <span class="testo-feedback">Email Copiata!</span>
+    <span class="freccia">↗</span>
+  </button>
+
+
     </div>
   </section>
 
@@ -4214,6 +4265,21 @@
     }
   });
 }, { threshold: 0.1 });
+
+document.getElementById('btnCopiaEmail').addEventListener('click', function() {
+    const email = this.getAttribute('data-email');
+    const button = this;
+
+    navigator.clipboard.writeText(email).then(() => {
+        // Mostra il feedback
+        button.classList.add('successo');
+
+        // Torna normale dopo 2 secondi
+        setTimeout(() => {
+            button.classList.remove('successo');
+        }, 2000);
+    });
+});
 
 
   </script>
