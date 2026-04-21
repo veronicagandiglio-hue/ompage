@@ -2870,7 +2870,139 @@
       }
     }
 
-   
+   /* ============================================
+   OMPAGE — OVERRIDE PATCH
+   Da aggiungere DOPO il CSS originale.
+   Cambia solo quello che serve, nient'altro.
+============================================ */
+
+/* 1. Testo grigio più leggibile su sfondi scuri */
+:root {
+  --grigio-testo: #B2B2B2;
+}
+
+/* 2. Font base leggermente più grande e respiro */
+body {
+  font-size: 17px;
+  line-height: 1.7;
+}
+
+/* 3. Outline hero — più sottile e decorativo */
+.hero__titolo .outline {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.22);
+  color: transparent;
+}
+
+/* 4. Outline vantaggi */
+.vantaggi__titolo-grande .outline {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.18);
+  color: transparent;
+}
+
+/* 5. Outline metodo */
+.metodo__titolo-grande .outline {
+  -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.18);
+  color: transparent;
+}
+
+/* 6. Outline lavori (era già oro, solo più soft) */
+.lavori__titolo .outline {
+  -webkit-text-stroke: 1px rgba(201, 168, 76, 0.25);
+  color: transparent;
+}
+
+/* 7. Testo corpo card vantaggi — leggermente più grande */
+.vantaggio-card__testo {
+  font-size: clamp(0.9rem, 1.5vw, 1rem);
+  line-height: 1.7;
+}
+
+/* 8. Testo passi metodo — leggermente più grande */
+.metodo__step-testo {
+  font-size: 0.97rem;
+}
+
+/* 9. Descrittore sotto la linea nel metodo — ridimensionato */
+.metodo__deco-testo {
+  font-size: 1rem;
+}
+
+/* 10. Hero sotto-testo */
+.hero__sotto-testo {
+  font-size: 1rem;
+}
+
+/* ============================================
+   11. FAQ — sfondo crema, testo scuro
+   La sezione più importante per la lettura
+============================================ */
+.faq {
+  background: var(--crema);
+}
+
+.faq__titolo {
+  color: var(--nero);
+}
+
+.faq__nome-deco {
+  -webkit-text-stroke: 1px rgba(8, 8, 8, 0.15);
+}
+
+.faq__item {
+  border-top-color: rgba(8, 8, 8, 0.12);
+}
+
+.faq__item:last-child {
+  border-bottom-color: rgba(8, 8, 8, 0.12);
+}
+
+.faq__item:hover {
+  border-color: rgba(201, 168, 76, 0.6);
+}
+
+.faq__domanda-testo {
+  color: var(--nero);
+}
+
+.faq__item.aperto .faq__domanda-testo {
+  color: var(--oro);
+}
+
+.faq__icona {
+  border-color: rgba(8, 8, 8, 0.2);
+}
+
+.faq__icona::before,
+.faq__icona::after {
+  background: rgba(8, 8, 8, 0.6);
+}
+
+.faq__item.aperto .faq__icona {
+  background: var(--oro);
+  border-color: var(--oro);
+}
+
+.faq__item.aperto .faq__icona::before,
+.faq__item.aperto .faq__icona::after {
+  background: var(--nero);
+}
+
+.faq__risposta-inner {
+  font-size: 0.97rem;
+  color: rgba(8, 8, 8, 0.65);
+  line-height: 1.8;
+}
+
+.faq__risposta-inner strong {
+  color: var(--nero);
+}
+
+/* 12. Perché — testo corpo leggermente migliorato */
+.perche__paragrafo {
+  font-size: clamp(0.95rem, 1.8vw, 1.05rem);
+  line-height: 1.8;
+}
+
 
   </style>
 </head>
