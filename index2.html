@@ -840,20 +840,7 @@
   min-height: 500px;
 }
 
-.box-a__numero {
-  font-family: var(--font-title);
-  font-weight: 800;
-  font-size: clamp(80px, 12vw, 160px);
-  line-height: 0.85;
-  letter-spacing: -0.05em;
-  color: var(--nero);
-  opacity: 0.08;
-  position: absolute;
-  bottom: 3vw;
-  right: 1vw;
-  pointer-events: none;
-  user-select: none;
-}
+
 
 .box-a__top {
   display: flex;
@@ -2150,7 +2137,7 @@
 
 .cta-finale__inner.is-visible .cta-finale__foto-wrap {
   opacity: 1;
-  transform: translateY(-50%) translateX(0);
+  transform: translateY(-50%) translateX(-50%);
 }
 
 .cta-finale__foto {
@@ -2488,6 +2475,298 @@
   }
 }
 
+/* ============================================================
+   SEZIONE FAQ — DOMANDE FREQUENTI
+============================================================ */
+.faq {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--bianco);
+  border-top: var(--border-brutal);
+}
+
+.faq__inner {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: 5vw;
+  align-items: start;
+}
+
+/* ── Colonna sinistra — Intestazione sticky ── */
+.faq__sidebar {
+  position: sticky;
+  top: calc(8vh + 4vh);
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.faq__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.faq__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4vw, 60px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.faq__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.faq__deco {
+  width: 60px;
+  height: 3px;
+  background: var(--nero);
+  margin: 1vh 0;
+}
+
+.faq__deco-nome {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 70px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  opacity: 0.06;
+  color: var(--nero);
+  user-select: none;
+
+}
+
+/* ── Colonna destra — Accordion ── */
+.faq__lista {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Singolo item FAQ */
+.faq__item {
+  border-bottom: var(--border-brutal);
+}
+
+.faq__item:first-child {
+  border-top: var(--border-brutal);
+}
+
+/* Domanda (trigger click) */
+.faq__domanda {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2vw;
+  padding: 2.8vh 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(15px, 1.3vw, 20px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--nero);
+  transition: opacity 0.2s ease;
+}
+
+.faq__domanda:hover {
+  opacity: 0.7;
+}
+
+/* Icona +/- */
+.faq__icona {
+  position: relative;
+  width: clamp(28px, 2.5vw, 36px);
+  height: clamp(28px, 2.5vw, 36px);
+  border: var(--border-brutal);
+  background: var(--lilla);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.25s ease;
+}
+
+.faq__icona::before,
+.faq__icona::after {
+  content: '';
+  position: absolute;
+  background: var(--nero);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Linea orizzontale */
+.faq__icona::before {
+  width: 50%;
+  height: 2px;
+}
+
+/* Linea verticale — ruota quando aperto */
+.faq__icona::after {
+  width: 2px;
+  height: 50%;
+}
+
+/* Quando aperto: icona ruota, linea verticale scompare */
+.faq__item.is-open .faq__icona {
+  transform: rotate(90deg);
+  background: var(--verde-acido);
+}
+
+.faq__item.is-open .faq__icona::after {
+  transform: scaleY(0);
+}
+
+/* ── 6.01 — CSS Grid Accordion (body) ── */
+.faq__risposta {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq__item.is-open .faq__risposta {
+  grid-template-rows: 1fr;
+}
+
+/* Wrapper interno (necessario per grid-rows trick) */
+.faq__risposta-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 0 0 0;
+  transition: padding 0.4s ease;
+}
+
+.faq__item.is-open .faq__risposta-inner {
+  padding: 0 0 3vh 0;
+}
+
+.faq__risposta-inner p,
+.faq__risposta-inner {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.7;
+  font-weight: 500;
+  color: var(--nero);
+  opacity: 0.75;
+}
+
+.faq__risposta-inner strong {
+  font-weight: 700;
+  opacity: 1;
+}
+
+.faq__risposta-inner ul {
+  margin-top: 1.5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+  list-style: none;
+}
+
+.faq__risposta-inner ul li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: clamp(12px, 0.9vw, 14px);
+  line-height: 1.5;
+}
+
+/* CTA sotto FAQ */
+.faq__cta-row {
+  margin-top: 5vh;
+  padding-top: 3vh;
+  border-top: var(--border-brutal);
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  flex-wrap: wrap;
+}
+
+.faq__cta-testo {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .faq__inner {
+    grid-template-columns: 1fr;
+    gap: 4vh;
+  }
+
+  .faq__sidebar {
+    position: static;
+  }
+
+  .faq__deco-nome {
+    display: none;
+  }
+}
+
+/* --- Contenitore Principale --- */
+.processo__header {
+  display: flex;
+  justify-content: space-between; /* Spinge testo a sinistra e immagine a destra */
+  align-items: center;           /* Allinea verticalmente al centro */
+  gap: 40px;                     /* Spazio tra il testo e l'immagine */
+  width: 100%;
+  max-width: 1200px;             /* O la larghezza massima del tuo sito */
+  margin: 0 auto;                /* Centra l'header nella pagina */
+  padding: 40px 20px;
+  flex-direction: row;
+}
+
+/* --- Blocco Testo --- */
+.processo__text-block {
+  flex: 1; /* Prende lo spazio disponibile */
+  /* Mantieni qui i tuoi stili esistenti per label, titolo, sottotitolo */
+}
+
+/* Stili indicativi per il testo (usa i tuoi) */
+.processo__label { display: block; text-transform: uppercase; font-size: 14px; color: #666; }
+.processo__titolo { font-size: 48px; line-height: 1.1; margin: 10px 0; }
+.processo__sottotitolo { font-size: 18px; color: #444; }
+
+/* --- Blocco Immagine --- */
+.processo__image-block {
+  flex: 0 0 auto; /* Non si restringe, mantiene le sue dimensioni */
+}
+
+.processo__img {
+  max-width: 300px; /* Imposta la larghezza massima dell'immagine per desktop */
+  height: auto;     /* Mantiene le proporzioni */
+  display: block;
+}
+
+/* --- RESPONSIVE: Mobile --- */
+@media (max-width: 768px) {
+  .processo__header {
+    flex-direction: column-reverse; /* Impila verticalmente: immagine sotto, testo sopra */
+    text-align: center;           /* Centra il testo su mobile */
+    gap: 20px;                    /* Riduce lo spazio */
+  }
+
+  .processo__img {
+    max-width: 200px; /* Immagine più piccola su mobile */
+    margin: 0 auto;   /* Centra l'immagine se il titolo è centrato */
+  }
+}
+
   </style>
 </head>
 <body>
@@ -2602,10 +2881,8 @@
 
     <p class="hero__desc">
       Internet è cambiato, ma le agenzie web sono rimaste al passato.
-      Costruisco vetrine digitali fatte a mano, progettate per chi ti cerca
-      oggi su Google Maps. Niente manutenzione, niente canoni, niente plugin e
-      costi inutili. Solo sostanza. Avrai bozza pronta&nbsp;+ prezzo fisso&nbsp;+
-      zero vincoli&nbsp;+ posizionamento geo.
+      Niente manutenzione, niente canoni, niente plugin e
+      costi inutili. Solo sostanza.
     </p>
 
     <div class="hero__cta-wrap">
@@ -2634,7 +2911,7 @@
 
     <div class="scontrino__header">
       <span>Ompage · Ricevuta</span>
-      <span class="scontrino__header-data">2025</span>
+      <span class="scontrino__header-data">2026</span>
     </div>
 
     <ul class="scontrino__lista" id="scontrinoLista">
@@ -2681,7 +2958,7 @@
       <li class="scontrino__voce scontrino__voce--inclusa">
         <span class="scontrino__voce-nome">
           <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
-          Bozza online prima del pagamento
+          Bozza piaciuta prima del pagamento
         </span>
         <span class="scontrino__voce-prezzo">✓ incluso</span>
       </li>
@@ -2774,13 +3051,10 @@
       <div class="box-a__top">
         <span class="box-a__tag">✦ La verità</span>
         <h3 class="box-a__titolo">
-          Esistono tanti modi per spendere poco per un sito web.
+          Esistono tanti modi per spendere poco per un sito web. <br><br> 
+          Quasi tutti nascondono una trappola.
         </h3>
-        <p class="box-a__testo">
-          Quasi tutti nascondono una trappola. Scopri perché il mio metodo
-          è l'alternativa sicura: vedi la bozza prima di pagare,
-          possiedi il codice dal giorno uno, zero canoni nascosti.
-        </p>
+        
       </div>
       <div class="box-a__bottom">
         <a
@@ -2793,8 +3067,7 @@
           💬 Parliamone ↗
         </a>
       </div>
-      <!-- numero decorativo -->
-      <span class="box-a__numero" aria-hidden="true">3</span>
+      
     </div>
 
     <!-- BOX B — Io vs Wix -->
@@ -2802,11 +3075,10 @@
       class="confronto__box box-b confronto__box--hoverable"
       aria-label="Confronto con Wix"
     >
-      <span class="card__tag">🏗 L'illusione del fai-da-te</span>
+      <span class="card__tag"> L'illusione del fai-da-te</span>
       <h3 class="card__titolo">Io Vs Wix</h3>
       <p class="card__testo">
-        Piattaforme come Wix ti vendono il sito "gratis" ma ti rubano il
-        tempo. Passi tre weekend a incastrare blocchi per ottenere un sito
+        Piattaforme come Wix ti vendono il sito "gratis" ma passi tre weekend a incastrare blocchi per ottenere un sito
         uguale a mille altri. E alla fine paghi comunque un canone mensile.
       </p>
       <div class="card__differenza">
@@ -2823,12 +3095,13 @@
       class="confronto__box box-c confronto__box--hoverable"
       aria-label="Confronto con freelance economici"
     >
-      <span class="card__tag">✏️ Il problema della manutenzione</span>
-      <h3 class="card__titolo">Io Vs Altri Freelance economici</h3>
+      <span class="card__tag"> Il problema della manutenzione</span>
+      <h3 class="card__titolo">Io Vs Altri Freelance</h3>
       <p class="card__testo">
-        Ti chiedono soldi al buio, usano template WordPress e spariscono
-        dopo il pagamento. Ti costringono a un supporto continuo per gli
-        aggiornamenti.
+        Ti chiedono soldi al buio, usano template WordPress e 
+        ti costringono a un supporto continuo per gli
+        aggiornamenti (se non spariscono
+        dopo il pagamento).
       </p>
       <div class="card__differenza">
         <span class="card__differenza-icon" aria-hidden="true">→</span>
@@ -2845,8 +3118,8 @@
       aria-label="Confronto con agenzie web"
     >
       <div class="box-d__sx">
-        <span class="card__tag">🚀 La trappola dei preventivi</span>
-        <h3 class="card__titolo">Io vs Agenzie Web economiche</h3>
+        <span class="card__tag"> La trappola dei preventivi</span>
+        <h3 class="card__titolo">Io vs Agenzie Web</h3>
         <p class="card__testo">
           Ti propongono plugin inutili solo per gonfiare il prezzo o ti
           attirano con prezzi d'ingresso bassi, poi ti chiedono 150–200€
@@ -3050,14 +3323,21 @@
   aria-label="Il metodo di lavoro in 3 step"
 >
 
-  <!-- Header -->
-  <div class="processo__header">
+ <div class="processo__header">
+  
+  <div class="processo__text-block">
     <span class="processo__label">Il Metodo</span>
     <h2 class="processo__titolo">
       Il Piano<br><em>d'Azione.</em>
     </h2>
     <p class="processo__sottotitolo">Tre passi. Zero fatica.</p>
   </div>
+
+  <div class="processo__image-block">
+    <img src="Gemini_Generated_Image_v9m7n3v9m7n3v9m7.png" alt="Descrizione dell'azione" class="processo__img">
+  </div>
+
+</div>
 
   <!-- Griglia 3 card -->
   <div class="processo__grid" id="processoGrid">
@@ -3080,12 +3360,11 @@
         <p class="step-card__testo">
           Scegli il dominio e metto online la <strong>bozza preliminare</strong>
           che hai approvato. È il punto di partenza per vedere come comunica
-          il design. Tu continui a fare il tuo lavoro — al resto ci penso io.
+          il design.
         </p>
       </div>
 
       <!-- Numero decorativo bg -->
-      <span class="step-card__deco-num" aria-hidden="true">01</span>
     </article>
 
     <!-- STEP 02 -->
@@ -3106,13 +3385,11 @@
         <p class="step-card__testo">
           Guardi il sito e mi chiedi le revisioni. Sposto, cambio e
           ottimizzo finché il <strong>risultato finale</strong> è
-          esattamente quello che ti aspetti: perfetto. Le modifiche
-          vengono applicate entro 48–72 ore dalla richiesta scritta.
+          esattamente quello che ti aspetti: perfetto. 
         </p>
       </div>
 
       <!-- Numero decorativo bg -->
-      <span class="step-card__deco-num" aria-hidden="true">02</span>
     </article>
 
     <!-- STEP 03 -->
@@ -3133,8 +3410,7 @@
         <p class="step-card__testo">
           Il sito è pronto. Puoi facilmente <strong>gestirlo in autonomia</strong>,
           oppure, prima della scadenza annuale, puoi rinnovare il servizio
-          con me. Il codice è tuo dal primo giorno — nessun vincolo,
-          nessuna sorpresa.
+          con me.
         </p>
         <div class="step-card__cta">
           <a
@@ -3150,229 +3426,227 @@
       </div>
 
       <!-- Numero decorativo bg -->
-      <span class="step-card__deco-num" aria-hidden="true">03</span>
     </article>
 
   </div><!-- fine grid -->
 
 </section>
 
+
+
 <!-- ============================================
-     SEZIONE 6 — LA MATEMATICA DEI 250€
+     SEZIONE FAQ — DOMANDE FREQUENTI
 ============================================ -->
 <section
-  class="matematica"
-  id="matematica"
-  aria-label="La matematica dei 250 euro — lo scontrino"
+  class="faq"
+  id="faq"
+  aria-label="Domande frequenti"
 >
+  <div class="faq__inner">
 
-  <div class="matematica__wrapper" id="matematicaWrapper">
-
-    <!-- ── COLONNA SINISTRA — Scontrino ── -->
-    <div class="matematica__col-sx">
-
-      <span class="matematica__label">La Matematica dei 250€</span>
-
-      <h2 class="matematica__titolo">
-        Lo<br><em>Scontrino.</em>
+    <!-- Colonna sinistra — sticky -->
+    <div class="faq__sidebar">
+      <span class="faq__label">Altri Dubbi?</span>
+      <h2 class="faq__titolo">
+        <em>Domande</em><br>Frequenti
       </h2>
+      <div class="faq__deco" aria-hidden="true"></div>
+      <img src="Gemini_Generated_Image_zb65cmzb65cmzb65.png" alt="">
+    </div>
 
-      <p class="matematica__intro">
-        Le agenzie tradizionali ti vendono pacchetti complessi e tecnologie
-        pesanti solo per alzare il prezzo e giustificare canoni di manutenzione
-        infiniti. Ai tuoi clienti non serve un sito-enciclopedia. Serve
-        vedere chi sei, percepire la tua professionalità e trovare subito
-        un bottone per contattarti. Io elimino il superfluo.
-        Ecco <strong>quello che non ti dicono</strong>: i miei siti azzerano
-        i costi di hosting e non hanno bisogno di manutenzione.
-      </p>
+    <!-- Colonna destra — Accordion -->
+    <div class="faq__lista" role="list">
 
-      <!-- Scontrino itemizzato -->
-      <div class="scontrino" aria-label="Dettaglio costi">
-
-        <div class="scontrino__header">
-          <span>Ompage · Ricevuta</span>
-          <span class="scontrino__header-data">2025</span>
+      <!-- FAQ 1 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r1"
+        >
+          <span>A chi è adatto questo servizio?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r1" role="region">
+          <div class="faq__risposta-inner">
+            A chi non si accontenta di un sito "fatto tanto per".
+            Perfetto per <strong>qualsiasi professionista locale</strong>
+            che vuole una presenza online degna del suo talento senza perdere
+            troppo tempo. Se vuoi che un potenziale cliente, cercandoti su
+            Google Maps o sui social, decida di sceglierti in meno di tre
+            secondi, sei nel posto giusto.
+          </div>
         </div>
+      </div>
 
-        <ul class="scontrino__lista" id="scontrinoLista">
-
-          <!-- Voci barrate — cosa non paghi -->
-          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: server costosi">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
-              Server e hosting annuo
-            </span>
-            <span class="scontrino__voce-prezzo">150€/anno</span>
-          </li>
-
-          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: manutenzione">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
-              Manutenzione obbligatoria
-            </span>
-            <span class="scontrino__voce-prezzo">200€/anno</span>
-          </li>
-
-          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: plugin inutili">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
-              Plugin e template inutili
-            </span>
-            <span class="scontrino__voce-prezzo">80€</span>
-          </li>
-
-          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: pagine inutili">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
-              Pagine inutili e SEO fuffa
-            </span>
-            <span class="scontrino__voce-prezzo">??€</span>
-          </li>
-
-          <!-- Divisore -->
-          <li class="scontrino__voce" style="background:rgba(196,240,0,0.08); border-bottom: var(--border-brutal);">
-            <span class="scontrino__voce-nome" style="font-weight:700; opacity:1;">
-              <span class="scontrino__voce-icon" aria-hidden="true">✦</span>
-              Quello che hai davvero
-            </span>
-          </li>
-
-          <!-- Voci incluse -->
-          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: design su misura">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
-              Design su misura in HTML/CSS/JS
-            </span>
-            <span class="scontrino__voce-prezzo">✓ incluso</span>
-          </li>
-
-          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: dominio primo anno">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
-              Dominio + hosting primo anno
-            </span>
-            <span class="scontrino__voce-prezzo">✓ incluso</span>
-          </li>
-
-          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: ottimizzazione GEO">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
-              Ottimizzazione GEO Google Maps
-            </span>
-            <span class="scontrino__voce-prezzo">✓ incluso</span>
-          </li>
-
-          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: modifiche illimitate">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
-              Modifiche fino al risultato perfetto
-            </span>
-            <span class="scontrino__voce-prezzo">✓ incluso</span>
-          </li>
-
-          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: codice tuo">
-            <span class="scontrino__voce-nome">
-              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
-              Codice 100% tuo, zero vincoli
-            </span>
-            <span class="scontrino__voce-prezzo">✓ incluso</span>
-          </li>
-
-        </ul>
-
-        <!-- Totale -->
-        <div class="scontrino__totale" id="scontrinoTotale" aria-label="Totale: 250 euro una tantum">
-          <span class="scontrino__totale-label">Totale una tantum</span>
-          <span class="scontrino__totale-prezzo">250€</span>
+      <!-- FAQ 2 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r2"
+        >
+          <span>Cosa avrò esattamente?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r2" role="region">
+          <div class="faq__risposta-inner">
+            Ricevi un <strong>sito One-Page</strong> leggero,
+            velocissimo e indipendente da piattaforme costose.
+            Il pacchetto include: dominio per il primo anno, hosting,
+            ottimizzazione mobile, cookie banner, privacy policy, tasti di
+            contatto rapido e le modifiche richieste fino a ottenere un sito
+            che ti rappresenti al 100%.
+          </div>
         </div>
+      </div>
 
-      </div><!-- fine scontrino -->
-
-    </div><!-- fine col sx -->
-
-    <!-- ── COLONNA DESTRA ── -->
-    <div class="matematica__col-dx">
-
-      <!-- Sottoblocco superiore — prezzo timbro -->
-      <div class="matematica__top-dx">
-
-        <!-- Prezzo con cerchio SVG draw-in -->
-        <div class="matematica__prezzo-wrap" id="prezzoCerchio">
-          <span class="matematica__prezzo" aria-label="250 euro">250€</span>
-
-          <!-- 6.02 — SVG cerchio imperfetto mano libera -->
-          <svg
-            class="matematica__svg-callout"
-            viewBox="0 0 200 100"
-            xmlns="http://www.w3.org/2000/svg"
-            aria-hidden="true"
-          >
-            <path
-              class="matematica__svg-path"
-              id="cerchioPath"
-              d="M 18,50
-                 C 15,20 40,5 100,8
-                 C 160,11 188,25 190,50
-                 C 192,75 165,93 100,92
-                 C 35,91 14,75 18,50 Z"
-            />
-          </svg>
+      <!-- FAQ 3 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r3"
+        >
+          <span>Che tipo di modifiche posso chiederti?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r3" role="region">
+          <div class="faq__risposta-inner">
+            Da subito e per tutto l'anno, intervengo su
+            <strong>testi, colori, immagini e piccoli miglioramenti grafici</strong>
+            seguendo le tue richieste precise. Non perdiamo tempo a stravolgere
+            la struttura del sito, che è studiata per essere efficace così com'è.
+            Vuoi una <strong>galleria estesa</strong> dei tuoi lavori? La integriamo.
+            Nella bozza manca una sezione fondamentale per la tua attività?
+            La aggiungiamo. Ti serve un <strong>popup</strong> per le tue
+            promozioni? Lo metto subito online, ma non tocchiamo l'architettura
+            delle sezioni. Il prezzo è contenuto perché il processo è snello.
+            L'obiettivo è darti uno strumento operativo, non un cantiere aperto.
+          </div>
         </div>
+      </div>
 
-        <p class="matematica__prezzo-nota">una tantum · tutto incluso</p>
+      <!-- FAQ 4 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r4"
+        >
+          <span>Ci sono costi nascosti oltre al setup?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r4" role="region">
+          <div class="faq__risposta-inner">
+            Zero. Paghi 250€ una volta sola e il sito è online.
+            <strong>Sei il proprietario legale e tecnico di tutto dal primo
+            giorno</strong>: il sito è progettato per far sì che tu possa
+            gestire facilmente il sito in autonomia. Puoi avere le password
+            e il codice in qualunque momento.
+            <strong>Dal secondo anno in poi, puoi:</strong>
+            <ul>
+              <li>→ PAGARE SOLO IL RINNOVO DEL DOMINIO: 10–15€/anno
+              direttamente al fornitore. Il sito non ha bisogno di alcuna
+              manutenzione, puoi lasciarlo lì così com'è.</li>
+              <li>→ LASCIARE CHE CONTINUI A OCCUPARMENE IO: 70€/anno per
+              gestire il rinnovo e intervenire sul sito con eventuali altre
+              modifiche.</li>
+              <li>→ FARE SCADERE IL SITO: non paghi nulla e il sito andrà
+              semplicemente offline.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
-        <!-- Bullet punti chiave -->
-        <ul class="matematica__bullet-list" aria-label="Punti chiave del servizio">
-          <li>
-            <span class="bullet-check" aria-hidden="true">✓</span>
-            Niente pagine inutili
-          </li>
-          <li>
-            <span class="bullet-check" aria-hidden="true">✓</span>
-            Niente server costosi
-          </li>
-          <li>
-            <span class="bullet-check" aria-hidden="true">✓</span>
-            Siti One-Page per impatto immediato
-          </li>
-          <li>
-            <span class="bullet-check" aria-hidden="true">✓</span>
-            Dal secondo anno: solo 10€ di dominio
-          </li>
-        </ul>
+      <!-- FAQ 5 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r5"
+        >
+          <span>Perché un sito One-Page?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r5" role="region">
+          <div class="faq__risposta-inner">
+            Perché <strong>funziona</strong>. I visitatori hanno
+            l'attenzione di un pesce rosso: o li colpisci in 3 secondi
+            o li perdi. Un sito One-Page concentra tutto il necessario
+            in un'unica esperienza fluida e potente, senza dispersione.
+            Le pagine multiple servono agli e-commerce e ai colossi.
+            Tu hai bisogno di <strong>impatto immediato</strong> e un tasto
+            facile da trovare per essere subito contattato.
+          </div>
+        </div>
+      </div>
 
-      </div><!-- fine top dx -->
+      <!-- FAQ 6 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r6"
+        >
+          <span>Come funziona il supporto? Quali sono i tempi?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r6" role="region">
+          <div class="faq__risposta-inner">
+            Tutto via <strong>Email o WhatsApp</strong>. La bozza va online
+            entro <strong>7–10 giorni</strong> lavorativi dal ricevuto
+            pagamento. Le modifiche devono essere inviate per iscritto
+            (per maggiore chiarezza) e vengono applicate entro 48–72 ore.
+            Sono una freelancer, il che significa che non faccio orari d'ufficio
+            e preferisco essere contattata per email o WhatsApp, e rispondo
+            appena possibile.
+          </div>
+        </div>
+      </div>
 
-      <!-- Sottoblocco inferiore — CTA -->
-      <div class="matematica__bottom-dx">
+      <!-- FAQ 7 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r7"
+        >
+          <span>A chi non è adatto? Cosa non è incluso?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r7" role="region">
+          <div class="faq__risposta-inner">
+            Non faccio <strong>e-commerce o blog</strong>. Non è incluso:
+            copywriting professionale, fotografie professionali,
+            campagne pubblicitarie o gestione social.
+            Se hai bisogno di tutto questo, probabilmente hai bisogno
+            di un'agenzia — e di un budget molto più grande.
+            Non è possibile finire al <strong>primo posto su Google</strong>
+            senza marketing. Infine, visto che è tutto basato sulla semplicità,
+            non è inclusa una <strong>email personalizzata</strong>, la quale
+            potrebbe richiedere un supporto costante da parte mia.
+          </div>
+        </div>
+      </div>
 
-        <h3 class="matematica__cta-titolo">
-          Pronti a fare<br>sul serio?
-        </h3>
-
+      <!-- CTA sotto accordion -->
+      <div class="faq__cta-row">
+        <span class="faq__cta-testo">Non hai trovato la tua risposta?</span>
         <a
           href="https://wa.me/39XXXXXXXXXX"
           class="btn-brutal"
           target="_blank"
           rel="noopener"
-          aria-label="Scrivimi su WhatsApp per iniziare"
-          style="width: fit-content;"
+          aria-label="Scrivimi su WhatsApp"
         >
-          💬 Scrivimi su WhatsApp ↗
+          💬 Chiedimi su WhatsApp ↗
         </a>
+      </div>
 
-        <p class="matematica__cta-nota">
-          Vedi la bozza prima di pagare.<br>
-          Bozza online entro 7–10 giorni lavorativi.
-        </p>
+    </div><!-- fine lista -->
 
-      </div><!-- fine bottom dx -->
-
-    </div><!-- fine col dx -->
-
-  </div><!-- fine wrapper -->
-
+  </div><!-- fine inner -->
 </section>
 
 <!-- ============================================
@@ -3913,6 +4187,39 @@
         overlay.style.display = 'none';
         document.body.style.overflow = '';
       }
+    });
+  });
+
+})();
+
+// ============================================================
+// SEZIONE FAQ — 6.01 Smooth CSS Grid Accordion
+// JS si limita ad aggiungere/rimuovere .is-open.
+// La transizione è interamente CSS (grid-template-rows: 0fr→1fr).
+// ============================================================
+(function () {
+  const faqItems = document.querySelectorAll('.faq__item');
+  if (!faqItems.length) return;
+
+  faqItems.forEach(item => {
+    const btn = item.querySelector('.faq__domanda');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+
+      // Chiudi tutti gli altri (accordion singolo)
+      faqItems.forEach(other => {
+        if (other !== item) {
+          other.classList.remove('is-open');
+          const otherBtn = other.querySelector('.faq__domanda');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle corrente
+      item.classList.toggle('is-open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
     });
   });
 
