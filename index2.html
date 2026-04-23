@@ -1,0 +1,3924 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ompage — Siti Web per Attività Locali · 250€</title>
+  <meta name="description" content="Siti web professionali per attività locali a 250€ tutto incluso. Design neo-brutalista, zero manutenzione, zero canoni. Torino e ovunque." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       :ROOT — DESIGN SYSTEM COMPLETO (NON RISCRIVERE MAI)
+    ============================================================ */
+    /* Font import — sostituisce Space Grotesk e Inter */
+@import url('https://api.fontshare.com/v2/css2?f[]=clash-display@400,500,600,700&f[]=satoshi@400,500,700&display=swap');
+
+:root {
+  /* Palette — dark/gold al posto del lilla */
+  --lilla:          #F5F0E8;   /* era #dcd3fc — crema caldo come sfondo chiaro */
+  --bianco:         #EFEFEF;   /* off-white, non bianco puro */
+  --nero:           #080808;   /* nero profondo, non nero puro */
+  --verde-acido:    #FFB800;   /* era #c4f000 — oro chiaro per gli accenti forti */
+  --giallo:         #C9A84C;   /* era #ffe200 — oro caldo come colore secondario */
+
+  /* Neo-Brutalismo — ombre con nero profondo */
+  --border-brutal:  2px solid #080808;
+  --shadow-brutal:  6px 6px 0px #080808;
+  --shadow-hover:   2px 2px 0px #080808;
+
+  /* Spaziature — invariate */
+  --padding-inline-global: 10vw;
+  --padding-block-global:  15vh;
+
+  /* Tipografia — Clash Display + Satoshi al posto di Space Grotesk + Inter */
+  --font-title: 'Clash Display', sans-serif;
+  --font-body:  'Satoshi', sans-serif;
+
+  /* Transizioni — invariate */
+  --transition-base: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--lilla);
+      color: var(--nero);
+      font-size: clamp(15px, 1.1vw, 18px);
+      font-weight: 500;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, video {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul { list-style: none; }
+
+    strong { font-weight: 700; }
+
+    /* ============================================================
+       UTILITY GLOBALI
+    ============================================================ */
+    .btn-brutal {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: 0.75em 1.5em;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: clamp(13px, 1vw, 16px);
+      background: var(--verde-acido);
+      color: var(--nero);
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal);
+      cursor: pointer;
+      transition: box-shadow var(--transition-base),
+                  transform var(--transition-base);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-brutal:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    .btn-brutal--giallo {
+      background: var(--giallo);
+    }
+
+    .btn-brutal--nero {
+      background: var(--nero);
+      color: var(--bianco);
+    }
+
+    /* ============================================================
+       NAVBAR — SEZIONE 1
+    ============================================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 8vh;
+      min-height: 56px;
+      padding: 0 var(--padding-inline-global);
+      box-sizing: border-box;
+      border-bottom: var(--border-brutal);
+      background: var(--lilla);
+    }
+
+    /* Blocco A — Logo */
+    .navbar__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: clamp(18px, 1.6vw, 24px);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--nero);
+      line-height: 1;
+    }
+
+    .navbar__logo-simbolo {
+      font-size: 1.1em;
+      line-height: 1;
+    }
+
+    /* Blocco B — Links + CTA */
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 2vw;
+    }
+
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      gap: 2vw;
+      list-style: none;
+    }
+
+    .navbar__links a {
+      position: relative;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(12px, 0.9vw, 15px);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--nero);
+      text-decoration: none;
+      padding-bottom: 3px;
+    }
+
+    /* 4.05 — Directional Hover Underline */
+    .navbar__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--nero);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar__links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* CTA Navbar */
+    .navbar__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.55em 1.2em;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: clamp(12px, 0.85vw, 14px);
+      background: var(--verde-acido);
+      color: var(--nero);
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal);
+      cursor: pointer;
+      transition: box-shadow var(--transition-base),
+                  transform var(--transition-base);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .navbar__cta:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    /* Hamburger mobile */
+    .navbar__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: var(--border-brutal);
+      cursor: pointer;
+      padding: 6px;
+      box-shadow: var(--shadow-brutal);
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .navbar__hamburger:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    .navbar__hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--nero);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Hamburger animato — aperto */
+    .navbar__hamburger.is-open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .navbar__hamburger.is-open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .navbar__hamburger.is-open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Menu mobile overlay */
+    .navbar__mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: var(--lilla);
+      padding: 12vh var(--padding-inline-global) 4vh;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4vh;
+      border-bottom: var(--border-brutal);
+    }
+
+    .navbar__mobile-menu.is-open {
+      display: flex;
+    }
+
+    .navbar__mobile-menu a {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: clamp(32px, 8vw, 60px);
+      border-bottom: var(--border-brutal);
+      padding-bottom: 2vh;
+      display: block;
+      line-height: 1.1;
+    }
+
+    .navbar__mobile-cta {
+      margin-top: 2vh;
+    }
+
+    /* ============================================================
+       RESPONSIVE NAVBAR
+    ============================================================ */
+    @media (max-width: 768px) {
+      .navbar__links { display: none; }
+      .navbar__cta { display: none; }
+      .navbar__hamburger { display: flex; }
+    }
+
+    /* ============================================================
+       FLOATING WHATSAPP BADGE (globale)
+    ============================================================ */
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 997;
+      width: 56px;
+      height: 56px;
+      background: var(--verde-acido);
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal);
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .wa-float:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    /* ============================================================
+       SCROLLBAR CUSTOM
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--lilla); }
+    ::-webkit-scrollbar-thumb { background: var(--nero); }
+    
+/* ============================================================
+   HERO — SEZIONE 2
+============================================================ */
+.hero {
+  position: relative;
+  min-height: 85vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  gap: 5vw;
+  align-items: center;
+  padding: 10vh var(--padding-inline-global);
+  box-sizing: border-box;
+  background-color: #dcd3fc; /* O il colore esatto che vuoi tu */
+  background-image: url('Gemini_Generated_Image_tvwkx0tvwkx0tvwk.png');
+}
+
+/* ── Colonna sinistra ── */
+.hero__col-sx {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  justify-content: flex-start;
+  
+    
+    /* Centra e copre l'intera area */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero__tag {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(11px, 0.85vw, 13px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--nero);
+  opacity: 0.6;
+}
+
+/* Titolo H1 — contenitore parole */
+.hero__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(42px, 6.5vw, 96px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--nero);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.18em 0.25em;
+  align-items: flex-end;
+}
+
+/* Maschera per ogni parola — 2.04 DOM requirement */
+.hero__word-mask {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.05;
+  vertical-align: bottom;
+}
+
+/* Parola interna che emerge dal basso */
+.hero__word {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__word.is-visible {
+  transform: translateY(0);
+}
+
+/* Accento colorato nel titolo */
+.hero__titolo-accent {
+  color: var(--nero);
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+/* Testo descrittivo sotto il titolo */
+.hero__desc {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.65;
+  color: var(--nero);
+  max-width: 52ch;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease 0.9s, transform 0.6s ease 0.9s;
+}
+
+.hero__desc.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CTA hero */
+.hero__cta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease 1.1s, transform 0.6s ease 1.1s;
+}
+
+.hero__cta-wrap.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Colonna destra — Box bianco brutale ── */
+.hero__col-dx {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  right: 320px;  /* aumenta per spostare più a sinistra */
+  
+  transform: translateY(-50%);
+  width: 320px;  /* larghezza fissa, non si restringe */
+  margin-right: 0;
+  padding: 4vh 3vw;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+}
+
+.hero__col-dx.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero__box-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: var(--border-brutal);
+  padding: 0.3em 0.8em;
+  margin-bottom: 2.5vh;
+  display: inline-block;
+}
+
+.hero__box-titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 2vh;
+}
+
+.hero__box-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2vh;
+  margin-bottom: 3vh;
+  width: 100%;
+}
+
+.hero__box-lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7em;
+  font-size: clamp(13px, 0.95vw, 15px);
+  font-weight: 500;
+  line-height: 1.4;
+  padding-bottom: 1.2vh;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.hero__box-lista li:last-child {
+  border-bottom: none;
+}
+
+.hero__box-lista .check {
+  font-size: 0.9em;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+
+.hero__box-prezzo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(38px, 4vw, 58px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  border-top: var(--border-brutal);
+  padding-top: 2vh;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+}
+
+.hero__box-prezzo-sub {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(11px, 0.8vw, 13px);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Scontrino dentro l'hero — fix colori e layout ── */
+
+.hero__col-dx {
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero__col-dx .scontrino {
+  width: 100%;
+  background: var(--bianco);
+  border: none;
+  box-shadow: none;
+}
+
+.hero__col-dx .scontrino__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--nero);
+  color: var(--bianco);
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero__col-dx .scontrino__lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.hero__col-dx .scontrino__voce {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 16px;
+  border-bottom: 1px dashed rgba(0,0,0,0.12);
+  gap: 8px;
+}
+
+.hero__col-dx .scontrino__voce-nome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  color: var(--nero);
+  line-height: 1.3;
+}
+
+.hero__col-dx .scontrino__voce-icon {
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.hero__col-dx .scontrino__voce-prezzo {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  color: var(--nero);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Voci barrate */
+.hero__col-dx .scontrino__voce--barrata .scontrino__voce-nome,
+.hero__col-dx .scontrino__voce--barrata .scontrino__voce-prezzo {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+/* Voci incluse */
+.hero__col-dx .scontrino__voce--inclusa .scontrino__voce-prezzo {
+  color: var(--giallo);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Riga divisore "Quello che hai davvero" */
+.hero__col-dx .scontrino__voce[style] {
+  border-bottom: var(--border-brutal);
+}
+
+/* Totale */
+.hero__col-dx .scontrino__totale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: var(--border-brutal);
+  background: var(--bianco);
+}
+
+.hero__col-dx .scontrino__totale-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--nero);
+  opacity: 0.6;
+}
+
+.hero__col-dx .scontrino__totale-prezzo {
+  font-family: var(--font-title);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--nero);
+}
+
+/* ── Ticker sotto la hero ── */
+.hero__ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-top: var(--border-brutal);
+  border-bottom: var(--border-brutal);
+  background: var(--nero);
+  padding: 0.9em 0;
+}
+
+.hero__ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 18s linear infinite;
+}
+
+.hero__ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.hero__ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  padding: 0 2vw;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(13px, 1vw, 16px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bianco);
+  white-space: nowrap;
+}
+
+.hero__ticker-sep {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--verde-acido);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Responsive Hero ── */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 8vh var(--padding-inline-global) 4vh;
+    gap: 4vh;
+  }
+
+  .hero__titolo {
+    font-size: clamp(36px, 9vw, 60px);
+  }
+
+  .hero__col-dx {
+    padding: 4vh 6vw;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__titolo {
+    font-size: clamp(30px, 11vw, 48px);
+  }
+}
+
+/* ============================================================
+   SEZIONE 3 — IL CONFRONTO (Bento Grid)
+============================================================ */
+.confronto {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--bianco);
+  border-top: var(--border-brutal);
+  border-bottom: var(--border-brutal);
+}
+
+/* Header sezione */
+.confronto__header {
+  margin-bottom: 6vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.confronto__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.confronto__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4.5vw, 68px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.confronto__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Bento Grid ── */
+.confronto__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2vw;
+  position: relative;
+}
+
+/* 9.04 :has() — blur sui fratelli non in hover */
+.confronto__grid:has(.confronto__box--hoverable:hover)
+.confronto__box--hoverable:not(:hover) {
+  filter: blur(2px) brightness(0.88);
+  transform: scale(0.97);
+}
+
+.confronto__box--hoverable {
+  transition:
+    filter 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.25s ease;
+}
+
+.confronto__box--hoverable:hover {
+  box-shadow: 10px 10px 0px var(--nero);
+  z-index: 2;
+}
+
+/* Box base */
+.confronto__box {
+  position: relative;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+  overflow: hidden;
+}
+
+/* BOX A — colonna sx, tutta l'altezza */
+.box-a {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3vw;
+  background: var(--lilla);
+  min-height: 500px;
+}
+
+.box-a__numero {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(80px, 12vw, 160px);
+  line-height: 0.85;
+  letter-spacing: -0.05em;
+  color: var(--nero);
+  opacity: 0.08;
+  position: absolute;
+  bottom: 3vw;
+  right: 1vw;
+  pointer-events: none;
+  user-select: none;
+}
+
+.box-a__top {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.box-a__tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: var(--border-brutal);
+  padding: 0.3em 0.8em;
+  background: var(--bianco);
+  width: fit-content;
+}
+
+.box-a__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(24px, 2.8vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.box-a__testo {
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.box-a__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+/* BOX B — col centrale, riga 1 */
+.box-b {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+/* BOX C — col destra, riga 1 */
+.box-c {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+/* BOX D — col 2+3, riga 2 */
+.box-d {
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+}
+
+.box-d__sx {
+  flex: 1.2;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  border-right: var(--border-brutal);
+}
+
+.box-d__dx {
+  flex: 0.8;
+  padding: 2.5vw;
+  background: var(--nero);
+  color: var(--bianco);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2vh;
+}
+
+/* Card tag */
+.card__tag {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* Card titolo */
+.card__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 26px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Card testo */
+.card__testo {
+  font-size: clamp(12px, 0.9vw, 14px);
+  line-height: 1.6;
+  font-weight: 500;
+  opacity: 0.75;
+  flex: 1;
+}
+
+/* Pillola differenza */
+.card__differenza {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: clamp(12px, 0.88vw, 14px);
+  font-weight: 600;
+  padding: 1em;
+  border: var(--border-brutal);
+  background: var(--verde-acido);
+  margin-top: auto;
+}
+
+.card__differenza-icon {
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+
+/* Box D dx — testo bianco */
+.box-d__dx .card__titolo { color: var(--bianco); }
+.box-d__dx .card__testo  { color: var(--bianco); opacity: 0.75; }
+.box-d__dx .card__tag    { color: var(--bianco); opacity: 0.5; }
+.box-d__dx .card__differenza {
+  background: var(--giallo);
+  color: var(--nero);
+}
+
+/* Reveal on scroll — sezione intera */
+.confronto__grid {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.confronto__grid.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .confronto__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .box-a {
+    grid-column: 1 / 3;
+    grid-row: auto;
+    min-height: 280px;
+  }
+
+  .box-b { grid-column: 1 / 2; grid-row: auto; }
+  .box-c { grid-column: 2 / 3; grid-row: auto; }
+
+  .box-d {
+    grid-column: 1 / 3;
+    grid-row: auto;
+    flex-direction: column;
+  }
+
+  .box-d__sx { border-right: none; border-bottom: var(--border-brutal); }
+}
+
+@media (max-width: 580px) {
+  .confronto__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .box-a, .box-b, .box-c, .box-d {
+    grid-column: 1 / 2;
+  }
+
+  .box-d { flex-direction: column; }
+  .box-d__sx { border-right: none; border-bottom: var(--border-brutal); }
+
+  .confronto__box--hoverable:hover {
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .confronto__grid:has(.confronto__box--hoverable:hover)
+  .confronto__box--hoverable:not(:hover) {
+    filter: none;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   SEZIONE 4 — PORTFOLIO (Browser Window)
+============================================================ */
+.portfolio {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--lilla);
+}
+
+/* Header sezione */
+.portfolio__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5vh;
+  gap: 2vw;
+  flex-wrap: wrap;
+}
+
+.portfolio__header-sx {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.portfolio__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.portfolio__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4.5vw, 68px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.portfolio__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.portfolio__header-cta {
+  flex-shrink: 0;
+}
+
+/* ── Browser Window ── */
+.browser-window {
+  width: 100%;
+  position: relative;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bianco);
+
+  /* Reveal on scroll */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.browser-window.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Header bar del browser */
+.browser-window__bar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-bottom: var(--border-brutal);
+  padding: 0 1vw;
+  gap: 0.5vw;
+  background: var(--bianco);
+  flex-shrink: 0;
+}
+
+/* I tre dot macOS */
+.browser-window__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 1vw;
+}
+
+.browser-window__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: var(--border-brutal);
+  flex-shrink: 0;
+}
+
+.browser-window__dot--red    { background: #ff5f57; }
+.browser-window__dot--yellow { background: #febc2e; }
+.browser-window__dot--green  { background: #28c840; }
+
+/* Barra URL finta */
+.browser-window__url {
+  flex: 1;
+  height: 24px;
+  border: var(--border-brutal);
+  background: var(--lilla);
+  display: flex;
+  align-items: center;
+  padding: 0 0.8em;
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.75vw, 12px);
+  font-weight: 500;
+  color: var(--nero);
+  opacity: 0.6;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.browser-window__url-text {
+  transition: opacity 0.3s ease;
+}
+
+/* Area contenuto principale 16/9 */
+.browser-window__content {
+  aspect-ratio: 16 / 9;
+  display: block;
+  position: relative;
+  overflow: hidden;
+  background: var(--nero);
+}
+
+/* Slide immagine progetto */
+.browser-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.browser-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.browser-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay info su immagine */
+.browser-slide__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2vw 2.5vw;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1vw;
+}
+
+.browser-slide__nome {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 2vw, 28px);
+  color: var(--bianco);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.browser-slide__categoria {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  color: var(--bianco);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Tab di navigazione ── */
+.portfolio__tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  margin-top: 0;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  background: var(--bianco);
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+.portfolio__tabs.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portfolio__tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+  padding: 2vh 2vw;
+  border: none;
+  border-right: var(--border-brutal);
+  background: var(--bianco);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: background 0.25s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.portfolio__tab:last-child {
+  border-right: none;
+}
+
+.portfolio__tab:hover {
+  background: var(--lilla);
+}
+
+.portfolio__tab.is-active {
+  background: var(--nero);
+  color: var(--bianco);
+}
+
+.portfolio__tab.is-active .tab__numero { color: var(--verde-acido); }
+.portfolio__tab.is-active .tab__nome   { color: var(--bianco); }
+.portfolio__tab.is-active .tab__cat    { color: rgba(255,255,255,0.5); }
+
+.tab__numero {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--nero);
+  opacity: 0.4;
+  transition: color 0.25s;
+}
+
+.portfolio__tab.is-active .tab__numero {
+  opacity: 1;
+}
+
+.tab__nome {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 18px);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  transition: color 0.25s;
+}
+
+.tab__cat {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.78vw, 12px);
+  font-weight: 500;
+  color: var(--nero);
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.25s;
+}
+
+/* Indicatore attivo — lineetta verde in cima */
+.portfolio__tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--verde-acido);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio__tab.is-active::before {
+  transform: scaleX(1);
+}
+
+/* ── Mouse Trail — 8.04 DOM requirements ── */
+.trail-img {
+  position: fixed;
+  width: 200px;
+  height: 140px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 9990;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  transform: translate(-50%, -60%) scale(0.85);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.trail-img.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -60%) scale(1);
+}
+
+.trail-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .portfolio__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .portfolio__tabs {
+    flex-direction: column;
+  }
+
+  .portfolio__tab {
+    border-right: none;
+    border-bottom: var(--border-brutal);
+  }
+
+  .portfolio__tab:last-child {
+    border-bottom: none;
+  }
+
+  .trail-img { display: none; }
+}
+
+/* ============================================================
+   SEZIONE 5 — IL PROCESSO (I 3 Step)
+============================================================ */
+.processo {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--bianco);
+  border-top: var(--border-brutal);
+}
+
+/* Header sezione */
+.processo__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  margin-bottom: 8vh;
+}
+
+.processo__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.processo__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4.5vw, 68px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.processo__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.processo__sottotitolo {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.1vw, 17px);
+  font-weight: 500;
+  opacity: 0.6;
+  margin-top: 0.5vh;
+}
+
+/* ── Griglia 3 step ── */
+.processo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2vw;
+  align-items: stretch;
+}
+
+/* Card step */
+.step-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+  overflow: hidden;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+
+  /* Entrata staggered — JS aggiunge is-visible */
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.step-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.step-card:hover {
+  box-shadow: 10px 10px 0px var(--nero);
+  transform: translate(-4px, -4px);
+}
+
+/* Blocco superiore (30%) */
+.step-card__top {
+  height: auto;
+  min-height: 80px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vw;
+  border-bottom: var(--border-brutal);
+  flex-shrink: 0;
+}
+
+/* Numero step — 8.05 Scroll-Timeline target */
+.step-card__numero {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 3.5vw, 52px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--nero);
+
+  /* 8.05 — scroll-timeline: cresce in opacity e scale */
+  animation: step-number-grow linear both;
+  animation-timeline: scroll(root);
+  animation-range: entry 0% entry 60%;
+}
+
+@keyframes step-number-grow {
+  from {
+    opacity: 0.15;
+    transform: scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Icona/tag step */
+.step-card__icona {
+  font-size: clamp(22px, 2.5vw, 36px);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(44px, 4vw, 60px);
+  height: clamp(44px, 4vw, 60px);
+  border: var(--border-brutal);
+  background: var(--lilla);
+  flex-shrink: 0;
+}
+
+/* Blocco inferiore (70%) */
+.step-card__body {
+  flex: 1;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.step-card__tag {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.45;
+}
+
+.step-card__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.step-card__testo {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.75;
+  flex: 1;
+}
+
+.step-card__cta {
+  margin-top: auto;
+  padding-top: 2vh;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Step 1 — accent lilla */
+.step-card--01 { background: var(--lilla); }
+.step-card--01 .step-card__icona { background: var(--bianco); }
+
+/* Step 3 — accent verde acido */
+.step-card--03 { background: var(--bianco); }
+.step-card--03 .step-card__icona {
+  background: var(--verde-acido);
+  border-color: var(--nero);
+}
+
+/* Numero decorativo grande in background */
+.step-card__deco-num {
+  position: absolute;
+  bottom: -0.1em;
+  right: 0.1em;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(80px, 10vw, 130px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--nero);
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+
+  /* Anche il deco num scala con scroll */
+  animation: step-deco-grow linear both;
+  animation-timeline: scroll(root);
+  animation-range: entry 0% entry 70%;
+}
+
+@keyframes step-deco-grow {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 0.04;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Fallback per browser senza scroll-timeline */
+@supports not (animation-timeline: scroll()) {
+  .step-card__numero {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .step-card__deco-num {
+    animation: none;
+    opacity: 0.04;
+    transform: none;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .processo__grid {
+    grid-template-columns: 1fr;
+    gap: 4vw;
+  }
+
+  .step-card {
+    flex-direction: row;
+    min-height: auto;
+  }
+
+  .step-card__top {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    min-height: auto;
+    border-bottom: none;
+    border-right: var(--border-brutal);
+    padding: 2vh 1.5vw;
+    gap: 1vh;
+    flex-shrink: 0;
+  }
+
+  .step-card__body {
+    padding: 3vw 4vw;
+  }
+
+  .step-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--nero);
+  }
+}
+
+@media (max-width: 480px) {
+  .step-card {
+    flex-direction: column;
+  }
+
+  .step-card__top {
+    flex-direction: row;
+    width: 100%;
+    border-right: none;
+    border-bottom: var(--border-brutal);
+    padding: 3vw 4vw;
+  }
+}
+
+/* ============================================================
+   SEZIONE 6 — LA MATEMATICA DEI 250€ (Lo Scontrino)
+============================================================ */
+.matematica {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--lilla);
+  border-top: var(--border-brutal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Wrapper interno 80% */
+.matematica__wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: var(--border-brutal);
+  position: relative;
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+
+  /* Reveal on scroll */
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+
+.matematica__wrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Colonna sinistra ── */
+.matematica__col-sx {
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  border-right: var(--border-brutal);
+}
+
+.matematica__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.matematica__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(28px, 3.2vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.matematica__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.matematica__intro {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+/* ── Scontrino ── */
+.scontrino {
+  border: var(--border-brutal);
+  background: var(--bianco);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scontrino__header {
+  background: var(--nero);
+  color: var(--bianco);
+  padding: 1.2vh 1.5vw;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scontrino__header-data {
+  opacity: 0.5;
+  font-weight: 500;
+}
+
+/* Lista voci */
+.scontrino__lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.scontrino__voce {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2vh 1.5vw;
+  border-bottom: 1px dashed rgba(0,0,0,0.15);
+  font-family: var(--font-body);
+  font-size: clamp(12px, 0.88vw, 14px);
+  font-weight: 500;
+  gap: 1em;
+
+  /* Entrata staggered — JS aggiunge is-visible */
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+
+.scontrino__voce.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scontrino__voce:last-child {
+  border-bottom: none;
+}
+
+.scontrino__voce-nome {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  flex: 1;
+}
+
+.scontrino__voce-icon {
+  font-size: 1em;
+  flex-shrink: 0;
+}
+
+.scontrino__voce-prezzo {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(12px, 0.9vw, 14px);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Voce barrata — costo eliminato */
+.scontrino__voce--barrata .scontrino__voce-nome {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+.scontrino__voce--barrata .scontrino__voce-prezzo {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+/* Voce inclusa — verde acido */
+.scontrino__voce--inclusa {
+  background: rgba(196, 240, 0, 0.15);
+}
+
+.scontrino__voce--inclusa .scontrino__voce-prezzo {
+  color: #4a7c00;
+  font-weight: 800;
+}
+
+/* Totale finale */
+.scontrino__totale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8vh 1.5vw;
+  background: var(--nero);
+  color: var(--bianco);
+  border-top: var(--border-brutal);
+
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s;
+}
+
+.scontrino__totale.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scontrino__totale-label {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(12px, 0.9vw, 14px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.scontrino__totale-prezzo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(22px, 2.2vw, 32px);
+  letter-spacing: -0.02em;
+  color: var(--verde-acido);
+}
+
+.hero__col-dx .scontrino__voce,
+.hero__col-dx .scontrino__totale {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Colonna destra ── */
+.matematica__col-dx {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Sottoblocco superiore — prezzo timbro */
+.matematica__top-dx {
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+  flex: 1;
+  border-bottom: var(--border-brutal);
+  position: relative;
+  overflow: hidden;
+  background: var(--lilla);
+}
+
+/* Prezzo enorme */
+.matematica__prezzo-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matematica__prezzo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(64px, 8vw, 112px);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--nero);
+  position: relative;
+  z-index: 2;
+}
+
+/* SVG cerchio mano libera — 6.02 DOM requirement */
+.matematica__svg-callout {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.matematica__svg-path {
+  fill: none;
+  stroke: var(--nero);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* stroke-dasharray e stroke-dashoffset impostati via JS */
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.matematica__svg-path.is-drawn {
+  stroke-dashoffset: 0;
+}
+
+.matematica__prezzo-nota {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.matematica__bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+  width: 100%;
+}
+
+.matematica__bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: clamp(12px, 0.88vw, 13px);
+  font-weight: 500;
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+.matematica__bullet-list .bullet-check {
+  color: #4a7c00;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 0.05em;
+}
+
+/* Sottoblocco inferiore — CTA */
+.matematica__bottom-dx {
+  padding: 3vw 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  justify-content: center;
+}
+
+.matematica__cta-titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.matematica__cta-nota {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.8vw, 12px);
+  font-weight: 500;
+  opacity: 0.5;
+  line-height: 1.5;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .matematica__wrapper {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .matematica__col-sx {
+    border-right: none;
+    border-bottom: var(--border-brutal);
+    padding: 6vw;
+  }
+
+  .matematica__top-dx {
+    padding: 6vw;
+    border-bottom: var(--border-brutal);
+  }
+
+  .matematica__bottom-dx {
+    padding: 6vw;
+  }
+
+  .matematica__prezzo {
+    font-size: clamp(72px, 18vw, 110px);
+  }
+}
+
+@media (max-width: 480px) {
+  .matematica {
+    padding: var(--padding-block-global) 4vw;
+  }
+
+  .matematica__col-sx { padding: 8vw; }
+  .matematica__top-dx { padding: 8vw; }
+  .matematica__bottom-dx { padding: 8vw; }
+}
+
+/* ============================================================
+   SEZIONE 7 — CTA CON FOTO + FOOTER
+============================================================ */
+
+/* ── CTA Block ── */
+.cta-finale {
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--lilla);
+  border-top: var(--border-brutal);
+}
+
+.cta-finale__inner {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  padding: 5vw;
+  background: var(--bianco);
+  gap: 3vw;
+  align-items: center;
+
+  /* Reveal on scroll — solo opacity, zero transform */
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.cta-finale__inner.is-visible {
+  opacity: 1;
+}
+
+/* Foto polaroid — posizione assoluta offset ── */
+.cta-finale__foto-wrap {
+  position: absolute;
+  right: -5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 22vw;
+  aspect-ratio: 3 / 4;
+
+  /* Entrata con leggero delay */
+  opacity: 0;
+  transform: translateY(-50%) translateX(40px);
+  transition: opacity 0.6s ease 0.25s, transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s;
+}
+
+.cta-finale__inner.is-visible .cta-finale__foto-wrap {
+  opacity: 1;
+  transform: translateY(-50%) translateX(0);
+}
+
+.cta-finale__foto {
+  width: 100%;
+  height: 100%;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  background: var(--nero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-finale__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Nastro scotch decorativo */
+.cta-finale__nastro {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotateZ(-15deg);
+  width: 60%;
+  height: 12px;
+  background: rgba(255,255,255,0.8);
+  border-bottom: 2px dashed rgba(0,0,0,0.2);
+  pointer-events: none;
+  z-index: 11;
+}
+
+/* ── Contenuto CTA sx ── */
+.cta-finale__contenuto {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vh;
+  z-index: 2;
+  position: relative;
+}
+
+.cta-finale__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.cta-finale__titolo .block {
+  display: block;
+}
+
+.cta-finale__titolo .block.oro {
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-finale__sottotesto {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.75;
+  max-width: 45ch;
+}
+
+.cta-finale__cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  margin-top: 1vh;
+}
+
+.cta-finale__wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.8em 1.6em;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(13px, 1vw, 16px);
+  background: var(--verde-acido);
+  color: var(--nero);
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.cta-finale__wa:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translate(4px, 4px);
+}
+
+.cta-finale__wa-icona {
+  font-size: 1.2em;
+}
+
+/* Email copy button */
+.cta-finale__email-copy {
+  background: var(--bianco);
+  color: var(--nero);
+  position: relative;
+}
+
+.cta-finale__email-copy .testo-principale {
+  display: inline;
+}
+
+.cta-finale__email-copy .testo-feedback {
+  display: none;
+  color: #4a7c00;
+  font-weight: 800;
+}
+
+.cta-finale__email-copy.is-copied .testo-principale {
+  display: none;
+}
+
+.cta-finale__email-copy.is-copied .testo-feedback {
+  display: inline;
+}
+
+/* ── Footer ── */
+.footer {
+  width: 100%;
+  padding: 6vh var(--padding-inline-global);
+  box-sizing: border-box;
+  border-top: var(--border-brutal);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5vw;
+  background: var(--bianco);
+}
+
+.footer__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6vh;
+}
+
+.footer__linea {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--lilla), var(--nero), var(--lilla));
+  opacity: 0.2;
+}
+
+.footer__main {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5vw;
+  flex-wrap: wrap;
+}
+
+/* Footer brand sx */
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 1.6vw, 24px);
+  letter-spacing: -0.02em;
+  color: var(--nero);
+  line-height: 1;
+}
+
+.footer__logo-simbolo {
+  font-size: 1.1em;
+}
+
+.footer__info {
+  font-family: var(--font-body);
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 500;
+  line-height: 1.7;
+  opacity: 0.7;
+}
+
+.footer__info a {
+  color: var(--nero);
+  text-decoration: underline;
+  transition: opacity 0.25s ease;
+}
+
+.footer__info a:hover {
+  opacity: 0.5;
+}
+
+/* Footer dx — social + legali */
+.footer__destra {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  flex: 1;
+}
+
+.footer__social {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5vw;
+  flex-wrap: wrap;
+}
+
+.footer__social-tasto {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.5em 1em;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(12px, 0.9vw, 14px);
+  border: var(--border-brutal);
+  background: var(--nero);
+  color: var(--bianco);
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  white-space: nowrap;
+}
+
+.footer__social-tasto:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translate(2px, 2px);
+}
+
+.footer__legali-links {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  flex-wrap: wrap;
+}
+
+.footer__legali-links a {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  color: var(--nero);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.25s ease;
+  cursor: pointer;
+}
+
+.footer__legali-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.footer__copyright {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.8vw, 12px);
+  font-weight: 500;
+  opacity: 0.4;
+  margin-top: 2vh;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .cta-finale {
+    padding: 8vh var(--padding-inline-global) 6vh;
+  }
+
+  .cta-finale__inner {
+    grid-template-columns: 1fr;
+    padding: 6vw;
+  }
+
+  .cta-finale__foto-wrap {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    right: auto;
+    top: auto;
+  }
+
+  .cta-finale__inner.is-visible .cta-finale__foto-wrap {
+    transform: none;
+  }
+
+  .cta-finale__nastro {
+    width: 80%;
+  }
+
+  .footer__main {
+    flex-direction: column;
+  }
+
+  .footer__destra {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-finale {
+    padding: 6vh 4vw;
+  }
+
+  .cta-finale__inner {
+    padding: 6vw 5vw;
+  }
+
+  .cta-finale__titolo {
+    font-size: clamp(28px, 10vw, 42px);
+  }
+
+  .footer {
+    padding: 6vh 4vw;
+  }
+
+  .footer__social-tasto {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+  </style>
+</head>
+<body>
+
+  <!-- ============================================
+       NAVBAR
+  ============================================ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Navigazione principale">
+
+    <!-- Blocco A — Logo -->
+    <a href="#" class="navbar__logo" aria-label="Ompage — torna in cima">
+      <span class="navbar__logo-simbolo" aria-hidden="true">ॐ</span>PAGE
+    </a>
+
+    <!-- Blocco B — Links + CTA -->
+    <div class="navbar__right">
+      <ul class="navbar__links" role="list">
+        <li><a href="#confronto">Confronto</a></li>
+        <li><a href="#portfolio">Lavori</a></li>
+        <li><a href="#processo">Metodo</a></li>
+        <li><a href="#matematica">Prezzi</a></li>
+      </ul>
+
+      <a
+        href="https://wa.me/39XXXXXXXXXX"
+        class="navbar__cta"
+        target="_blank"
+        rel="noopener"
+        aria-label="Scrivimi su WhatsApp"
+      >
+        Scrivimi su WA ↗
+      </a>
+    </div>
+
+    <!-- Hamburger mobile -->
+    <button
+      class="navbar__hamburger"
+      id="hamburger"
+      aria-label="Apri menu"
+      aria-expanded="false"
+      aria-controls="mobileMenu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Menu mobile -->
+  <nav
+    class="navbar__mobile-menu"
+    id="mobileMenu"
+    aria-label="Menu mobile"
+    role="navigation"
+  >
+    <a href="#confronto" class="mobile-link">Confronto</a>
+    <a href="#portfolio" class="mobile-link">Lavori</a>
+    <a href="#processo" class="mobile-link">Metodo</a>
+    <a href="#matematica" class="mobile-link">Prezzi</a>
+    <a
+      href="https://wa.me/39XXXXXXXXXX"
+      class="btn-brutal navbar__mobile-cta"
+      target="_blank"
+      rel="noopener"
+    >
+      Scrivimi su WhatsApp ↗
+    </a>
+  </nav>
+
+  <!-- Floating WhatsApp sempre visibile -->
+  <a
+    href="https://wa.me/39XXXXXXXXXX"
+    class="wa-float"
+    target="_blank"
+    rel="noopener"
+    aria-label="Contattami su WhatsApp"
+    title="Scrivimi su WhatsApp"
+  >
+    💬
+  </a>
+
+ <!-- ============================================
+     HERO — SEZIONE 2
+============================================ -->
+<section class="hero" id="hero" aria-label="Sezione principale">
+
+  <!-- COLONNA SINISTRA -->
+  <div class="hero__col-sx">
+
+    
+
+    <span class="hero__tag" aria-label="Localizzazione servizio">
+      Web Design · Torino &amp; Ovunque
+    </span>
+
+    <!-- Titolo H1 — parole mascherabili per 2.04 -->
+    <h1 class="hero__titolo" aria-label="L'era delle agenzie è finita">
+      
+      <span class="hero__word-mask">
+        <span class="hero__word" style="--index:0">L'era</span>
+      </span>
+      <span class="hero__word-mask">
+        <span class="hero__word" style="--index:1">delle</span>
+      </span>
+      <span class="hero__word-mask">
+        <span class="hero__word" style="--index:2">agenzie</span>
+      </span>
+      <span class="hero__word-mask hero__titolo-accent">
+        <span class="hero__word" style="--index:3">è&nbsp;finita.</span>
+      </span>
+    </h1>
+
+    <p class="hero__desc">
+      Internet è cambiato, ma le agenzie web sono rimaste al passato.
+      Costruisco vetrine digitali fatte a mano, progettate per chi ti cerca
+      oggi su Google Maps. Niente manutenzione, niente canoni, niente plugin e
+      costi inutili. Solo sostanza. Avrai bozza pronta&nbsp;+ prezzo fisso&nbsp;+
+      zero vincoli&nbsp;+ posizionamento geo.
+    </p>
+
+    <div class="hero__cta-wrap">
+      <a
+        href="https://wa.me/39XXXXXXXXXX"
+        class="btn-brutal"
+        target="_blank"
+        rel="noopener"
+        aria-label="Scrivimi su WhatsApp per iniziare"
+      >
+        💬 Scrivimi su WhatsApp ↗
+      </a>
+      <a href="#confronto" class="btn-brutal btn-brutal--nero">
+        Scopri come funziona ↓
+      </a>
+    </div>
+
+  </div>
+
+  <!-- COLONNA DESTRA — Box bianco brutale -->
+  <!-- Incolla questo al posto del tuo div.hero__col-dx -->
+
+<div class="hero__col-dx" aria-label="Riepilogo offerta">
+
+  <div class="scontrino" aria-label="Dettaglio costi">
+
+    <div class="scontrino__header">
+      <span>Ompage · Ricevuta</span>
+      <span class="scontrino__header-data">2025</span>
+    </div>
+
+    <ul class="scontrino__lista" id="scontrinoLista">
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Server e hosting annuo
+        </span>
+        <span class="scontrino__voce-prezzo">150€/anno</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Manutenzione obbligatoria
+        </span>
+        <span class="scontrino__voce-prezzo">200€/anno</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Plugin e template inutili
+        </span>
+        <span class="scontrino__voce-prezzo">80€</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Pagine inutili e SEO fuffa
+        </span>
+        <span class="scontrino__voce-prezzo">??€</span>
+      </li>
+
+      <li class="scontrino__voce" style="background:rgba(201,168,76,0.08); border-bottom: var(--border-brutal);">
+        <span class="scontrino__voce-nome" style="font-weight:700; opacity:1;">
+          <span class="scontrino__voce-icon" aria-hidden="true">✦</span>
+          Quello che hai davvero
+        </span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Bozza online prima del pagamento
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Dominio + hosting primo anno
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Ottimizzazione GEO Google Maps
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Codice 100% tuo, zero vincoli
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Dal secondo anno: solo 10€ di dominio
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+    </ul>
+
+    <div class="scontrino__totale" id="scontrinoTotale" aria-label="Totale: 250 euro una tantum">
+      <span class="scontrino__totale-label">Totale una tantum</span>
+      <span class="scontrino__totale-prezzo">250€</span>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+<!-- TICKER sotto hero -->
+<div class="hero__ticker-wrap" aria-hidden="true">
+  <div class="hero__ticker-track">
+    <!-- Prima copia -->
+    <div class="hero__ticker-item">Basta Siti Noiosi <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Design a Prezzo Unico <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Il Sito che si Ripaga da Solo <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Zero Manutenzione <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">100% il tuo sito <span class="hero__ticker-sep"></span></div>
+    <!-- Seconda copia per loop visivo perfetto -->
+    <div class="hero__ticker-item">Basta Siti Noiosi <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Design a Prezzo Unico <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Il Sito che si Ripaga da Solo <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Zero Manutenzione <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">100% il tuo sito <span class="hero__ticker-sep"></span></div>
+  </div>
+</div>
+
+<!-- ============================================
+     SEZIONE 3 — IL CONFRONTO (Bento Grid)
+============================================ -->
+<section
+  class="confronto"
+  id="confronto"
+  aria-label="Il confronto: Ompage vs alternative"
+>
+  <!-- Header -->
+  <div class="confronto__header">
+    <span class="confronto__label">Il Confronto</span>
+    <h2 class="confronto__titolo">
+      Perché Ompage<br>
+      <em>e non gli altri?</em>
+    </h2>
+  </div>
+
+  <!-- Bento Grid -->
+  <div class="confronto__grid" id="confrontoGrid">
+
+    <!-- BOX A — dominante sx -->
+    <div class="confronto__box box-a" aria-label="Introduzione al confronto">
+      <div class="box-a__top">
+        <span class="box-a__tag">✦ La verità</span>
+        <h3 class="box-a__titolo">
+          Esistono tanti modi per spendere poco per un sito web.
+        </h3>
+        <p class="box-a__testo">
+          Quasi tutti nascondono una trappola. Scopri perché il mio metodo
+          è l'alternativa sicura: vedi la bozza prima di pagare,
+          possiedi il codice dal giorno uno, zero canoni nascosti.
+        </p>
+      </div>
+      <div class="box-a__bottom">
+        <a
+          href="https://wa.me/39XXXXXXXXXX"
+          class="btn-brutal"
+          target="_blank"
+          rel="noopener"
+          aria-label="Scrivimi su WhatsApp"
+        >
+          💬 Parliamone ↗
+        </a>
+      </div>
+      <!-- numero decorativo -->
+      <span class="box-a__numero" aria-hidden="true">3</span>
+    </div>
+
+    <!-- BOX B — Io vs Wix -->
+    <div
+      class="confronto__box box-b confronto__box--hoverable"
+      aria-label="Confronto con Wix"
+    >
+      <span class="card__tag">🏗 L'illusione del fai-da-te</span>
+      <h3 class="card__titolo">Io Vs Wix</h3>
+      <p class="card__testo">
+        Piattaforme come Wix ti vendono il sito "gratis" ma ti rubano il
+        tempo. Passi tre weekend a incastrare blocchi per ottenere un sito
+        uguale a mille altri. E alla fine paghi comunque un canone mensile.
+      </p>
+      <div class="card__differenza">
+        <span class="card__differenza-icon" aria-hidden="true">→</span>
+        <span>
+          <strong>La mia differenza:</strong> Mando online una bozza già pronta
+          scritta in puro codice HTML. Tu continui a fare il tuo lavoro.
+        </span>
+      </div>
+    </div>
+
+    <!-- BOX C — Io vs Freelance economici -->
+    <div
+      class="confronto__box box-c confronto__box--hoverable"
+      aria-label="Confronto con freelance economici"
+    >
+      <span class="card__tag">✏️ Il problema della manutenzione</span>
+      <h3 class="card__titolo">Io Vs Altri Freelance economici</h3>
+      <p class="card__testo">
+        Ti chiedono soldi al buio, usano template WordPress e spariscono
+        dopo il pagamento. Ti costringono a un supporto continuo per gli
+        aggiornamenti.
+      </p>
+      <div class="card__differenza">
+        <span class="card__differenza-icon" aria-hidden="true">→</span>
+        <span>
+          <strong>La mia differenza:</strong> Vedi la bozza prima del saldo.
+          Il sito in puro codice non ha bisogno di manutenzione.
+        </span>
+      </div>
+    </div>
+
+    <!-- BOX D — Io vs Agenzie Web (orizzontale) -->
+    <div
+      class="confronto__box box-d confronto__box--hoverable"
+      aria-label="Confronto con agenzie web"
+    >
+      <div class="box-d__sx">
+        <span class="card__tag">🚀 La trappola dei preventivi</span>
+        <h3 class="card__titolo">Io vs Agenzie Web economiche</h3>
+        <p class="card__testo">
+          Ti propongono plugin inutili solo per gonfiare il prezzo o ti
+          attirano con prezzi d'ingresso bassi, poi ti chiedono 150–200€
+          di "manutenzione server" obbligatoria ogni anno. Se non paghi,
+          ti oscurano il sito. Non sei proprietario di nulla.
+        </p>
+      </div>
+      <div class="box-d__dx">
+        <span class="card__tag">→ La mia differenza</span>
+        <p class="card__testo">
+          Il sito è 100% tuo. Paghi 250€ una volta sola. Dato che non serve
+          manutenzione, puoi gestire il sito in autonomia. Il rinnovo del
+          dominio l'anno successivo ti costerà circa 10€, senza nessun
+          vincolo con me.
+        </p>
+        <div class="card__differenza">
+          <span class="card__differenza-icon" aria-hidden="true">★</span>
+          <strong>Sei libero.</strong>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- fine grid -->
+
+</section>
+
+<!-- ============================================
+     SEZIONE 4 — PORTFOLIO (Browser Window)
+============================================ -->
+<section
+  class="portfolio"
+  id="portfolio"
+  aria-label="Portfolio lavori"
+>
+
+  <!-- Header -->
+  <div class="portfolio__header">
+    <div class="portfolio__header-sx">
+      <span class="portfolio__label">Portfolio</span>
+      <h2 class="portfolio__titolo">
+        Il Mio<br><em>Design</em> Ompage
+      </h2>
+    </div>
+    <div class="portfolio__header-cta">
+      <a
+        href="https://wa.me/39XXXXXXXXXX"
+        class="btn-brutal"
+        target="_blank"
+        rel="noopener"
+        aria-label="Vuoi un sito così? Scrivimi su WhatsApp"
+      >
+        💬 Voglio il mio ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- Finestra Browser -->
+  <div
+    class="browser-window"
+    id="browserWindow"
+    role="region"
+    aria-label="Anteprima progetti"
+  >
+    <!-- Bar browser -->
+    <div class="browser-window__bar" aria-hidden="true">
+      <div class="browser-window__dots">
+        <span class="browser-window__dot browser-window__dot--red"></span>
+        <span class="browser-window__dot browser-window__dot--yellow"></span>
+        <span class="browser-window__dot browser-window__dot--green"></span>
+      </div>
+      <div class="browser-window__url">
+        <span class="browser-window__url-text" id="urlText">
+          https://ompage.it/preview/maison-grooming
+        </span>
+      </div>
+    </div>
+
+    <!-- Contenuto 16/9 -->
+    <div class="browser-window__content" aria-live="polite">
+
+      <!-- Slide 1 — Maison Grooming -->
+      <div
+        class="browser-slide is-active"
+        data-url="https://ompage.it/preview/maison-grooming"
+        aria-label="Anteprima sito Maison Grooming"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1920&q=85"
+          alt="Anteprima sito Maison Grooming — pet care di lusso"
+          loading="lazy"
+        />
+        <div class="browser-slide__info">
+          <div>
+            <div class="browser-slide__nome">Maison Grooming</div>
+            <div class="browser-slide__categoria">Pet Care · Lusso</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 2 — Pala Cocktails -->
+      <div
+        class="browser-slide"
+        data-url="https://ompage.it/preview/pala-cocktails"
+        aria-label="Anteprima sito Pala Cocktails"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1920&q=85"
+          alt="Anteprima sito Pala Cocktails — mixology bar"
+          loading="lazy"
+        />
+        <div class="browser-slide__info">
+          <div>
+            <div class="browser-slide__nome">Pala Cocktails</div>
+            <div class="browser-slide__categoria">Bar · Mixology</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Slide 3 — Controllo Assoluto -->
+      <div
+        class="browser-slide"
+        data-url="https://ompage.it/preview/controllo-assoluto"
+        aria-label="Anteprima sito Controllo Assoluto"
+      >
+        <img
+          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=85"
+          alt="Anteprima sito Controllo Assoluto — personal brand coach"
+          loading="lazy"
+        />
+        <div class="browser-slide__info">
+          <div>
+            <div class="browser-slide__nome">Controllo Assoluto</div>
+            <div class="browser-slide__categoria">Coach · Personal Brand</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- fine content -->
+  </div><!-- fine browser-window -->
+
+  <!-- Tab di navigazione -->
+  <div
+    class="portfolio__tabs"
+    id="portfolioTabs"
+    role="tablist"
+    aria-label="Seleziona progetto"
+  >
+    <button
+      class="portfolio__tab is-active"
+      role="tab"
+      aria-selected="true"
+      aria-controls="slide-0"
+      data-index="0"
+      data-preview="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80"
+    >
+      <span class="tab__numero">01</span>
+      <span class="tab__nome">Maison Grooming</span>
+      <span class="tab__cat">Pet Care · Lusso</span>
+    </button>
+
+    <button
+      class="portfolio__tab"
+      role="tab"
+      aria-selected="false"
+      aria-controls="slide-1"
+      data-index="1"
+      data-preview="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80"
+    >
+      <span class="tab__numero">02</span>
+      <span class="tab__nome">Pala Cocktails</span>
+      <span class="tab__cat">Bar · Mixology</span>
+    </button>
+
+    <button
+      class="portfolio__tab"
+      role="tab"
+      aria-selected="false"
+      aria-controls="slide-2"
+      data-index="2"
+      data-preview="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=80"
+    >
+      <span class="tab__numero">03</span>
+      <span class="tab__nome">Controllo Assoluto</span>
+      <span class="tab__cat">Coach · Personal Brand</span>
+    </button>
+  </div>
+
+</section>
+
+<!-- Trail image — 8.04 DOM element (fuori dal flusso) -->
+<div class="trail-img" id="trailImg" aria-hidden="true">
+  <img src="" alt="" id="trailImgSrc" />
+</div>
+
+<!-- ============================================
+     SEZIONE 5 — IL PROCESSO (I 3 Step)
+============================================ -->
+<section
+  class="processo"
+  id="processo"
+  aria-label="Il metodo di lavoro in 3 step"
+>
+
+  <!-- Header -->
+  <div class="processo__header">
+    <span class="processo__label">Il Metodo</span>
+    <h2 class="processo__titolo">
+      Il Piano<br><em>d'Azione.</em>
+    </h2>
+    <p class="processo__sottotitolo">Tre passi. Zero fatica.</p>
+  </div>
+
+  <!-- Griglia 3 card -->
+  <div class="processo__grid" id="processoGrid">
+
+    <!-- STEP 01 -->
+    <article
+      class="step-card step-card--01"
+      aria-label="Step 1: La bozza va online"
+    >
+      <!-- Blocco superiore -->
+      <div class="step-card__top">
+        <span class="step-card__numero" aria-label="Step numero 1">01</span>
+        <div class="step-card__icona" aria-hidden="true">🏗</div>
+      </div>
+
+      <!-- Blocco inferiore -->
+      <div class="step-card__body">
+        <span class="step-card__tag">Progetto</span>
+        <h3 class="step-card__titolo">La Bozza va Online</h3>
+        <p class="step-card__testo">
+          Scegli il dominio e metto online la <strong>bozza preliminare</strong>
+          che hai approvato. È il punto di partenza per vedere come comunica
+          il design. Tu continui a fare il tuo lavoro — al resto ci penso io.
+        </p>
+      </div>
+
+      <!-- Numero decorativo bg -->
+      <span class="step-card__deco-num" aria-hidden="true">01</span>
+    </article>
+
+    <!-- STEP 02 -->
+    <article
+      class="step-card step-card--02"
+      aria-label="Step 2: Applico le modifiche"
+    >
+      <!-- Blocco superiore -->
+      <div class="step-card__top">
+        <span class="step-card__numero" aria-label="Step numero 2">02</span>
+        <div class="step-card__icona" aria-hidden="true">✏️</div>
+      </div>
+
+      <!-- Blocco inferiore -->
+      <div class="step-card__body">
+        <span class="step-card__tag">Revisioni</span>
+        <h3 class="step-card__titolo">Applico le Modifiche</h3>
+        <p class="step-card__testo">
+          Guardi il sito e mi chiedi le revisioni. Sposto, cambio e
+          ottimizzo finché il <strong>risultato finale</strong> è
+          esattamente quello che ti aspetti: perfetto. Le modifiche
+          vengono applicate entro 48–72 ore dalla richiesta scritta.
+        </p>
+      </div>
+
+      <!-- Numero decorativo bg -->
+      <span class="step-card__deco-num" aria-hidden="true">02</span>
+    </article>
+
+    <!-- STEP 03 -->
+    <article
+      class="step-card step-card--03"
+      aria-label="Step 3: Il sito è tuo"
+    >
+      <!-- Blocco superiore -->
+      <div class="step-card__top">
+        <span class="step-card__numero" aria-label="Step numero 3">03</span>
+        <div class="step-card__icona" aria-hidden="true">🚀</div>
+      </div>
+
+      <!-- Blocco inferiore -->
+      <div class="step-card__body">
+        <span class="step-card__tag">Lancio</span>
+        <h3 class="step-card__titolo">Il Sito è Tuo. Zero Ricatti.</h3>
+        <p class="step-card__testo">
+          Il sito è pronto. Puoi facilmente <strong>gestirlo in autonomia</strong>,
+          oppure, prima della scadenza annuale, puoi rinnovare il servizio
+          con me. Il codice è tuo dal primo giorno — nessun vincolo,
+          nessuna sorpresa.
+        </p>
+        <div class="step-card__cta">
+          <a
+            href="https://wa.me/39XXXXXXXXXX"
+            class="btn-brutal btn-brutal--nero"
+            target="_blank"
+            rel="noopener"
+            aria-label="Inizia ora su WhatsApp"
+          >
+            💬 Inizia ora ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Numero decorativo bg -->
+      <span class="step-card__deco-num" aria-hidden="true">03</span>
+    </article>
+
+  </div><!-- fine grid -->
+
+</section>
+
+<!-- ============================================
+     SEZIONE 6 — LA MATEMATICA DEI 250€
+============================================ -->
+<section
+  class="matematica"
+  id="matematica"
+  aria-label="La matematica dei 250 euro — lo scontrino"
+>
+
+  <div class="matematica__wrapper" id="matematicaWrapper">
+
+    <!-- ── COLONNA SINISTRA — Scontrino ── -->
+    <div class="matematica__col-sx">
+
+      <span class="matematica__label">La Matematica dei 250€</span>
+
+      <h2 class="matematica__titolo">
+        Lo<br><em>Scontrino.</em>
+      </h2>
+
+      <p class="matematica__intro">
+        Le agenzie tradizionali ti vendono pacchetti complessi e tecnologie
+        pesanti solo per alzare il prezzo e giustificare canoni di manutenzione
+        infiniti. Ai tuoi clienti non serve un sito-enciclopedia. Serve
+        vedere chi sei, percepire la tua professionalità e trovare subito
+        un bottone per contattarti. Io elimino il superfluo.
+        Ecco <strong>quello che non ti dicono</strong>: i miei siti azzerano
+        i costi di hosting e non hanno bisogno di manutenzione.
+      </p>
+
+      <!-- Scontrino itemizzato -->
+      <div class="scontrino" aria-label="Dettaglio costi">
+
+        <div class="scontrino__header">
+          <span>Ompage · Ricevuta</span>
+          <span class="scontrino__header-data">2025</span>
+        </div>
+
+        <ul class="scontrino__lista" id="scontrinoLista">
+
+          <!-- Voci barrate — cosa non paghi -->
+          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: server costosi">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+              Server e hosting annuo
+            </span>
+            <span class="scontrino__voce-prezzo">150€/anno</span>
+          </li>
+
+          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: manutenzione">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+              Manutenzione obbligatoria
+            </span>
+            <span class="scontrino__voce-prezzo">200€/anno</span>
+          </li>
+
+          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: plugin inutili">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+              Plugin e template inutili
+            </span>
+            <span class="scontrino__voce-prezzo">80€</span>
+          </li>
+
+          <li class="scontrino__voce scontrino__voce--barrata" aria-label="Costo eliminato: pagine inutili">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+              Pagine inutili e SEO fuffa
+            </span>
+            <span class="scontrino__voce-prezzo">??€</span>
+          </li>
+
+          <!-- Divisore -->
+          <li class="scontrino__voce" style="background:rgba(196,240,0,0.08); border-bottom: var(--border-brutal);">
+            <span class="scontrino__voce-nome" style="font-weight:700; opacity:1;">
+              <span class="scontrino__voce-icon" aria-hidden="true">✦</span>
+              Quello che hai davvero
+            </span>
+          </li>
+
+          <!-- Voci incluse -->
+          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: design su misura">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+              Design su misura in HTML/CSS/JS
+            </span>
+            <span class="scontrino__voce-prezzo">✓ incluso</span>
+          </li>
+
+          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: dominio primo anno">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+              Dominio + hosting primo anno
+            </span>
+            <span class="scontrino__voce-prezzo">✓ incluso</span>
+          </li>
+
+          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: ottimizzazione GEO">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+              Ottimizzazione GEO Google Maps
+            </span>
+            <span class="scontrino__voce-prezzo">✓ incluso</span>
+          </li>
+
+          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: modifiche illimitate">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+              Modifiche fino al risultato perfetto
+            </span>
+            <span class="scontrino__voce-prezzo">✓ incluso</span>
+          </li>
+
+          <li class="scontrino__voce scontrino__voce--inclusa" aria-label="Incluso: codice tuo">
+            <span class="scontrino__voce-nome">
+              <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+              Codice 100% tuo, zero vincoli
+            </span>
+            <span class="scontrino__voce-prezzo">✓ incluso</span>
+          </li>
+
+        </ul>
+
+        <!-- Totale -->
+        <div class="scontrino__totale" id="scontrinoTotale" aria-label="Totale: 250 euro una tantum">
+          <span class="scontrino__totale-label">Totale una tantum</span>
+          <span class="scontrino__totale-prezzo">250€</span>
+        </div>
+
+      </div><!-- fine scontrino -->
+
+    </div><!-- fine col sx -->
+
+    <!-- ── COLONNA DESTRA ── -->
+    <div class="matematica__col-dx">
+
+      <!-- Sottoblocco superiore — prezzo timbro -->
+      <div class="matematica__top-dx">
+
+        <!-- Prezzo con cerchio SVG draw-in -->
+        <div class="matematica__prezzo-wrap" id="prezzoCerchio">
+          <span class="matematica__prezzo" aria-label="250 euro">250€</span>
+
+          <!-- 6.02 — SVG cerchio imperfetto mano libera -->
+          <svg
+            class="matematica__svg-callout"
+            viewBox="0 0 200 100"
+            xmlns="http://www.w3.org/2000/svg"
+            aria-hidden="true"
+          >
+            <path
+              class="matematica__svg-path"
+              id="cerchioPath"
+              d="M 18,50
+                 C 15,20 40,5 100,8
+                 C 160,11 188,25 190,50
+                 C 192,75 165,93 100,92
+                 C 35,91 14,75 18,50 Z"
+            />
+          </svg>
+        </div>
+
+        <p class="matematica__prezzo-nota">una tantum · tutto incluso</p>
+
+        <!-- Bullet punti chiave -->
+        <ul class="matematica__bullet-list" aria-label="Punti chiave del servizio">
+          <li>
+            <span class="bullet-check" aria-hidden="true">✓</span>
+            Niente pagine inutili
+          </li>
+          <li>
+            <span class="bullet-check" aria-hidden="true">✓</span>
+            Niente server costosi
+          </li>
+          <li>
+            <span class="bullet-check" aria-hidden="true">✓</span>
+            Siti One-Page per impatto immediato
+          </li>
+          <li>
+            <span class="bullet-check" aria-hidden="true">✓</span>
+            Dal secondo anno: solo 10€ di dominio
+          </li>
+        </ul>
+
+      </div><!-- fine top dx -->
+
+      <!-- Sottoblocco inferiore — CTA -->
+      <div class="matematica__bottom-dx">
+
+        <h3 class="matematica__cta-titolo">
+          Pronti a fare<br>sul serio?
+        </h3>
+
+        <a
+          href="https://wa.me/39XXXXXXXXXX"
+          class="btn-brutal"
+          target="_blank"
+          rel="noopener"
+          aria-label="Scrivimi su WhatsApp per iniziare"
+          style="width: fit-content;"
+        >
+          💬 Scrivimi su WhatsApp ↗
+        </a>
+
+        <p class="matematica__cta-nota">
+          Vedi la bozza prima di pagare.<br>
+          Bozza online entro 7–10 giorni lavorativi.
+        </p>
+
+      </div><!-- fine bottom dx -->
+
+    </div><!-- fine col dx -->
+
+  </div><!-- fine wrapper -->
+
+</section>
+
+<!-- ============================================
+     SEZIONE 7 — CTA FINALE CON FOTO
+============================================ -->
+<section
+  class="cta-finale"
+  id="cta-finale"
+  aria-label="Chiamata all'azione finale"
+>
+
+  <div class="cta-finale__inner" id="ctaFinal">
+
+    <!-- Foto polaroid con offset -->
+    <div class="cta-finale__foto-wrap" aria-label="Foto del designer">
+      <div class="cta-finale__foto">
+        <div class="cta-finale__nastro" aria-hidden="true"></div>
+        <img
+          src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=500&q=85"
+          alt="Veronica Gandiglio, founder Ompage"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- Contenuto CTA sx -->
+    <div class="cta-finale__contenuto">
+
+      <h2 class="cta-finale__titolo">
+        <span class="block oro">Pronti a Fare</span>
+        <span class="block">Sul Serio?</span>
+      </h2>
+
+      <p class="cta-finale__sottotesto">
+        La bozza arriva online prima che tu paghi il saldo.
+        Se non ti piace, non paghi nulla. Se ti piace, paghi una volta sola
+        e il sito è 100% tuo — per sempre.
+      </p>
+
+      <div class="cta-finale__cta-group">
+
+        <a
+          href="https://wa.me/39XXXXXXXXXX"
+          class="cta-finale__wa"
+          target="_blank"
+          rel="noopener"
+          aria-label="Scrivimi su WhatsApp per iniziare"
+        >
+          <span class="cta-finale__wa-icona" aria-hidden="true">💬</span>
+          Scrivimi su WhatsApp ↗
+        </a>
+
+        <button
+          class="cta-finale__wa cta-finale__email-copy"
+          id="btnCopiaEmail"
+          data-email="ciao@ompage.it"
+          aria-label="Copia indirizzo email"
+        >
+          <span class="cta-finale__wa-icona" aria-hidden="true">✉️</span>
+          <span class="testo-principale">Copia la mia email</span>
+          <span class="testo-feedback">Email copiata!</span>
+          <span class="freccia" aria-hidden="true">↗</span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div><!-- fine inner -->
+
+</section>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer class="footer" role="contentinfo">
+
+  <div class="footer__inner">
+
+    <div class="footer__linea" aria-hidden="true"></div>
+
+    <!-- Main content -->
+    <div class="footer__main">
+
+      <!-- Brand sx -->
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <span class="footer__logo-simbolo" aria-hidden="true">ॐ</span>
+          PAGE
+        </div>
+        <div class="footer__info">
+          Ompage di Veronica Gandiglio<br>
+          P.IVA 12345678910<br>
+          <a href="mailto:ciao@ompage.it">ciao@ompage.it</a>
+        </div>
+      </div>
+
+      <!-- Social + Legali dx -->
+      <div class="footer__destra">
+
+        <!-- Social -->
+        <div class="footer__social" aria-label="Seguimi sui social">
+          <a
+            href="https://instagram.com"
+            class="footer__social-tasto"
+            target="_blank"
+            rel="noopener"
+            aria-label="Profilo Instagram"
+          >
+            Instagram ↗
+          </a>
+          <a
+            href="https://facebook.com"
+            class="footer__social-tasto"
+            target="_blank"
+            rel="noopener"
+            aria-label="Pagina Facebook"
+          >
+            Facebook ↗
+          </a>
+          <a
+            href="https://wa.me/39XXXXXXXXXX"
+            class="footer__social-tasto"
+            target="_blank"
+            rel="noopener"
+            aria-label="Chat WhatsApp"
+          >
+            WhatsApp ↗
+          </a>
+        </div>
+
+        <!-- Legali -->
+        <div class="footer__legali-links" aria-label="Link legali">
+          <a href="#" data-modale="termini" aria-label="Apri Termini e Condizioni">
+            Termini e Condizioni
+          </a>
+          <a href="#" data-modale="privacy" aria-label="Apri Privacy Policy">
+            Privacy Policy
+          </a>
+          <a href="#" data-modale="cookie" aria-label="Apri Cookie Policy">
+            Cookie Policy
+          </a>
+        </div>
+
+      </div>
+
+    </div><!-- fine main -->
+
+    <!-- Copyright -->
+    <div class="footer__copyright">
+      © 2026 Ompage — Tutti i diritti riservati · Realizzato con amore, zero librerie.
+    </div>
+
+  </div><!-- fine inner -->
+
+</footer>
+
+  <script>
+    // ============================================================
+    // NAVBAR — Hamburger toggle
+    // ============================================================
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('is-open');
+      mobileMenu.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Chiudi al click su un link interno
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+// ============================================================
+// HERO — 2.04 Staggered Masked Typography
+// Ogni .hero__word ha --index per il delay progressivo.
+// L'Observer innesca is-visible che porta translateY a 0.
+// ============================================================
+(function () {
+  const words   = document.querySelectorAll('.hero__word');
+  const desc    = document.querySelector('.hero__desc');
+  const ctaWrap = document.querySelector('.hero__cta-wrap');
+  const boxDx   = document.querySelector('.hero__col-dx');
+
+  // Assegna transition-delay basato su --index
+  words.forEach(word => {
+    const idx = parseFloat(
+      getComputedStyle(word).getPropertyValue('--index') || 0
+    );
+    word.style.transitionDelay = `${idx * 0.1}s`;
+  });
+
+  // Observer unico per la hero
+  const heroObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Trigger parole
+          words.forEach(w => w.classList.add('is-visible'));
+          // Trigger desc e cta con ritardo gestito via CSS transition-delay
+          if (desc)    desc.classList.add('is-visible');
+          if (ctaWrap) ctaWrap.classList.add('is-visible');
+          if (boxDx)   boxDx.classList.add('is-visible');
+          heroObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  const heroSection = document.getElementById('hero');
+  if (heroSection) heroObserver.observe(heroSection);
+})();
+
+// ============================================================
+// SEZIONE 3 — Reveal on scroll per la bento grid
+// La griglia intera si rivela con opacity + translateY
+// quando entra in viewport (IntersectionObserver).
+// Il :has() blur è CSS puro, zero JS necessario.
+// ============================================================
+(function () {
+  const grid = document.getElementById('confrontoGrid');
+  if (!grid) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          grid.classList.add('is-visible');
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  observer.observe(grid);
+})();
+
+// ============================================================
+// SEZIONE 4 — PORTFOLIO
+// ============================================================
+(function () {
+
+  // ── Reveal on scroll ──────────────────────────────────────
+  const browserWindow = document.getElementById('browserWindow');
+  const portfolioTabs = document.getElementById('portfolioTabs');
+
+  const revealObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  if (browserWindow) revealObs.observe(browserWindow);
+  if (portfolioTabs)  revealObs.observe(portfolioTabs);
+
+  // ── Tab switch ────────────────────────────────────────────
+  const tabs   = document.querySelectorAll('.portfolio__tab');
+  const slides = document.querySelectorAll('.browser-slide');
+  const urlText = document.getElementById('urlText');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = parseInt(tab.dataset.index, 10);
+
+      // Aggiorna tab attiva
+      tabs.forEach(t => {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+
+      // Aggiorna slide attiva
+      slides.forEach(s => s.classList.remove('is-active'));
+      if (slides[idx]) slides[idx].classList.add('is-active');
+
+      // Aggiorna URL bar
+      if (urlText && slides[idx]) {
+        urlText.style.opacity = '0';
+        setTimeout(() => {
+          urlText.textContent = slides[idx].dataset.url || '';
+          urlText.style.opacity = '1';
+        }, 200);
+      }
+    });
+  });
+
+  // ── 8.04 Mouse Trail Image Reveal ─────────────────────────
+  // Attivo solo su desktop (min-width 768px)
+  if (window.innerWidth < 768) return;
+
+  const trailEl  = document.getElementById('trailImg');
+  const trailImg = document.getElementById('trailImgSrc');
+  if (!trailEl || !trailImg) return;
+
+  let trailTimeout = null;
+  let lastX = 0;
+  let lastY = 0;
+  let moved = false;
+  const MOVE_THRESHOLD = 30; // pixel minimi di movimento prima del trigger
+
+  // Monitora il mousemove sui tab
+  tabs.forEach(tab => {
+    tab.addEventListener('mousemove', (e) => {
+      const dx = Math.abs(e.clientX - lastX);
+      const dy = Math.abs(e.clientY - lastY);
+
+      if (dx + dy < MOVE_THRESHOLD && moved) return;
+
+      moved = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      // Carica la preview dal data attribute
+      const previewSrc = tab.dataset.preview;
+      if (!previewSrc) return;
+
+      // Posiziona e mostra il trail
+      trailImg.src = previewSrc;
+      trailEl.style.left = e.clientX + 'px';
+      trailEl.style.top  = e.clientY + 'px';
+      trailEl.classList.add('is-visible');
+
+      // Reset timeout — scompare dopo 700ms di inattività
+      clearTimeout(trailTimeout);
+      trailTimeout = setTimeout(() => {
+        trailEl.classList.remove('is-visible');
+        moved = false;
+      }, 700);
+    });
+
+    // Scompare immediatamente al mouseleave dalla tab
+    tab.addEventListener('mouseleave', () => {
+      clearTimeout(trailTimeout);
+      trailEl.classList.remove('is-visible');
+      moved = false;
+    });
+  });
+
+})();
+
+// ============================================================
+// SEZIONE 5 — IL PROCESSO
+// Stagger entrata card via IntersectionObserver.
+// Il meccanismo principale scroll-timeline è CSS puro (GPU).
+// ============================================================
+(function () {
+  const cards = document.querySelectorAll('.step-card');
+  if (!cards.length) return;
+
+  const staggerObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Recupera l'indice della card per il delay staggered
+          const idx = Array.from(cards).indexOf(entry.target);
+          const delay = idx * 120; // ms di stagger tra card
+
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, delay);
+
+          staggerObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  cards.forEach(card => staggerObs.observe(card));
+
+})();
+
+// ============================================================
+// SEZIONE 6 — LA MATEMATICA DEI 250€
+// ============================================================
+(function () {
+
+  const wrapper      = document.getElementById('matematicaWrapper');
+  const voci         = document.querySelectorAll('.scontrino__voce');
+  const totale       = document.getElementById('scontrinoTotale');
+  const svgPath      = document.getElementById('cerchioPath');
+
+  if (!wrapper) return;
+
+  // ── 6.02 — Calcola lunghezza reale del path SVG ───────────
+  function setupSVGPath() {
+    if (!svgPath) return;
+    const len = svgPath.getTotalLength();
+    svgPath.style.strokeDasharray  = len;
+    svgPath.style.strokeDashoffset = len;
+  }
+  setupSVGPath();
+
+  // ── IntersectionObserver — tutto si attiva all'entrata ────
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        // 1. Reveal wrapper
+        wrapper.classList.add('is-visible');
+
+        // 2. Stagger voci scontrino
+        voci.forEach((voce, i) => {
+          setTimeout(() => {
+            voce.classList.add('is-visible');
+          }, 150 + i * 80);
+        });
+
+        // 3. Totale — dopo tutte le voci
+        if (totale) {
+          setTimeout(() => {
+            totale.classList.add('is-visible');
+          }, 150 + voci.length * 80 + 100);
+        }
+
+        // 4. SVG draw-in cerchio — con leggero ritardo drammatico
+        if (svgPath) {
+          setTimeout(() => {
+            svgPath.classList.add('is-drawn');
+          }, 400);
+        }
+
+        obs.disconnect();
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  obs.observe(wrapper);
+
+})();
+
+// ============================================================
+// SEZIONE 7 — CTA + FOOTER
+// ============================================================
+(function () {
+
+  // ── CTA reveal on scroll ──────────────────────────────────
+  const ctaFinal = document.getElementById('ctaFinal');
+  if (ctaFinal) {
+    const ctaObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            ctaFinal.classList.add('is-visible');
+            ctaObs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    ctaObs.observe(ctaFinal);
+  }
+
+  // ── Email copy button ─────────────────────────────────────
+  const btnCopiaEmail = document.getElementById('btnCopiaEmail');
+  if (btnCopiaEmail) {
+    btnCopiaEmail.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = btnCopiaEmail.dataset.email || 'ciao@ompage.it';
+
+      try {
+        // Usa Clipboard API se disponibile
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(email);
+        } else {
+          // Fallback vecchi browser
+          const textarea = document.createElement('textarea');
+          textarea.value = email;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+
+        // Feedback visivo
+        btnCopiaEmail.classList.add('is-copied');
+        setTimeout(() => {
+          btnCopiaEmail.classList.remove('is-copied');
+        }, 2500);
+      } catch (err) {
+        console.error('Copia fallita:', err);
+      }
+    });
+  }
+
+  // ── Modal open/close ──────────────────────────────────────
+  // Attivarsi quando ci sono link data-modale nel footer
+  const modalLinks = document.querySelectorAll('[data-modale]');
+  modalLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modale = link.dataset.modale;
+      const modaleEl = document.getElementById(`modale-${modale}`);
+      if (modaleEl) {
+        modaleEl.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  // Chiudi modale
+  const closeButtons = document.querySelectorAll('[data-chiudi]');
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modale = btn.dataset.chiudi;
+      const modaleEl = document.getElementById(`modale-${modale}`);
+      if (modaleEl) {
+        modaleEl.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // Chiudi modale al click su overlay
+  document.querySelectorAll('.modale-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+})();
+
+  </script>
+
+</body>
+</html>
