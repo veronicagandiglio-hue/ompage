@@ -924,7 +924,7 @@ const REQUIRED=['seo_titolo','footer_nome'];
 function validateForm() {
   REQUIRED.forEach(k=>document.getElementById(`fieldwrap_${k}`)?.classList.remove('has-error'));
   const data=serializeForm(); let valid=true, first=null;
-  REQUIRED.forEach(k=>{ if(!data[k]?.trim()){const w=document.getElementById(`fieldwrap_${k}`);if(w){w.classList.add('has-error');const e=document.getElementById(`err_${k}`);if(e) e.textContent='Campo obbligatorio';if(!first) first=w;valid=false;}});
+  REQUIRED.forEach(k=>{ if(!data[k]?.trim()){const w=document.getElementById(`fieldwrap_${k}`);if(w){w.classList.add('has-error');const e=document.getElementById(`err_${k}`);if(e) e.textContent='Campo obbligatorio';if(!first) first=w;valid=false;}}});
   if(!data['footer_whatsapp']?.trim()&&!data['footer_telefono']?.trim()){
     ['footer_whatsapp','footer_telefono'].forEach(k=>{const w=document.getElementById(`fieldwrap_${k}`);if(w){w.classList.add('has-error');const e=document.getElementById(`err_${k}`);if(e) e.textContent='Inserire almeno un contatto';if(!first) first=w;}});
     valid=false;
