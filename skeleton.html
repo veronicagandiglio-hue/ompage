@@ -1,0 +1,1623 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- SEO: aggiornato dinamicamente dal motore via updateSEO() -->
+<title>Sito</title>
+<meta name="description" content="">
+<meta property="og:type" content="website">
+<meta property="og:title" content="">
+<meta property="og:description" content="">
+<meta property="og:image" content="">
+<meta name="theme-color" content="#0f0f0c">
+<script type="application/ld+json" id="schema-json"></script>
+<!-- FONT: il motore swappa questo href in base a tema_tipografico.
+L'AI imposta il valore iniziale corretto nel blocco CONFIGURAZIONE SITO. -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com">
+<link id="font-link" rel="stylesheet" href="">
+<style>
+/*
+═══════════════════════════════════════════════════════════════
+VARIABILI CSS OBBLIGATORIE
+Colore:
+--bg
+--surface
+--surface-2
+--ink
+--muted
+--accent
+--accent-2
+--deep
+--warm
+Tipografia:
+--head
+--body
+Layout:
+--page
+--nav-h
+--promo-h
+--section
+═══════════════════════════════════════════════════════════════
+*/
+:root {
+  --bg: #0f0f0c;
+  --surface: #171714;
+  --surface-2: #f2efe8;
+  --ink: #f5f3ee;
+  --muted: #a6a195;
+  --accent: #cde63a;
+  --accent-2: #d7ec58;
+  --deep: #0a0a08;
+  --warm: #8d6b52;
+  
+  --head: Georgia, serif;
+  --body: system-ui, sans-serif;
+  
+  --page: 1.25rem;
+  --nav-h: 4.75rem;
+  --promo-h: 0rem;
+  --section: 5rem;
+  --radius: 8px;
+}
+@media (min-width: 760px) {
+  :root {
+    --page: 2.5rem;
+    --section: 7rem;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --page: 4.5rem;
+    --section: 9rem;
+  }
+}
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  overflow-x: hidden;
+  font-family: var(--body);
+  color: var(--ink);
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+button, input, textarea, select { font: inherit; }
+button { border: 0; background: transparent; color: inherit; cursor: pointer; }
+figure, blockquote, p { margin: 0; }[hidden] { display: none !important; }
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 700ms ease, transform 700ms ease;
+}
+[data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
+.shell {
+  width: min(100%, 1480px);
+  margin-inline: auto;
+  padding-inline: var(--page);
+}
+.load-error {
+  display: none;
+  position: fixed;
+  right: 1rem;
+  bottom: 1rem;
+  z-index: 150;
+  width: min(28rem, calc(100vw - 2rem));
+  border-radius: var(--radius);
+  background: #9f3328;
+  color: #fff;
+  padding: 1rem;
+  font-weight: 800;
+}
+.load-error.is-visible { display: block; }
+
+/*
+═══════════════════════════════════════════════════════════════
+BENTO GRID — SISTEMA FISSO, NON MODIFICARE
+═══════════════════════════════════════════════════════════════
+*/
+[data-bento] { display: grid; gap: 0.75rem; }
+.bento-1 { grid-template-columns: 1fr; }
+.bento-2 { grid-template-columns: repeat(2, 1fr); }
+.bento-3 { grid-template-columns: 1.4fr 1fr; }
+.bento-3 .foto-1 { grid-row: span 2; }
+.bento-4 { grid-template-columns: 2fr 1fr 1fr; }
+.bento-4 .foto-1 { grid-column: 1; grid-row: 1 / 3; }
+.bento-4 .foto-2 { grid-column: 2; grid-row: 1; }
+.bento-4 .foto-3 { grid-column: 3; grid-row: 1; }
+.bento-4 .foto-4 { grid-column: 2 / 4; grid-row: 2; }
+.bento-5 { grid-template-columns: 2fr 1fr 1fr; }
+.bento-5 .foto-1 { grid-column: 1; grid-row: 1 / 3; }
+.bento-5 .foto-2 { grid-column: 2; grid-row: 1; }
+.bento-5 .foto-3 { grid-column: 3; grid-row: 1; }
+.bento-5 .foto-4 { grid-column: 2; grid-row: 2; }
+.bento-5 .foto-5 { grid-column: 3; grid-row: 2; }
+.bento-6 { grid-template-columns: 1fr 2fr 1fr; }
+.bento-6 .foto-1 { grid-column: 1; grid-row: 1; }
+.bento-6 .foto-2 { grid-column: 2; grid-row: 1 / 3; }
+.bento-6 .foto-3 { grid-column: 3; grid-row: 1; }
+.bento-6 .foto-4 { grid-column: 1; grid-row: 2; }
+.bento-6 .foto-5 { grid-column: 3; grid-row: 2; }
+.bento-6 .foto-6 { grid-column: 1 / 4; grid-row: 3; }
+.bento-7 { grid-template-columns: 1fr 1fr 2fr; }
+.bento-7 .foto-1 { grid-column: 1 / 3; grid-row: 1; }
+.bento-7 .foto-2 { grid-column: 3; grid-row: 1 / 3; }
+.bento-7 .foto-3 { grid-column: 1; grid-row: 2; }
+.bento-7 .foto-4 { grid-column: 2; grid-row: 2; }
+.bento-7 .foto-5 { grid-column: 1; grid-row: 3; }
+.bento-7 .foto-6 { grid-column: 2; grid-row: 3; }
+.bento-7 .foto-7 { grid-column: 3; grid-row: 3; }
+.bento-8 { grid-template-columns: 2fr 1fr 1fr; }
+.bento-8 .foto-1 { grid-column: 1; grid-row: 1 / 3; }
+.bento-8 .foto-2 { grid-column: 2; grid-row: 1; }
+.bento-8 .foto-3 { grid-column: 3; grid-row: 1; }
+.bento-8 .foto-4 { grid-column: 2 / 4; grid-row: 2; }
+.bento-8 .foto-5 { grid-column: 1; grid-row: 3; }
+.bento-8 .foto-6 { grid-column: 2; grid-row: 3; }
+.bento-8 .foto-7 { grid-column: 3; grid-row: 3; }
+.bento-8 .foto-8 { grid-column: 1 / 4; grid-row: 4; }
+.bento-9 { grid-template-columns: 1fr 2fr 1fr; grid-template-rows: 1fr 2fr 1fr; }
+.bento-9 .foto-1 { grid-column: 1; grid-row: 1; }
+.bento-9 .foto-2 { grid-column: 2; grid-row: 1; }
+.bento-9 .foto-3 { grid-column: 3; grid-row: 1; }
+.bento-9 .foto-4 { grid-column: 1; grid-row: 2; }
+.bento-9 .foto-5 { grid-column: 2; grid-row: 2; }
+.bento-9 .foto-6 { grid-column: 3; grid-row: 2; }
+.bento-9 .foto-7 { grid-column: 1; grid-row: 3; }
+.bento-9 .foto-8 { grid-column: 2; grid-row: 3; }
+.bento-9 .foto-9 { grid-column: 3; grid-row: 3; }
+
+/*
+═══════════════════════════════════════════════════════════════
+DESIGN DELL'AI — tutto il CSS del sito va qui sotto
+═══════════════════════════════════════════════════════════════
+*/
+
+/* BADGE WHATSAPP MOBILE */
+#floating-badge {
+  display: none; /* nascosto su desktop */
+}
+@media (max-width: 767px) {
+  #floating-badge {
+    display: flex;
+    bottom: 0.5rem;
+    right: 0.5rem;
+  }
+}
+
+/* COOKIE BANNER & LEGAL MODALS */
+.cookie-banner {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 95;
+  background: var(--surface, #1a1a18);
+  color: var(--ink, #f5f3ee);
+  padding: 1rem var(--page, 1.25rem);
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+  border-top: 1px solid rgba(255,255,255,.1);
+  font-size: .875rem;
+}
+.cookie-banner p { margin: 0; flex: 1; min-width: 16rem; line-height: 1.5; }
+.cookie-banner p button {
+  background: none; border: none; color: var(--accent, #cde63a);
+  cursor: pointer; padding: 0; text-decoration: underline; font-size: inherit;
+}
+.cookie-banner.is-hidden { display: none; }
+.legal-content { max-width: 42rem; padding: 2rem; }
+.legal-content h2 { margin-bottom: 1rem; }
+.legal-content h3 { margin: 1.5rem 0 .5rem; }
+.legal-content p { line-height: 1.7; }
+
+/* SEZIONE PRIMA / DOPO */
+#prima-dopo {
+  --gap: 1.5rem;
+  padding-block: var(--section);
+}
+.prima-dopo__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 28rem), 1fr));
+  gap: var(--gap);
+  margin-top: 3rem;
+}
+.prima-dopo__item { display: flex; flex-direction: column; gap: .75rem; }
+.prima-dopo__stage {
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius, 8px);
+  aspect-ratio: 4/3;
+  user-select: none;
+  touch-action: none;
+}
+.prima-dopo__media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.prima-dopo__media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.prima-dopo__media--dopo {
+  clip-path: inset(0 50% 0 0);
+  transition: clip-path .05s linear;
+}
+.prima-dopo__handle {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: none;
+  z-index: 2;
+}
+.prima-dopo__line {
+  width: 2px;
+  flex: 1;
+  background: #fff;
+  box-shadow: 0 0 6px rgba(0,0,0,.4);
+}
+.prima-dopo__knob {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #fff;
+  color: #000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: .9rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.3);
+  flex-shrink: 0;
+}
+.prima-dopo__range {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+  z-index: 3;
+  margin: 0;
+  appearance: none;
+}
+.prima-dopo__caption {
+  font-size: .875rem;
+  opacity: .7;
+  text-align: center;
+}
+
+/* ═══════════════════════════════
+   FILTRI FOTO OMPAGE
+   Controllati da foto_filtro nel config.json
+   Valori: NESSUNO | CALDO | FREDDO | MORBIDO | NITIDO | VINTAGE
+═══════════════════════════════ */
+body.filtro-caldo   img:not(.no-filter) { filter: brightness(1.04) saturate(1.18) contrast(1.04); }
+body.filtro-freddo  img:not(.no-filter) { filter: brightness(1.02) saturate(0.88) contrast(1.06) hue-rotate(5deg); }
+body.filtro-morbido img:not(.no-filter) { filter: brightness(1.08) saturate(0.82) contrast(0.94); }
+body.filtro-nitido  img:not(.no-filter) { filter: brightness(1.00) saturate(1.08) contrast(1.14); }
+body.filtro-vintage img:not(.no-filter) { filter: brightness(1.05) saturate(0.75) contrast(1.08) sepia(0.18); }
+/* Le img del lightbox non ricevono il filtro — già filtrate come sorgente */
+#lightbox img { filter: none !important; }
+</style>
+</head>
+<body>
+<!--
+═══════════════════════════════════════════════════════════════
+GRAMMATICA DEI data-* — STANDARD OMPAGE
+
+TESTO
+data-text="chiave" → textContent dalla chiave JSON
+data-fallback="testo" → testo statico se il valore JSON è vuoto
+data-fallback-keys="k1,k2" → chiavi JSON aggiuntive da provare in ordine
+data-hide-empty → nasconde l'elemento se il valore finale è vuoto
+
+IMMAGINI
+data-image-wrap → sul wrapper: hidden se l'img non si risolve
+data-src="chiave" → path immagine cliente
+data-placeholder="chiave" → path immagine placeholder
+data-alt="chiave" → chiave JSON per il testo alt
+
+VISIBILITÀ
+data-show-key="chiave" → visible solo se il valore JSON è "SI"
+data-show-text="chiave" → visible solo se il valore JSON non è vuoto
+data-show-when="chiave:V1|V2" → visible solo se il valore JSON è V1 oppure V2
+data-expires-key="chiave" → nascosto se la data JSON (YYYY-MM-DD) è passata
+data-show-repeat="nome-classe" → visible solo se il repeat container ha elementi
+
+LAYOUT E CLASSI
+data-class-key="chiave" → chiave JSON da leggere
+data-class-map='{"VAL":"cls"}' → applica la classe CSS corrispondente al valore
+
+SEZIONI E NAVBAR
+data-site-section → registra la sezione per navbar e visibilità
+data-section-key="chiave" → toggle SI/NO: se "NO" la sezione è hidden
+data-required-repeat="classe" → hidden se il repeat ha 0 elementi
+data-nav-key="chiave" → chiave JSON per il testo del link navbar
+data-nav-default="label" → testo navbar fallback statico
+
+REPEAT
+data-repeat="prefisso" → prefisso delle chiavi JSON
+data-repeat-count="N" → numero massimo di iterazioni
+data-repeat-active="patt_{i}" → pattern chiave toggle
+data-repeat-required="p_{i}_k" → pattern chiavi richieste
+data-template="id-template" → id dell'elemento <template> da clonare
+data-bento → aggiunge automaticamente .bento-N al container
+data-lightbox-scope → raggruppa gli item per la navigazione lightbox
+data-repeat-number → scrive l'indice formattato
+
+LINK E CTA
+data-cta-type="chiave" → tipo CTA (WHATSAPP/TELEFONO/EMAIL)
+data-cta-contact="chiave" → numero/email dalla chiave JSON
+data-cta-fallbacks="k1,k2" → chiavi JSON di fallback per il contatto
+data-href-whatsapp="chiave" → href WhatsApp
+data-href-tel="chiave" → href telefono
+data-href-email="chiave" → href email
+data-href-url="chiave" → href URL reale/social
+data-map-key="chiave" → href Google Maps dall'indirizzo JSON
+data-file-key="chiave" → href al path relativo del file
+
+SPECIALI
+data-brand → logo testo o immagine
+data-year → scrive l'anno corrente
+data-lightbox-item → rende l'elemento cliccabile per il lightbox
+data-open-overlay="id" → apre overlay
+data-close-overlay → chiude overlay
+data-carousel → attiva carousel
+data-carousel-track → track scorrevole
+data-carousel-prev / data-carousel-next → navigazione carousel
+═══════════════════════════════════════════════════════════════
+-->
+
+<div id="promo" data-show-key="barra_attiva" data-show-text="barra_testo" data-expires-key="barra_scadenza">
+  <span data-text="barra_testo"></span>
+  <a data-text="barra_cta_testo" data-fallback="Prenota" data-cta-type="barra_cta_tipo" data-cta-contact="barra_cta_contatto" data-cta-fallbacks="footer_whatsapp,footer_telefono,footer_email"></a>
+  <button type="button" id="promo-close" aria-label="Chiudi">×</button>
+</div>
+
+<nav id="site-nav" aria-label="Navigazione principale">
+  <a class="nav-brand" href="#top" data-brand aria-label="Torna all'inizio"></a>
+  <div id="nav-links"></div>
+  <div class="nav-actions">
+    <a class="button nav-cta" href="#contatti" data-text="hero_cta_testo" data-fallback="Contattaci" data-cta-type="hero_cta_tipo" data-cta-contact="hero_cta_contatto" data-cta-fallbacks="footer_whatsapp,footer_telefono,footer_email"></a>
+    <button class="button nav-menu" type="button" id="menu-open" aria-controls="mobile-panel">Menu</button>
+  </div>
+</nav>
+
+<aside class="mobile-panel" id="mobile-panel" aria-hidden="true">
+  <div class="mobile-panel-top">
+    <a data-brand href="#top"></a>
+    <button type="button" id="menu-close">Chiudi</button>
+  </div>
+  <nav id="mobile-links"></nav>
+</aside>
+
+<main id="top">
+  <!-- HERO -->
+  <section id="hero" data-class-key="hero_layout" data-class-map='{"SENZA_FOTO":"hero--text-only","CON_FOTO_SFONDO":"hero--bg-photo"}'>
+    <figure class="hero-media" data-image-wrap>
+      <img data-src="hero_foto" data-placeholder="hero_placeholder" data-alt="hero_titolo" alt="" loading="eager" decoding="async">
+    </figure>
+    <div class="hero-inner shell">
+      <div class="hero-copy" data-reveal>
+        <div class="eyebrow" data-text="footer_indirizzo" data-fallback-keys="schema_indirizzo" data-fallback="Sede"></div>
+        <h1 data-text="hero_titolo" data-fallback="Benvenuto"></h1>
+        <p data-text="hero_sottotitolo" data-hide-empty></p>
+        <div class="hero-actions">
+          <a class="button" href="#contatti" data-text="hero_cta_testo" data-fallback="Scrivici" data-cta-type="hero_cta_tipo" data-cta-contact="hero_cta_contatto" data-cta-fallbacks="footer_whatsapp,footer_telefono,footer_email"></a>
+          <a class="button" href="#servizi" data-show-key="servizi_attivi" data-text="navbar_voce_servizi" data-fallback="Scopri i servizi"></a>
+        </div>
+      </div>
+      <div class="hero-side" data-show-key="hero_orari_attivi" data-reveal>
+        <strong>Orari</strong>
+        <span data-text="footer_orari" data-fallback-keys="schema_orari"></span>
+      </div>
+    </div>
+  </section>
+
+  <!-- CHI SIAMO -->
+  <section id="chi-siamo" data-site-section data-section-key="chi_siamo_attivo" data-nav-key="navbar_voce_chi_siamo" data-nav-default="Chi siamo">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div>
+          <div class="eyebrow">Profilo</div>
+          <h2 data-text="chi_siamo_titolo" data-fallback="Chi siamo"></h2>
+        </div>
+        <p data-text="chi_siamo_testo" data-hide-empty></p>
+      </div>
+      <div class="story-main" data-show-when="chi_siamo_layout:FOTO_E_TESTO|SOLO_TESTO">
+        <figure class="story-photo" data-show-when="chi_siamo_layout:FOTO_E_TESTO" data-image-wrap data-reveal>
+          <img data-src="chi_siamo_foto" data-placeholder="chi_siamo_placeholder" data-alt="chi_siamo_nome" alt="" loading="lazy" decoding="async">
+        </figure>
+        <div class="story-copy" data-reveal>
+          <blockquote data-text="chi_siamo_citazione" data-hide-empty></blockquote>
+          <div class="signature">
+            <strong data-text="chi_siamo_nome" data-hide-empty></strong>
+            <span data-text="chi_siamo_ruolo" data-hide-empty></span>
+          </div>
+        </div>
+      </div>
+      <div class="method-list" data-show-when="chi_siamo_layout:TRE_PASSI" data-repeat="chi_siamo_passo" data-repeat-count="3" data-repeat-active="chi_siamo_passo_{i}_attivo" data-repeat-required="chi_siamo_passo_{i}_titolo,chi_siamo_passo_{i}_testo" data-template="tpl-step"></div>
+    </div>
+  </section>
+
+  <!-- VANTAGGI -->
+  <section id="vantaggi" data-site-section data-section-key="vantaggi_attivi" data-required-repeat="benefit-grid" data-nav-key="navbar_voce_vantaggi" data-nav-default="Vantaggi">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div>
+          <div class="eyebrow">Valore</div>
+          <h2 data-text="vantaggi_titolo" data-fallback="Vantaggi"></h2>
+        </div>
+      </div>
+      <div class="benefit-grid" data-repeat="vantaggio" data-repeat-count="3" data-repeat-active="vantaggio_{i}_attivo" data-repeat-required="vantaggio_{i}_titolo,vantaggio_{i}_testo" data-template="tpl-benefit"></div>
+    </div>
+  </section>
+
+  <!-- SERVIZI -->
+  <section id="servizi" data-site-section data-section-key="servizi_attivi" data-required-repeat="service-list" data-nav-key="navbar_voce_servizi" data-nav-default="Servizi">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div>
+          <div class="eyebrow">Servizi</div>
+          <h2 data-text="servizi_titolo" data-fallback="Servizi"></h2>
+        </div>
+      </div>
+      <div class="service-list" data-class-key="servizi_layout" data-class-map='{"GRIGLIA":"layout-grid","LISTA":"layout-list"}' data-repeat="servizio" data-repeat-count="10" data-repeat-active="servizio_{i}_attivo" data-repeat-required="servizio_{i}_nome" data-template="tpl-service"></div>
+      <div class="pdf-callout" data-show-key="pdf_menu_attivo" data-show-text="pdf_menu_url">
+        <a class="button" data-file-key="pdf_menu_url" data-text="pdf_menu_testo_bottone" data-fallback="Scarica il PDF" target="_blank" rel="noopener"></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALLERIA -->
+  <section id="galleria" data-site-section data-section-key="galleria_attiva" data-required-repeat="gallery-grid" data-nav-key="navbar_voce_galleria" data-nav-default="Galleria">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div>
+          <div class="eyebrow">Immagini</div>
+          <h2 data-text="galleria_titolo" data-fallback="Galleria"></h2>
+        </div>
+      </div>
+      <div class="gallery-grid" data-bento data-lightbox-scope data-repeat="foto" data-repeat-count="9" data-repeat-active="foto_{i}_attiva" data-repeat-required="foto_{i}_url,foto_{i}_placeholder" data-template="tpl-gallery"></div>
+      <div class="gallery-actions" data-show-key="galleria_estesa_attiva" data-show-repeat="extended-grid">
+        <button class="button" type="button" data-open-overlay="gallery-extended" data-text="galleria_estesa_testo_bottone" data-fallback="Vedi tutte le foto"></button>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECENSIONI -->
+  <section id="recensioni" data-site-section data-section-key="recensioni_attive" data-required-repeat="review-track" data-nav-key="navbar_voce_recensioni" data-nav-default="Recensioni">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div>
+          <div class="eyebrow">Recensioni</div>
+          <h2 data-text="recensioni_titolo" data-fallback="Recensioni"></h2>
+        </div>
+      </div>
+      <div data-carousel>
+        <div class="review-track" data-carousel-track data-repeat="recensione" data-repeat-count="8" data-repeat-active="recensione_{i}_attiva" data-repeat-required="recensione_{i}_testo" data-template="tpl-review"></div>
+        <div class="review-nav">
+          <button class="round" type="button" data-carousel-prev aria-label="Precedente">‹</button>
+          <button class="round" type="button" data-carousel-next aria-label="Successiva">›</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" data-site-section data-required-repeat="faq-list" data-nav-key="navbar_voce_faq" data-nav-default="Domande">
+    <div class="shell">
+      <div class="section-head" data-reveal>
+        <div>
+          <div class="eyebrow">Domande</div>
+          <h2 data-text="navbar_voce_faq" data-fallback="Domande"></h2>
+        </div>
+      </div>
+      <div class="faq-list" data-repeat="faq" data-repeat-count="10" data-repeat-active="faq_{i}_attiva" data-repeat-required="faq_{i}_domanda" data-template="tpl-faq"></div>
+    </div>
+  </section>
+
+  <!-- CONTATTI -->
+  <section id="contatti" data-site-section data-nav-key="navbar_voce_contatti" data-nav-default="Contatti">
+    <div class="shell contact-inner">
+      <div data-reveal>
+        <div class="eyebrow">Contatti</div>
+        <h2 data-text="footer_nome" data-fallback-keys="schema_nome,navbar_logo_testo" data-fallback="Contatti"></h2>
+        <div class="contact-actions">
+          <a class="button" data-text="footer_cta_testo" data-fallback="Scrivici" data-cta-type="footer_cta_tipo" data-cta-contact="footer_whatsapp" data-cta-fallbacks="footer_telefono,footer_email,hero_cta_contatto"></a>
+          <a class="button" data-map-key="footer_indirizzo" data-show-key="footer_mappa_attiva" target="_blank" rel="noopener">Indicazioni</a>
+          <a class="button" data-show-key="prenotazione_attiva" data-show-text="prenotazione_url" data-href-url="prenotazione_url" data-text="prenotazione_cta" data-fallback="Prenota ora" target="_blank" rel="noopener"></a>
+        </div>
+      </div>
+      <div class="contact-list" data-reveal>
+        <div class="contact-item" data-show-text="footer_whatsapp">
+          <span>WhatsApp</span>
+          <a data-href-whatsapp="footer_whatsapp" data-text="footer_whatsapp"></a>
+        </div>
+        <div class="contact-item" data-show-text="footer_telefono">
+          <span>Telefono</span>
+          <a data-href-tel="footer_telefono" data-text="footer_telefono"></a>
+        </div>
+        <div class="contact-item" data-show-text="footer_email">
+          <span>Email</span>
+          <a data-href-email="footer_email" data-text="footer_email"></a>
+        </div>
+        <div class="contact-item" data-show-text="footer_indirizzo">
+          <span>Dove</span>
+          <a data-map-key="footer_indirizzo" data-text="footer_indirizzo" target="_blank" rel="noopener"></a>
+        </div>
+        <div class="contact-item" data-show-text="footer_orari">
+          <span>Orari</span>
+          <strong data-text="footer_orari"></strong>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRIMA/DOPO -->
+  <section id="prima-dopo" data-site-section data-section-key="prima_dopo_attiva" data-nav-key="navbar_voce_prima_dopo" data-nav-default="Prima &amp; Dopo">
+    <div class="shell">
+      <div class="prima-dopo__header" data-reveal>
+        <div class="title-mask">
+          <h2 data-text="prima_dopo_titolo" data-fallback="Prima &amp; Dopo"></h2>
+        </div>
+      </div>
+      <div class="prima-dopo__grid" data-repeat="prima_dopo" data-repeat-count="6" data-repeat-active="prima_dopo_{i}_attiva" data-repeat-required="prima_dopo_{i}_prima,prima_dopo_{i}_dopo" data-template="tpl-prima-dopo">
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <span>
+    <span data-text="footer_nome" data-fallback-keys="schema_nome,navbar_logo_testo" data-fallback="Sito"></span>
+    <span data-year></span>
+  </span>
+  <div class="footer-socials">
+    <a data-show-text="footer_instagram" data-href-url="footer_instagram" target="_blank" rel="noopener">Instagram</a>
+    <a data-show-text="footer_facebook" data-href-url="footer_facebook" target="_blank" rel="noopener">Facebook</a>
+  </div>
+  <div class="footer-legal">
+    <button type="button" data-open-overlay="overlay-cookie">Cookie Policy</button>
+    <button type="button" data-open-overlay="overlay-privacy">Privacy Policy</button>
+  </div>
+  <span data-show-key="crediti_ompage_footer">Sito realizzato da <a href="https://ompage.it" target="_blank" rel="noopener">Ompage</a></span>
+</footer>
+
+<a id="floating-badge" data-show-key="badge_attivo" aria-label="Contattaci su WhatsApp">
+  <svg class="badge-ring" viewBox="0 0 80 80" fill="none" aria-hidden="true">
+    <circle cx="40" cy="40" r="36" stroke="var(--terracotta)" stroke-width="1.5" stroke-dasharray="20 10" fill="none"/>
+  </svg>
+  <span class="badge-icon">📞</span>
+</a>
+
+<!-- COOKIE BANNER -->
+<div class="cookie-banner" id="cookie-banner" aria-live="polite">
+  <p>Questo sito usa cookie tecnici per funzionare correttamente. Consulta la nostra <button type="button" data-open-overlay="overlay-cookie">Cookie Policy</button> e la <button type="button" data-open-overlay="overlay-privacy">Privacy Policy</button>.</p>
+  <button type="button" class="button" id="cookie-ok">OK, ho capito</button>
+</div>
+
+<!-- OVERLAY COOKIE POLICY -->
+<section class="overlay" id="overlay-cookie" aria-hidden="true">
+  <div class="overlay-top">
+    <strong>Cookie Policy</strong>
+    <button type="button" data-close-overlay>Chiudi</button>
+  </div>
+  <div class="overlay-scroll">
+    <div class="legal-content">
+      <h2>Cookie Policy</h2>
+      <!-- Qui il motore inietterà il testo dal JSON mantenendo gli a capo -->
+      <p style="white-space: pre-wrap;" data-text="cookie_policy_testo"></p>
+      <p style="margin-top:2rem;opacity:.6;font-size:.875rem">Titolare del trattamento: 
+        <span data-text="footer_nome" data-fallback-keys="schema_nome"></span> — 
+        <span data-text="footer_indirizzo" data-fallback-keys="schema_indirizzo"></span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- OVERLAY PRIVACY POLICY -->
+<section class="overlay" id="overlay-privacy" aria-hidden="true">
+  <div class="overlay-top">
+    <strong>Privacy Policy</strong>
+    <button type="button" data-close-overlay>Chiudi</button>
+  </div>
+  <div class="overlay-scroll">
+    <div class="legal-content">
+      <h2>Informativa sulla Privacy</h2>
+      <!-- Dati titolare dinamici in cima -->
+      <p style="margin-bottom: 1.5rem; font-weight: 600;">
+        <span data-text="footer_nome" data-fallback-keys="schema_nome"></span><br>
+        <span data-text="footer_indirizzo" data-fallback-keys="schema_indirizzo"></span><br>
+        <span data-text="footer_email"></span>
+      </p>
+      <!-- Qui il motore inietterà il testo dal JSON mantenendo gli a capo -->
+      <p style="white-space: pre-wrap;" data-text="privacy_policy_testo"></p>
+      <p style="margin-top:2rem;opacity:.6;font-size:.875rem">Ultimo aggiornamento: <span data-year></span></p>
+    </div>
+  </div>
+</section>
+
+<!-- OVERLAY GALLERIA ESTESA -->
+<section class="overlay" id="gallery-extended" aria-hidden="true">
+  <div class="overlay-top">
+    <strong data-text="galleria_estesa_titolo" data-fallback="Tutte le foto"></strong>
+    <button type="button" data-close-overlay>Chiudi</button>
+  </div>
+  <div class="overlay-scroll">
+    <div class="extended-grid" data-lightbox-scope data-repeat="foto_estesa" data-repeat-count="6" data-repeat-active="foto_estesa_{i}_attiva" data-repeat-required="foto_estesa_{i}_url,foto_estesa_{i}_placeholder" data-template="tpl-gallery-extended"></div>
+  </div>
+</section>
+
+<!-- POPUP -->
+<section class="popup" id="popup" aria-hidden="true" data-show-key="popup_attivo" data-show-text="popup_testo" data-expires-key="popup_scadenza">
+  <div class="popup-card">
+    <p data-text="popup_testo"></p>
+    <div class="popup-actions">
+      <a class="button" data-text="popup_cta_testo" data-fallback="Scopri di più" data-cta-type="popup_cta_tipo" data-cta-contact="popup_cta_contatto" data-cta-fallbacks="footer_whatsapp,footer_telefono,footer_email"></a>
+      <button class="button" type="button" id="popup-close">Chiudi</button>
+    </div>
+  </div>
+</section>
+
+<!-- LIGHTBOX -->
+<section class="lightbox" id="lightbox" aria-hidden="true">
+  <div class="lightbox-top">
+    <span id="lightbox-count"></span>
+    <button type="button" id="lightbox-close">Chiudi</button>
+  </div>
+  <div class="lightbox-frame"><img id="lightbox-img" alt=""></div>
+  <div class="lightbox-bottom">
+    <button type="button" id="lightbox-prev" aria-label="Foto precedente">‹</button>
+    <span id="lightbox-caption"></span>
+    <button type="button" id="lightbox-next" aria-label="Foto successiva">›</button>
+  </div>
+</section>
+
+<!-- WATERMARK BOZZA -->
+<div class="draft-watermark" data-show-key="sito_in_bozza_watermark">Sito di prova</div>
+
+<!-- ERRORE CARICAMENTO -->
+<div class="load-error" id="load-error"></div>
+
+<!-- TEMPLATE REPEAT -->
+<template id="tpl-step">
+  <article class="method-item" data-reveal>
+    <div class="method-number" data-repeat-number></div>
+    <div>
+      <h3 data-text="chi_siamo_passo_{i}_titolo"></h3>
+      <p data-text="chi_siamo_passo_{i}_testo" data-hide-empty></p>
+    </div>
+    <figure class="method-photo" data-show-key="chi_siamo_passo_{i}_foto_attiva" data-image-wrap>
+      <img data-src="chi_siamo_passo_{i}_foto" data-placeholder="chi_siamo_passo_{i}_placeholder" data-alt="chi_siamo_passo_{i}_titolo" alt="" loading="lazy" decoding="async">
+    </figure>
+  </article>
+</template>
+
+<template id="tpl-benefit">
+  <article class="benefit-card" data-reveal>
+    <h3 data-text="vantaggio_{i}_titolo"></h3>
+    <p data-text="vantaggio_{i}_testo" data-hide-empty></p>
+  </article>
+</template>
+
+<template id="tpl-service">
+  <article class="service-card" data-reveal>
+    <figure class="service-photo" data-image-wrap>
+      <img data-src="servizio_{i}_foto" data-placeholder="servizio_{i}_placeholder" data-alt="servizio_{i}_nome" alt="" loading="lazy" decoding="async">
+    </figure>
+    <div>
+      <h3 data-text="servizio_{i}_nome"></h3>
+      <p data-text="servizio_{i}_descrizione" data-hide-empty></p>
+    </div>
+    <div class="service-price" data-text="servizio_{i}_prezzo" data-hide-empty></div>
+  </article>
+</template>
+
+<template id="tpl-gallery">
+  <figure class="gallery-card foto-{i}" data-lightbox-item data-reveal tabindex="0" role="button">
+    <img data-src="foto_{i}_url" data-placeholder="foto_{i}_placeholder" data-alt="foto_{i}_didascalia" alt="" loading="lazy" decoding="async">
+    <figcaption data-text="foto_{i}_didascalia" data-hide-empty></figcaption>
+  </figure>
+</template>
+
+<template id="tpl-gallery-extended">
+  <figure class="gallery-card foto-estesa-{i}" data-lightbox-item tabindex="0" role="button">
+    <img data-src="foto_estesa_{i}_url" data-placeholder="foto_estesa_{i}_placeholder" data-alt="galleria_estesa_titolo" alt="" loading="lazy" decoding="async">
+  </figure>
+</template>
+
+<template id="tpl-review">
+  <article class="review-card" data-reveal>
+    <blockquote data-text="recensione_{i}_testo"></blockquote>
+    <div class="review-meta">
+      <strong data-text="recensione_{i}_nome" data-fallback="Cliente"></strong>
+      <span><span data-text="recensione_{i}_stelle" data-fallback="5"></span>/5</span>
+    </div>
+  </article>
+</template>
+
+<template id="tpl-faq">
+  <details class="faq-item">
+    <summary data-text="faq_{i}_domanda"></summary>
+    <div class="faq-answer">
+      <div><p data-text="faq_{i}_risposta" data-hide-empty></p></div>
+    </div>
+  </details>
+</template>
+
+<template id="tpl-prima-dopo">
+  <div class="prima-dopo__item" data-reveal>
+    <div class="prima-dopo__stage">
+      <figure class="prima-dopo__media prima-dopo__media--prima">
+        <img data-src="prima_dopo_{i}_prima" data-placeholder="prima_dopo_{i}_prima_placeholder" data-alt="prima_dopo_{i}_didascalia" loading="lazy" alt="">
+      </figure>
+      <figure class="prima-dopo__media prima-dopo__media--dopo">
+        <img data-src="prima_dopo_{i}_dopo" data-placeholder="prima_dopo_{i}_dopo_placeholder" data-alt="prima_dopo_{i}_didascalia" loading="lazy" alt="">
+      </figure>
+      <div class="prima-dopo__handle" aria-hidden="true">
+        <div class="prima-dopo__line"></div>
+        <div class="prima-dopo__knob">⇔</div>
+      </div>
+      <input class="prima-dopo__range" type="range" min="0" max="100" value="50" aria-label="Scorri per confrontare">
+    </div>
+    <p class="prima-dopo__caption" data-text="prima_dopo_{i}_didascalia" data-hide-empty></p>
+  </div>
+</template>
+
+<!--
+═══════════════════════════════════════════════════════════════
+BLOCCO 1 — CONFIGURAZIONE SITO
+L'AI riempie questo blocco.
+═══════════════════════════════════════════════════════════════
+-->
+<script>
+"use strict";
+window.OMPAGE_PALETTES = {
+  DARK_ELEGANTE: { bg: "#0f0f0c", surface: "#171714", surface2: "#f2efe8", ink: "#f5f3ee", muted: "#a6a195", accent: "#cde63a", accent2: "#d7ec58", deep: "#0a0a08", warm: "#8d6b52" },
+  CREMA_NOTTE: { bg: "#171512", surface: "#211e1a", surface2: "#efe8dc", ink: "#f5efe8", muted: "#b4aa9a", accent: "#d6d94f", accent2: "#f0e67b", deep: "#0c0b09", warm: "#8d674e" },
+  CHIARO_MINIMALE: { bg: "#f5f3ee", surface: "#ffffff", surface2: "#ece7de", ink: "#121212", muted: "#68635c", accent: "#111111", accent2: "#3b3b3b", deep: "#151515", warm: "#d5c0ac" },
+  NATURA_PASTELLO: { bg: "#f3efe8", surface: "#fffaf3", surface2: "#e4ebe2", ink: "#181715", muted: "#6e6860", accent: "#a35f48", accent2: "#537264", deep: "#18231e", warm: "#d4a38a" }
+};
+window.OMPAGE_FONTS = {
+  LUSSO_SERIF: { head: '"Cormorant Garamond", Georgia, serif', body: '"Inter", system-ui, sans-serif', href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" },
+  EDITORIALE_MODERNO: { head: '"Cormorant Garamond", Georgia, serif', body: '"Inter", system-ui, sans-serif', href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" },
+  CLASSICO: { head: '"Cormorant Garamond", Georgia, serif', body: '"Inter", system-ui, sans-serif', href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Inter:wght@400;500;600;700;800;900&display=swap" },
+  MODERNO: { head: '"Inter", system-ui, sans-serif', body: '"Inter", system-ui, sans-serif', href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" }
+};
+</script>
+
+<!--
+═══════════════════════════════════════════════════════════════
+BLOCCO 2 — MOTORE JS OMPAGE
+NON MODIFICARE
+═══════════════════════════════════════════════════════════════
+-->
+<script>
+"use strict";
+const $ = (selector, root = document) => root.querySelector(selector);
+const $$ = (selector, root = document) => Array.from(root.querySelectorAll(selector));
+const clean = (value) => String(value ?? "").trim();
+const isOn = (val) => clean(val).toUpperCase() === "SI";
+
+const PRESET_PALETTES = window.OMPAGE_PALETTES || {
+  DARK_ELEGANTE: { bg:"#0f0f0c", surface:"#171714", surface2:"#f2efe8", ink:"#f5f3ee", muted:"#a6a195", accent:"#cde63a", accent2:"#d7ec58", deep:"#0a0a08", warm:"#8d6b52" }
+};
+
+const PRESET_FONTS = window.OMPAGE_FONTS || {
+  LUSSO_SERIF: { head: "Georgia, serif", body: "system-ui, sans-serif", href: "" }
+};
+
+function token(value, ctx = {}) {
+  return clean(value).replace(/\{i\}/g, String(ctx.i ?? ""));
+}
+
+function valueFor(cfg, key, ctx = {}) {
+  return cfg[token(key, ctx)];
+}
+
+function firstValue(cfg, keys, ctx = {}) {
+  for (const key of keys) {
+    const value = clean(valueFor(cfg, key, ctx));
+    if (value) return value;
+  }
+  return "";
+}
+
+function keyList(value) {
+  return clean(value).split(",").map((item) => item.trim()).filter(Boolean);
+}
+
+function sanitizeImgPath(val) { return clean(val); }
+
+function sanitizeUrl(val) {
+  const raw = clean(val);
+  if (!raw) return "";
+  if (/^(https?:)?\/\//i.test(raw) || /^mailto:|^tel:/i.test(raw)) return raw;
+  return "https://" + raw;
+}
+
+function absoluteAssetUrl(val) {
+  const path = sanitizeImgPath(val);
+  if (!path) return "";
+  try { return new URL(path, window.location.href).href; }
+  catch (e) { return path; }
+}
+
+function sanitizeTel(val) {
+  return clean(val).replace(/[^0-9+]/g, "");
+}
+
+function ctaHref(type, contact) {
+  const action = clean(type).toUpperCase();
+  const value = clean(contact);
+  if (!value) return "";
+  if (action === "WHATSAPP") return "https://wa.me/" + sanitizeTel(value).replace(/^\+/, "");
+  if (action === "TELEFONO") return "tel:" + sanitizeTel(value);
+  if (action === "EMAIL") return "mailto:" + value;
+  return "";
+}
+
+function resolveImg(clientPath, placeholderPath) {
+  return sanitizeImgPath(clientPath) || sanitizeImgPath(placeholderPath) || "";
+}
+
+function isExpired(dateValue) {
+  const raw = clean(dateValue);
+  if (!raw) return false;
+  const date = new Date(raw + "T23:59:59");
+  if (Number.isNaN(date.getTime())) return false;
+  return Date.now() > date.getTime();
+}
+
+function applyTheme(cfg) {
+  const paletteName = clean(cfg.tema_palette);
+  const palette = PRESET_PALETTES[paletteName] || Object.values(PRESET_PALETTES)[0];
+  const root = document.documentElement;
+  Object.entries({
+    "--bg": palette.bg,
+    "--surface": palette.surface,
+    "--surface-2": palette.surface2,
+    "--ink": palette.ink,
+    "--muted": palette.muted,
+    "--accent": palette.accent,
+    "--accent-2": palette.accent2,
+    "--deep": palette.deep,
+    "--warm": palette.warm
+  }).forEach(([key, value]) => root.style.setProperty(key, value));
+  
+  const fontName = clean(cfg.tema_tipografico);
+  const font = PRESET_FONTS[fontName] || Object.values(PRESET_FONTS)[0];
+  root.style.setProperty("--head", font.head);
+  root.style.setProperty("--body", font.body);
+  if (font.href) $("#font-link").href = font.href;
+  document.querySelector('meta[name="theme-color"]')?.setAttribute("content", palette.bg);
+}
+
+function updateSEO(cfg) {
+  const title = clean(cfg.seo_titolo) || clean(cfg.footer_nome) || clean(cfg.navbar_logo_testo) || "Sito";
+  const description = clean(cfg.seo_descrizione) || clean(cfg.hero_sottotitolo) || "";
+  document.title = title;
+  setMeta("name", "description", description);
+  setMeta("property", "og:title", title);
+  setMeta("property", "og:description", description);
+  setMeta("property", "og:image", absoluteAssetUrl(cfg.og_immagine));
+  
+  const name = clean(cfg.footer_nome) || clean(cfg.schema_nome) || clean(cfg.navbar_logo_testo) || title;
+  const telephone = clean(cfg.footer_telefono) || clean(cfg.footer_whatsapp) || clean(cfg.schema_telefono);
+  const schema = {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    name,
+    description,
+    image: absoluteAssetUrl(cfg.og_immagine),
+    telephone,
+    address: clean(cfg.footer_indirizzo) || clean(cfg.schema_indirizzo),
+    openingHours: clean(cfg.footer_orari) || clean(cfg.schema_orari),
+    url: window.location.href
+  };
+  $("#schema-json").textContent = JSON.stringify(schema);
+}
+
+function setMeta(attr, key, value) {
+  let el = document.querySelector(`meta[${attr}="${key}"]`);
+  if (!el) {
+    el = document.createElement("meta");
+    el.setAttribute(attr, key);
+    document.head.appendChild(el);
+  }
+  el.setAttribute("content", value || "");
+}
+
+function resolveTokensInAttributes(root, ctx) {
+  $$("*", root).forEach((el) => {
+    Array.from(el.attributes).forEach((attr) => {
+      if (attr.value.includes("{i}")) attr.value = token(attr.value, ctx);
+    });
+  });
+}
+
+function renderRepeats(cfg) {
+  $$("[data-repeat]").forEach((container) => {
+    const template = document.getElementById(container.dataset.template);
+    if (!template) return;
+    const count = Number(container.dataset.repeatCount || 0);
+    const activePattern = container.dataset.repeatActive || `${container.dataset.repeat}_{i}_attivo`;
+    const required = keyList(container.dataset.repeatRequired || "");
+    container.innerHTML = "";
+    let rendered = 0;
+    
+    for (let i = 1; i <= count; i += 1) {
+      const ctx = { i };
+      const activeKey = token(activePattern, ctx);
+      const active = activeKey ? isOn(cfg[activeKey]) : true;
+      const hasRequired = !required.length || required.some((key) => clean(valueFor(cfg, key, ctx)));
+      if (!active || !hasRequired) continue;
+      
+      const fragment = template.content.cloneNode(true);
+      resolveTokensInAttributes(fragment, ctx);
+      applyConfig(fragment, cfg, ctx);
+      container.appendChild(fragment);
+      rendered += 1;
+    }
+    
+    container.dataset.renderedCount = String(rendered);
+    if (container.hasAttribute("data-bento")) {
+      container.className = container.className.replace(/\bbento-\d+\b/g, "").trim();
+      if (rendered) container.classList.add("bento-" + Math.max(1, Math.min(rendered, 9)));
+    }
+  });
+}
+
+function applyConfig(root, cfg, ctx = {}) {
+  $$("[data-repeat-number]", root).forEach((el) => {
+    el.textContent = String(ctx.i || "").padStart(2, "0");
+  });
+  
+  $$("[data-year]", root).forEach((el) => {
+    el.textContent = String(new Date().getFullYear());
+  });
+  
+  $$("[data-text]", root).forEach((el) => {
+    const keys =[el.dataset.text, ...keyList(el.dataset.fallbackKeys || "")].filter(Boolean);
+    const value = firstValue(cfg, keys, ctx) || clean(el.dataset.fallback);
+    el.textContent = value;
+    if (el.hasAttribute("data-hide-empty")) el.hidden = !value;
+  });
+  
+  $$("[data-src]", root).forEach((img) => {
+    const label = firstValue(cfg,[img.dataset.alt || ""], ctx) || "Immagine";
+    const src = resolveImg(valueFor(cfg, img.dataset.src, ctx), valueFor(cfg, img.dataset.placeholder, ctx));
+    const wrap = img.closest("[data-image-wrap]") || img;
+    
+    if (!src) {
+      wrap.hidden = true;
+      return;
+    }
+    
+    wrap.hidden = false;
+    img.src = src;
+    img.alt = label;
+    img.onerror = () => {
+      const fallback = sanitizeImgPath(valueFor(cfg, img.dataset.placeholder, ctx));
+      if (fallback && img.src !== absoluteAssetUrl(fallback) && !img.dataset.triedPlaceholder) {
+        img.dataset.triedPlaceholder = "1";
+        img.src = fallback;
+      } else if (!img.dataset.triedGenerated) {
+        img.dataset.triedGenerated = "1";
+        img.src = generatedPlaceholder(label);
+      } else {
+        wrap.hidden = true;
+      }
+    };
+  });
+  
+  $$("[data-class-key]", root).forEach((el) => {
+    let map = {};
+    try { map = JSON.parse(el.dataset.classMap || "{}"); }
+    catch (e) { map = {}; }
+    Object.values(map).forEach((className) => el.classList.remove(className));
+    const className = map[clean(valueFor(cfg, el.dataset.classKey, ctx))];
+    if (className) el.classList.add(className);
+  });
+  
+  applyVisibility(root, cfg, ctx);
+  applyLinks(root, cfg, ctx);
+  applyBrand(root, cfg);
+}
+
+function applyLinks(root, cfg, ctx = {}) {
+  $$("[data-cta-type]", root).forEach((el) => {
+    const type = valueFor(cfg, el.dataset.ctaType, ctx);
+    const contact = clean(valueFor(cfg, el.dataset.ctaContact, ctx)) || firstValue(cfg, keyList(el.dataset.ctaFallbacks || ""), ctx);
+    const href = ctaHref(type, contact);
+    el.hidden = !href || el.dataset.ompageVisible === "0";
+    if (!href) return;
+    el.setAttribute("href", href);
+    setExternal(el, href);
+  });
+  
+  $$("[data-href-tel]", root).forEach((el) => {
+    const value = valueFor(cfg, el.dataset.hrefTel, ctx);
+    const href = sanitizeTel(value) ? "tel:" + sanitizeTel(value) : "";
+    el.hidden = !href || el.dataset.ompageVisible === "0";
+    if (href) el.href = href;
+  });
+  
+  $$("[data-href-whatsapp]", root).forEach((el) => {
+    const value = sanitizeTel(valueFor(cfg, el.dataset.hrefWhatsapp, ctx)).replace(/^\+/, "");
+    const href = value ? "https://wa.me/" + value : "";
+    el.hidden = !href || el.dataset.ompageVisible === "0";
+    if (href) {
+      el.href = href;
+      setExternal(el, href);
+    }
+  });
+  
+  $$("[data-href-email]", root).forEach((el) => {
+    const value = clean(valueFor(cfg, el.dataset.hrefEmail, ctx));
+    el.hidden = !value || el.dataset.ompageVisible === "0";
+    if (value) el.href = "mailto:" + value;
+  });
+  
+  $$("[data-href-url]", root).forEach((el) => {
+    const href = sanitizeUrl(valueFor(cfg, el.dataset.hrefUrl, ctx));
+    el.hidden = !href || el.dataset.ompageVisible === "0";
+    if (href) {
+      el.href = href;
+      setExternal(el, href);
+    }
+  });
+  
+  $$("[data-map-key]", root).forEach((el) => {
+    const address = clean(valueFor(cfg, el.dataset.mapKey, ctx));
+    const href = address ? "https://www.google.com/maps/search/?api=1&query=" + encodeURIComponent(address) : "";
+    el.hidden = !href || el.dataset.ompageVisible === "0";
+    if (href) {
+      el.href = href;
+      setExternal(el, href);
+    }
+  });
+  
+  $$("[data-file-key]", root).forEach((el) => {
+    const href = sanitizeImgPath(valueFor(cfg, el.dataset.fileKey, ctx));
+    el.hidden = !href || el.dataset.ompageVisible === "0";
+    if (href) el.href = href;
+  });
+}
+
+function setExternal(el, href) {
+  if (/^https?:\/\//i.test(href)) {
+    el.target = "_blank";
+    el.rel = "noopener";
+  }
+}
+
+function applyVisibility(root, cfg, ctx = {}) {
+  $$("[data-show-key],[data-show-text],[data-show-when],[data-expires-key],[data-show-repeat]", root).forEach((el) => {
+    let visible = true;
+    if (el.dataset.showKey) visible = visible && isOn(valueFor(cfg, el.dataset.showKey, ctx));
+    if (el.dataset.showText) visible = visible && Boolean(clean(valueFor(cfg, el.dataset.showText, ctx)));
+    if (el.dataset.expiresKey) visible = visible && !isExpired(valueFor(cfg, el.dataset.expiresKey, ctx));
+    if (el.dataset.showWhen) {
+      const [key, rawValues] = el.dataset.showWhen.split(":");
+      const allowed = clean(rawValues).split("|").map((v) => v.trim());
+      visible = visible && allowed.includes(clean(valueFor(cfg, key, ctx)));
+    }
+    if (el.dataset.showRepeat) {
+      const target = document.querySelector("." + el.dataset.showRepeat);
+      visible = visible && Number(target?.dataset.renderedCount || 0) > 0;
+    }
+    el.dataset.ompageVisible = visible ? "1" : "0";
+    el.hidden = !visible;
+  });
+}
+
+function generatedPlaceholder(label) {
+  const style = getComputedStyle(document.documentElement);
+  const bg1 = style.getPropertyValue("--bg").trim() || "#0f0f0c";
+  const bg2 = style.getPropertyValue("--surface-2").trim() || "#f2efe8";
+  const warm = style.getPropertyValue("--warm").trim() || "#8d6b52";
+  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1400" height="1000" viewBox="0 0 1400 1000"><defs><linearGradient id="g" x1="0" x2="1" y1="0" y2="1"><stop offset="0" stop-color="${bg1}"/><stop offset=".55" stop-color="${bg2}"/><stop offset="1" stop-color="${warm}"/></linearGradient></defs><rect width="1400" height="1000" fill="url(#g)"/><circle cx="700" cy="470" r="190" fill="none" stroke="#000" stroke-opacity=".1" stroke-width="2"/></svg>`;
+  return "data:image/svg+xml;charset=utf-8," + encodeURIComponent(svg);
+}
+
+function applyBrand(root, cfg) {
+  $$("[data-brand]", root).forEach((brand) => {
+    const logoType = clean(cfg.navbar_logo_tipo).toUpperCase();
+    const logoPath = sanitizeImgPath(cfg.navbar_logo_immagine);
+    if (logoType === "IMMAGINE" && logoPath) {
+      brand.innerHTML = "";
+      const img = document.createElement("img");
+      img.src = logoPath;
+      img.alt = clean(cfg.navbar_logo_testo) || clean(cfg.footer_nome) || "Logo";
+      brand.appendChild(img);
+    } else {
+      brand.textContent = clean(cfg.navbar_logo_testo) || clean(cfg.footer_nome) || clean(cfg.schema_nome) || "Sito";
+    }
+  });
+}
+
+function resolveSectionVisibility(cfg) {
+  $$("[data-site-section]").forEach((section) => {
+    let visible = true;
+    if (section.dataset.sectionKey) visible = visible && isOn(cfg[section.dataset.sectionKey]);
+    if (section.dataset.requiredRepeat) {
+      const repeat = section.querySelector("." + section.dataset.requiredRepeat);
+      visible = visible && Number(repeat?.dataset.renderedCount || 0) > 0;
+    }
+    section.hidden = !visible;
+  });
+}
+
+function buildNavbar(cfg) {
+  const items = $$("[data-site-section]")
+    .filter((section) => !section.hidden && section.id)
+    .map((section) => ({
+      href: "#" + section.id,
+      label: clean(cfg[section.dataset.navKey]) || section.dataset.navDefault || section.id
+    }))
+    .filter((item) => item.label);
+    
+  const navLinks = $("#nav-links");
+  const mobileLinks = $("#mobile-links");
+  if (navLinks) navLinks.replaceChildren();
+  if (mobileLinks) mobileLinks.replaceChildren();
+  
+  items.forEach((item) => {
+    const desktop = document.createElement("a");
+    desktop.href = item.href;
+    desktop.textContent = item.label;
+    if (navLinks) navLinks.appendChild(desktop);
+    
+    const mobile = document.createElement("a");
+    mobile.href = item.href;
+    mobile.textContent = item.label;
+    if (mobileLinks) mobileLinks.appendChild(mobile);
+  });
+  
+  $$("#mobile-links a").forEach((link) => link.addEventListener("click", closeMenu));
+}
+
+function initChrome() {
+  const openBtn = $("#menu-open");
+  const closeBtn = $("#menu-close");
+  if (openBtn) openBtn.addEventListener("click", openMenu);
+  if (closeBtn) closeBtn.addEventListener("click", closeMenu);
+  
+  const promoClose = $("#promo-close");
+  if (promoClose) {
+    promoClose.addEventListener("click", () => {
+      const promo = $("#promo");
+      if (promo) promo.hidden = true;
+      document.documentElement.style.setProperty("--promo-h", "0rem");
+    });
+  }
+  
+  const nav = $("#site-nav");
+  const onScroll = () => {
+    if (nav) nav.classList.toggle("is-scrolled", window.scrollY > 12);
+  };
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+  
+  document.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      closeMenu();
+      closeLightbox();
+      closeAllOverlays();
+      closePopup();
+    }
+  });
+}
+
+function openMenu() {
+  document.body.classList.add("menu-open");
+  const panel = $("#mobile-panel");
+  if (panel) {
+    panel.classList.add("is-open");
+    panel.setAttribute("aria-hidden", "false");
+  }
+}
+
+function closeMenu() {
+  document.body.classList.remove("menu-open");
+  const panel = $("#mobile-panel");
+  if (panel) {
+    panel.classList.remove("is-open");
+    panel.setAttribute("aria-hidden", "true");
+  }
+}
+
+function initPromoHeight() {
+  const promo = $("#promo");
+  document.documentElement.style.setProperty("--promo-h", (promo && !promo.hidden) ? "2.55rem" : "0rem");
+}
+
+function initReveal() {
+  const items = $$("[data-reveal]");
+  if (!("IntersectionObserver" in window)) {
+    items.forEach((item) => item.classList.add("is-visible"));
+    return;
+  }
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  items.forEach((item) => observer.observe(item));
+}
+
+function initCarousels() {
+  $$("[data-carousel]").forEach((carousel) => {
+    const track = $("[data-carousel-track]", carousel);
+    const prev = $("[data-carousel-prev]", carousel);
+    const next = $("[data-carousel-next]", carousel);
+    if (!track) return;
+    const move = (dir) => track.scrollBy({ left: dir * Math.max(280, track.clientWidth * 0.82), behavior: "smooth" });
+    if (prev) prev.addEventListener("click", () => move(-1));
+    if (next) next.addEventListener("click", () => move(1));
+  });
+}
+
+function initOverlays() {
+  $$("[data-open-overlay]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const overlay = document.getElementById(button.dataset.openOverlay);
+      if (!overlay) return;
+      document.body.classList.add("overlay-open");
+      overlay.classList.add("is-open");
+      overlay.setAttribute("aria-hidden", "false");
+    });
+  });
+  $$("[data-close-overlay]").forEach((button) => {
+    button.addEventListener("click", closeAllOverlays);
+  });
+}
+
+function closeAllOverlays() {
+  document.body.classList.remove("overlay-open");
+  $$(".overlay.is-open, .ext-overlay.is-open").forEach((overlay) => {
+    overlay.classList.remove("is-open");
+    overlay.setAttribute("aria-hidden", "true");
+  });
+}
+
+let lightboxItems =[];
+let lightboxIndex = 0;
+
+function initLightbox() {
+  $$("[data-lightbox-item]").forEach((item) => {
+    const open = () => {
+      const scope = item.closest("[data-lightbox-scope]") || document;
+      const items = $$("[data-lightbox-item]", scope).map((node) => {
+        const img = $("img", node);
+        const caption = clean($("figcaption", node)?.textContent || img?.alt || "");
+        return { src: img?.currentSrc || img?.src || "", caption };
+      }).filter((entry) => entry.src);
+      const index = $$("[data-lightbox-item]", scope).indexOf(item);
+      openLightbox(items, Math.max(0, index));
+    };
+    item.addEventListener("click", open);
+    item.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        open();
+      }
+    });
+  });
+  
+  const lbClose = $("#lightbox-close");
+  const lbPrev = $("#lightbox-prev");
+  const lbNext = $("#lightbox-next");
+  if (lbClose) lbClose.addEventListener("click", closeLightbox);
+  if (lbPrev) lbPrev.addEventListener("click", () => moveLightbox(-1));
+  if (lbNext) lbNext.addEventListener("click", () => moveLightbox(1));
+  
+  document.addEventListener("keydown", (event) => {
+    const lb = $("#lightbox");
+    if (!lb || !lb.classList.contains("is-open")) return;
+    if (event.key === "ArrowLeft") moveLightbox(-1);
+    if (event.key === "ArrowRight") moveLightbox(1);
+  });
+}
+
+function openLightbox(items, index) {
+  if (!items.length) return;
+  lightboxItems = items;
+  lightboxIndex = index;
+  updateLightbox();
+  document.body.classList.add("lightbox-open");
+  const lb = $("#lightbox");
+  if (lb) {
+    lb.classList.add("is-open");
+    lb.setAttribute("aria-hidden", "false");
+  }
+}
+
+function closeLightbox() {
+  document.body.classList.remove("lightbox-open");
+  const lb = $("#lightbox");
+  if (lb) {
+    lb.classList.remove("is-open");
+    lb.setAttribute("aria-hidden", "true");
+  }
+}
+
+function moveLightbox(delta) {
+  if (!lightboxItems.length) return;
+  lightboxIndex = (lightboxIndex + delta + lightboxItems.length) % lightboxItems.length;
+  updateLightbox();
+}
+
+function updateLightbox() {
+  const item = lightboxItems[lightboxIndex];
+  const img = $("#lightbox-img");
+  const cap = $("#lightbox-caption");
+  const count = $("#lightbox-count");
+  if (img) {
+    img.src = item.src;
+    img.alt = item.caption || "Foto";
+  }
+  if (cap) cap.textContent = item.caption;
+  if (count) count.textContent = `${lightboxIndex + 1} / ${lightboxItems.length}`;
+}
+
+function initPopup() {
+  const popup = $("#popup");
+  if (!popup || popup.hidden) return;
+  const clsBtn = $("#popup-close");
+  if (clsBtn) clsBtn.addEventListener("click", closePopup);
+  setTimeout(() => {
+    document.body.classList.add("popup-open");
+    popup.classList.add("is-visible");
+    popup.setAttribute("aria-hidden", "false");
+  }, 900);
+}
+
+function closePopup() {
+  const popup = $("#popup");
+  if (!popup) return;
+  popup.classList.remove("is-visible");
+  popup.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("popup-open");
+}
+
+async function loadConfig() {
+  const LOCAL_KEY = "ompage_local_config";
+  try {
+    const localDraft = localStorage.getItem(LOCAL_KEY);
+    if (localDraft) {
+      const parsed = JSON.parse(localDraft);
+      if (parsed && typeof parsed === "object" && !Array.isArray(parsed)) {
+        return parsed;
+      }
+    }
+  } catch (error) {
+    console.warn("[Ompage] Bozza locale non valida, uso config.json", error);
+  }
+  const response = await fetch("config.json?ts=" + Date.now(), { cache: "no-store" });
+  if (!response.ok) throw new Error("HTTP " + response.status);
+  return response.json();
+}
+
+function initFloatingBadge(cfg) {
+  var badge = document.getElementById('floating-badge');
+  if (!badge) return;
+  var tipo = clean(cfg.badge_tipo || 'WHATSAPP').toUpperCase();
+  var numero = tipo === 'WHATSAPP'
+    ? sanitizeTel(cfg.footer_whatsapp || cfg.footer_telefono || '')
+    : sanitizeTel(cfg.footer_telefono || cfg.footer_whatsapp || '');
+  if (!numero) { badge.hidden = true; return; }
+  badge.href = tipo === 'WHATSAPP'
+    ? 'https://wa.me/' + numero.replace(/^\+/, '')
+    : 'tel:' + numero;
+  badge.target = '_blank';
+  badge.rel = 'noopener';
+}
+
+async function boot() {
+  try {
+    const cfg = await loadConfig();
+    window.siteConfig = cfg;
+    applyTheme(cfg);
+    updateSEO(cfg);
+    renderRepeats(cfg);
+    applyConfig(document, cfg);
+    resolveSectionVisibility(cfg);
+    buildNavbar(cfg);
+    initPromoHeight();
+    initChrome();
+    initReveal();
+    initCarousels();
+    initOverlays();
+    initLightbox();
+    initPopup();
+    initFloatingBadge(cfg);
+
+    // Applica filtro foto
+    (function applyFotoFiltro(cfg) {
+      const filtro = (cfg.foto_filtro || 'NESSUNO').toUpperCase().trim();
+      const map = { CALDO:'filtro-caldo', FREDDO:'filtro-freddo', MORBIDO:'filtro-morbido', NITIDO:'filtro-nitido', VINTAGE:'filtro-vintage' };
+      const cls = map[filtro];
+      if (cls) document.body.classList.add(cls);
+    })(cfg);
+
+    document.dispatchEvent(new CustomEvent("configLoaded", { detail: cfg }));
+  } catch (error) {
+    console.error("[Ompage] Errore config.json:", error);
+    const banner = $("#load-error");
+    if (banner) {
+      banner.textContent = "Errore di sistema: config.json non trovato o non valido.";
+      banner.classList.add("is-visible");
+    }
+  }
+}
+boot();
+</script>
+
+<script>
+(function () {
+  const banner = document.getElementById('cookie-banner');
+  const btn = document.getElementById('cookie-ok');
+  if (!banner) return;
+  if (localStorage.getItem('cookie_ok') === '1') {
+    banner.classList.add('is-hidden');
+    return;
+  }
+  banner.classList.remove('is-hidden');
+  btn?.addEventListener('click', function () {
+    localStorage.setItem('cookie_ok', '1');
+    banner.classList.add('is-hidden');
+  });
+})();
+</script>
+
+<script>
+(function () {
+  function initSliders() {
+    document.querySelectorAll('.prima-dopo__item').forEach(function (item) {
+      const range = item.querySelector('.prima-dopo__range');
+      const dopo = item.querySelector('.prima-dopo__media--dopo');
+      const handle = item.querySelector('.prima-dopo__handle');
+      if (!range || !dopo) return;
+      function update(v) {
+        const pct = Math.max(0, Math.min(100, v));
+        dopo.style.clipPath = 'inset(0 ' + (100 - pct) + '% 0 0)';
+        handle.style.left = pct + '%';
+      }
+      range.addEventListener('input', function () { update(this.value); });
+      update(50);
+    });
+  }
+  /* Aspetta che il motore abbia renderizzato il repeat */
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function () {
+      setTimeout(initSliders, 300);
+    });
+  } else {
+    setTimeout(initSliders, 300);
+  }
+})();
+</script>
+
+<!-- ═══ OMPAGE QA REPORT — visibile solo in modalità bozza ═══ -->
+<script>
+(function() {
+  document.addEventListener('configLoaded', function(e) {
+    var cfg = e.detail;
+    if (!cfg || cfg.sito_in_bozza_watermark !== 'SI') return;
+    var errori =[];
+
+    // 1. Overflow orizzontale (layout rotto su mobile)
+    if (document.documentElement.scrollWidth > window.innerWidth) {
+      errori.push('🔴 CRITICO: Il sito sbanda in orizzontale — un elemento esce dallo schermo.');
+    }
+
+    // 2. Immagini — alt mancante, lazy loading errato
+    document.querySelectorAll('img').forEach(function(img) {
+      if (img.getAttribute('alt') === null) {
+        errori.push('🟡 SEO: Immagine senza attributo alt (' + (img.src.split('/').pop() || img.src) + ').');
+      }
+      if (img.closest('#hero') && img.getAttribute('loading') === 'lazy') {
+        errori.push('🔴 PERFORMANCE: La foto Hero ha loading=lazy — rallenta il sito!');
+      }
+    });
+
+    // 3. Link vuoti o rotti
+    document.querySelectorAll('a').forEach(function(link) {
+      var href = link.getAttribute('href');
+      if (!href || href === '#' || href === '') {
+        var txt = link.textContent.trim().substring(0, 20) || '(senza testo)';
+        errori.push('🔴 UX: Link vuoto o rotto — testo: "' + txt + '".');
+      }
+    });
+
+    // 4. Campi obbligatori vuoti
+    var obbligatori = { seo_titolo:'Titolo SEO', seo_descrizione:'Descrizione SEO', footer_nome:'Nome attività', og_immagine:'Immagine Open Graph' };
+    Object.keys(obbligatori).forEach(function(k) {
+      if (!cfg[k]) errori.push('🔴 CONTENUTO: "' + obbligatori[k] + '" è vuoto — compilarlo prima di pubblicare.');
+    });
+
+    // 5. Nessun contatto
+    if (!cfg.footer_whatsapp && !cfg.footer_telefono) {
+      errori.push('🔴 CONTATTI: Nessun numero WhatsApp o telefono inserito — i bottoni CTA non funzioneranno.');
+    }
+
+    // 6. Numeri senza +39
+    ['footer_whatsapp','hero_cta_contatto','barra_cta_contatto'].forEach(function(k) {
+      var v = cfg[k];
+      if (v && v.trim() && !v.trim().startsWith('+')) {
+        errori.push('🔴 WHATSAPP: Il campo "' + k + '" non ha il prefisso internazionale (+39). Il bottone non funzionerà.');
+      }
+    });
+
+    // 7. Titolo SEO troppo lungo
+    if (cfg.seo_titolo && cfg.seo_titolo.length > 65) {
+      errori.push('🟡 SEO: Titolo SEO troppo lungo (' + cfg.seo_titolo.length + ' caratteri) — Google lo taglia a 65.');
+    }
+
+    // 8. Descrizione SEO troppo lunga
+    if (cfg.seo_descrizione && cfg.seo_descrizione.length > 160) {
+      errori.push('🟡 SEO: Descrizione SEO troppo lunga (' + cfg.seo_descrizione.length + ' caratteri) — Google la taglia a 160.');
+    }
+
+    // 9. Sezione attiva ma nessun elemento abilitato
+    var serviziOn =[1,2,3,4,5,6,7,8,9,10].filter(function(i){ return cfg['servizio_'+i+'_attivo']==='SI'; });
+    if (cfg.servizi_attivi === 'SI' && serviziOn.length === 0) {
+      errori.push('🟡 CONTENUTO: La sezione Servizi è attiva ma nessun servizio è abilitato.');
+    }
+    var fotoOn =[1,2,3,4,5,6,7,8,9].filter(function(i){ return cfg['foto_'+i+'_attiva']==='SI'; });
+    if (cfg.galleria_attiva === 'SI' && fotoOn.length === 0) {
+      errori.push('🟡 CONTENUTO: La sezione Galleria è attiva ma nessuna foto è abilitata.');
+    }
+
+    // 10. Watermark ancora attivo (promemoria)
+    errori.push('🟡 BOZZA: Il watermark "Sito di prova" è attivo — ricordati di disattivarlo prima di andare live.');
+
+    // MOSTRA PANNELLO
+    if(errori.length > 0) {
+      var panel = document.createElement('div');
+      panel.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:99999;background:#7f1d1d;color:#fff;padding:14px 18px;font-family:monospace;font-size:12px;line-height:1.65;max-height:35vh;overflow-y:auto;border-top:3px solid #ef4444;';
+      panel.innerHTML = '<strong style="font-size:13px;">🔥 OMPAGE QA REPORT — Risolvi prima di consegnare al cliente:</strong><br><br>' + errori.join('<br>') + '<br><br><button onclick="this.parentElement.remove()" style="background:#ef4444;border:none;color:#fff;padding:4px 12px;border-radius:4px;cursor:pointer;font-size:12px;margin-top:10px;">Chiudi</button>';
+      document.body.appendChild(panel);
+      console.log('[Ompage QA] ' + errori.length + ' avvisi trovati.');
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
