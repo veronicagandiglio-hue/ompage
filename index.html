@@ -4281,22 +4281,72 @@
 <div class="modale-overlay" id="modale-termini" role="dialog" aria-modal="true" aria-labelledby="modale-termini-titolo">
   <div class="modale">
     <button class="modale__chiudi" data-chiudi="termini" aria-label="Chiudi">✕</button>
-    <h2 class="modale__titolo" id="modale-termini-titolo">Termini e <span class="oro">Condizioni</span></h2>
-    <div class="modale__testo">
-      <h3>1. Oggetto del Servizio</h3>
-      <p>Ompage realizza siti vetrina One-Page in HTML/CSS/JS per professionisti e attività locali. Il prezzo di 250€ è una soluzione "chiavi in mano" che include design, sviluppo, registrazione del dominio, hosting e assistenza sulle modifiche consentite per 12 mesi.</p>
-      <div class="modale__separatore"></div>
-      <h3>2. Contenuti e Revisioni</h3>
-      <p>Sono incluse revisioni su testi, colori e foto basate su istruzioni specifiche del cliente. Non sono incluse modifiche sostanziali dell'architettura del sito o della struttura delle sezioni, poiché il layout è ottimizzato per l'efficacia tecnica e comunicativa. La prima bozza approvata dal cliente viene messa online entro 5-7 giorni lavorativi. Le modifiche successive vengono applicate entro 48-72 ore dalla richiesta.</p>
-      <div class="modale__separatore"></div>
-      <h3>3. Esclusioni (Cosa non ricevi)</h3>
-      <p>Per mantenere il prezzo competitivo e il servizio snello, non sono inclusi: Servizi di Copywriting (i testi devono essere forniti dal cliente o resteranno quelli della bozza). Configurazione di email personalizzate (es. info@tuosito.it). Attività di SEO, posizionamento garantito su Google o campagne marketing.</p>
-      <div class="modale__separatore"></div>
-      <h3>4. Rinnovo e Proprietà Tecnica</h3>
-      <p>Al saldo del pagamento, il cliente è proprietario legale e tecnico del codice. Può richiedere le chiavi di accesso o il trasferimento dei file in qualsiasi momento, senza penali. Dal secondo anno il cliente può scegliere la Gestione Autonoma del sito o continuare la Gestione Assistita da Ompage (70€/anno), che include il rinnovo del dominio e ulteriori revisioni del sito su richiesta per un altro anno.</p>
-      <div class="modale__separatore"></div>
-      <h3>5. Portfolio</h3>
-      <p>Ompage si riserva il diritto di inserire il lavoro svolto nel proprio portfolio online e sui canali social, come esempio di collaborazione professionale, salvo esplicita richiesta contraria del cliente.</p>
+    
+    <div class="modale__header">
+      <h2 class="modale__titolo" id="modale-termini-titolo">Termini e <span class="oro">Condizioni</span></h2>
+    </div>
+
+    <!-- Area scrollabile separata dall'header -->
+    <div class="modale__scroll-area">
+      <div class="modale__testo">
+        
+        <h3>1. Oggetto del Contratto</h3>
+        <p>Ompage non vende un vero e proprio servizio di creazione di siti web, ma un Prodotto Digitale finito di proprietà del cliente. Il prodotto consiste in un sito monopagina (One-Page), scritto in puro codice HTML/CSS/JS e gestibile in totale autonomia tramite un Pannello di Controllo privato (pannello.html) dotato di Guida.</p>
+        <p>Il costo del prodotto è di 250€ una tantum. Non sono richiesti canoni mensili, quote di server o abbonamenti obbligatori. Non è incluso l'acquisto del dominio.</p>
+
+        <div class="modale__separatore"></div>
+
+        <h3>2. Flusso di Lavoro, Bozza di Prova e "Scrematura" Tecnica</h3>
+        <p>Per garantire il massimo controllo e abbattere ogni rischio, la collaborazione segue un protocollo basato sulla fiducia reciproca e sulla verifica diretta:</p>
+        <ul class="modale__lista modale__lista--numeri">
+          <li>1.Fase di Prova (Gratuita): Ompage progetta la bozza personalizzata e consegna al cliente il pacchetto di file contenente un watermark ("Sito di Prova").</li>
+          <li>2.La Verifica (Aggancio a GitHub): Seguendo la guida PDF fornita, il cliente deve registrare autonomamente un account gratuito su GitHub e caricare i file per attivare la visualizzazione online del sito e testare il funzionamento del Pannello di Controllo. Questa fase è obbligatoria e serve a verificare che il cliente sia in grado di gestire in autonomia il pannello.</li>
+          <li>3.Il Saldo: Se il cliente è pienamente soddisfatto della bozza e dichiara di saper usare il pannello, procede al pagamento unico di 250€. Dato che il cliente ha la possibilità di testare il prodotto reale prima di pagare, non è previsto alcun rimborso dopo il saldo.</li>
+          <li>4.Messa Online Definitiva: Ricevuto il pagamento, Ompage sblocca la filigrana di prova. Il cliente acquista in autonomia il proprio nome a dominio sul fornitore che preferisce (Aruba, Hostinger, ecc.) e lo collega al sito.</li>
+        </ul>
+
+        <div class="modale__separatore"></div>
+
+        <h3>3. Proprietà Tecnica, Hosting Gratis e Rinnovi</h3>
+        <ul class="modale__lista">
+          <li>- Proprietà 100%: Dal momento del saldo, il cliente è l'unico proprietario legale e tecnico del codice sorgente, dei file e della repository GitHub.</li>
+          <li>- Hosting Gratis: Il sito è ospitato sulle infrastrutture gratuite di GitHub/Cloudflare. Il cliente non dovrà pagare alcun costo di "spazio server" o "manutenzione hosting" a Ompage o a terzi, salvo cambiamenti delle condizioni di Github e Cloudfare.</li>
+          <li>- Da subito, il cliente dovrà pagare solo il costo vivo del proprio dominio (circa 10–15€/all'anno) direttamente al proprio fornitore. Il sito in puro codice continuerà a girare online a vita senza bisogno di alcuna manutenzione tecnica.</li>
+        </ul>
+
+        <div class="modale__separatore"></div>
+
+        <h3>4. Regole di Modifica e "Contenitori Indistruttibili"</h3>
+        <p>Tramite il Pannello di Controllo, il cliente può modificare autonomamente i testi e le foto.</p>
+        <p>Modifiche Strutturali: Non sono incluse modifiche all'HTML di base o alterazioni strutturali della griglia dopo la consegna finale. Qualsiasi richiesta di stravolgimento del design richiede un preventivo separato.</p>
+
+        <div class="modale__separatore"></div>
+
+        <h3>5. Esclusioni e Integrazione Prenotazioni</h3>
+        <p>Per mantenere il prezzo competitivo e un processo snello, sono esplicitamente esclusi dal prezzo di 250€:</p>
+        <ul class="modale__lista">
+          <li>- Servizi di scrittura testi (copywriting) e fotografie professionali (devono essere inseriti dal cliente o resteranno quelli generati dall'AI in fase di bozza).</li>
+          <li>- Configurazione di caselle email professionali personalizzate (es. info@nomedominio.it).</li>
+          <li>-Campagne marketing o promesse di posizionamento garantito al primo posto su Google.</li>
+          <li>- Sistema di Prenotazione: Il sistema di prenotazione online integrato si basa su link di terze parti (es. Calendly o gestionali di settore del cliente). La creazione e la gestione dell'account su tali piattaforme esterne è a carico del cliente.</li>
+        </ul>
+
+        <div class="modale__separatore"></div>
+
+        <h3>6. Utilizzo del Portfolio</h3>
+        <p>Ompage si riserva il diritto di inserire il lavoro svolto nel proprio portfolio online e sui canali social, come esempio di collaborazione professionale, salvo esplicita richiesta contraria del cliente.</p>
+
+        <div class="modale__separatore"></div>
+
+        <h3>7. Esonero da Responsabilità (Piattaforme Terze e Manomissione)</h3>
+        <p>Per garantire la massima trasparenza e tutelare l'integrità del prodotto consegnato, Ompage specifica le seguenti limitazioni di responsabilità:</p>
+        <ul class="modale__lista">
+          <li>- Policy di GitHub e Cloudflare: L'infrastruttura "Hosting Gratis" si basa sui piani gratuiti attualmente offerti da piattaforme multinazionali di terze parti (come GitHub Pages e Cloudflare). Ompage non ha alcun controllo sulle loro future decisioni commerciali. Qualora, negli anni a venire, tali piattaforme decidessero di modificare le proprie policy o di rendere a pagamento i servizi oggi gratuiti, i relativi costi saranno a carico esclusivo del cliente. Ompage non potrà in alcun caso essere ritenuta responsabile o tenuta a fornire alternative di hosting gratuite.</li>
+          <li>- Manomissione del Codice Sorgente: Il cliente è tenuto a effettuare le modifiche di testo, immagini e impostazioni esclusivamente tramite l'interfaccia sicura del Pannello di Controllo (pannello.html). Qualora il cliente, o terzi da lui autorizzati, decida di aprire e alterare manualmente il codice sorgente del sito (file index.html, config.json o altri asset strutturali), causando la rottura del layout, il blocco delle animazioni (JS) o il malfunzionamento generale, la garanzia sul prodotto decade immediatamente.</li>
+          <li>- Interventi di Ripristino: Ompage è sollevata da qualsiasi obbligo di assistenza gratuita per danni causati da manomissione manuale. Qualsiasi intervento richiesto per ripristinare il sito alle condizioni originali di consegna o per riparare il codice danneggiato dal cliente sarà preventivato e fatturato separatamente come intervento tecnico straordinario.</li>
+        </ul>
+
+      </div>
     </div>
   </div>
 </div>
@@ -4308,7 +4358,7 @@
     <h2 class="modale__titolo" id="modale-privacy-titolo">Privacy <span class="oro">Policy</span></h2>
     <div class="modale__testo">
       <h3>Titolare del Trattamento</h3>
-      <p>Ompage di Veronica Gandiglio — P.IVA 12345678910<br>Sede Legale: Via Belmonte 6, 10155 - Torino (TO)<br>Email: <strong>ciao@ompage.it</strong></p>
+      <p>Ompage di Veronica Gandiglio — P.IVA 12253180017<br>Sede Legale: Via Belmonte 6, 10155 - Torino (TO)<br>Email: veronicagandiglio@hotmailcom <strong>ciao@ompage.it</strong></p>
       <div class="modale__separatore"></div>
       <h3>Dati Raccolti</h3>
       <p>Questo sito è progettato per ridurre al minimo la raccolta di dati personali. Non sono presenti moduli (form) di contatto. Il contatto avviene esclusivamente tramite email o link esterno a WhatsApp. Cliccando sul tasto, verrai indirizzato alla piattaforma di WhatsApp (Meta Platforms, Inc.), che gestirà i tuoi dati secondo la propria informativa privacy. I server che ospitano il sito (Cloudflare) raccolgono automaticamente alcuni dati tecnici (come indirizzo IP, tipo di browser, orario della richiesta) per scopi strettamente legati alla sicurezza e alla prevenzione di attacchi informatici.</p>
