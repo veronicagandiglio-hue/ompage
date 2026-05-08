@@ -3218,6 +3218,24 @@
   opacity: 0.15;
 }
 
+.portfolio-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* 'cover' taglia leggermente i bordi per riempire tutto lo spazio, 
+     'contain' mostra tutto il video con eventuali barre nere se il formato non è identico */
+  object-fit: contain; 
+  background-color: #000;
+}
+
+/* Rimuovi eventuali overflow o padding che avevi sulle vecchie slide */
+.browser-window__content {
+  overflow: hidden;
+  position: relative;
+  background: #000;
+  display: flex;
+}
+
   </style>
 
   <script type="application/ld+json">
@@ -3695,40 +3713,24 @@
 <!-- ============================================
      SEZIONE 4 — PORTFOLIO (Browser Window)
 ============================================ -->
-<section
-  class="portfolio"
-  id="portfolio"
-  aria-label="Portfolio lavori"
->
+<section class="portfolio" id="portfolio" aria-label="Portfolio lavori">
 
   <!-- Header -->
   <div class="portfolio__header">
     <div class="portfolio__header-sx">
-      
       <h2 class="portfolio__titolo">
-        Il Mio<br><em>Design</em> Ompage
+        Gestione<br><em>Semplice</em> e Totale
       </h2>
     </div>
     <div class="portfolio__header-cta">
-      <a
-        href="https://wa.me/39XXXXXXXXXX"
-        class="btn-brutal"
-        target="_blank"
-        rel="noopener"
-        aria-label="Vuoi un sito così? Scrivimi su WhatsApp"
-      >
+      <a href="https://wa.me/39XXXXXXXXXX" class="btn-brutal" target="_blank" rel="noopener">
         💬 Voglio il mio ↗
       </a>
     </div>
   </div>
 
   <!-- Finestra Browser -->
-  <div
-    class="browser-window"
-    id="browserWindow"
-    role="region"
-    aria-label="Anteprima progetti"
-  >
+  <div class="browser-window" id="browserWindow">
     <!-- Bar browser -->
     <div class="browser-window__bar" aria-hidden="true">
       <div class="browser-window__dots">
@@ -3737,128 +3739,29 @@
         <span class="browser-window__dot browser-window__dot--green"></span>
       </div>
       <div class="browser-window__url">
-        <span class="browser-window__url-text" id="urlText">
-          https://ompage.it/preview/maison-grooming
+        <span class="browser-window__url-text">
+          tuosito.it/config-panel
         </span>
       </div>
     </div>
 
-    <!-- Contenuto 16/9 -->
-    <div class="browser-window__content" aria-live="polite">
-
-      <!-- Slide 1 — Maison Grooming -->
-      <div
-        class="browser-slide is-active"
-        data-url="https://ompage.it/preview/maison-grooming"
-        aria-label="Anteprima sito Maison Grooming"
+    <!-- Contenuto Video -->
+    <div class="browser-window__content">
+      <video 
+        autoplay 
+        muted 
+        loop 
+        playsinline 
+        poster="miniatura-video.jpg" 
+        class="portfolio-video"
       >
-        <img
-          src="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=1920&q=85"
-          alt="Anteprima sito Maison Grooming — pet care di lusso"
-          loading="lazy"
-        />
-        <div class="browser-slide__info">
-          <div>
-            <div class="browser-slide__nome">Maison Grooming</div>
-            <div class="browser-slide__categoria">Pet Care · Lusso</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 2 — Pala Cocktails -->
-      <div
-        class="browser-slide"
-        data-url="https://ompage.it/preview/pala-cocktails"
-        aria-label="Anteprima sito Pala Cocktails"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=1920&q=85"
-          alt="Anteprima sito Pala Cocktails — mixology bar"
-          loading="lazy"
-        />
-        <div class="browser-slide__info">
-          <div>
-            <div class="browser-slide__nome">Pala Cocktails</div>
-            <div class="browser-slide__categoria">Bar · Mixology</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Slide 3 — Controllo Assoluto -->
-      <div
-        class="browser-slide"
-        data-url="https://ompage.it/preview/controllo-assoluto"
-        aria-label="Anteprima sito Controllo Assoluto"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=85"
-          alt="Anteprima sito Controllo Assoluto — personal brand coach"
-          loading="lazy"
-        />
-        <div class="browser-slide__info">
-          <div>
-            <div class="browser-slide__nome">Controllo Assoluto</div>
-            <div class="browser-slide__categoria">Coach · Personal Brand</div>
-          </div>
-        </div>
-      </div>
-
-    </div><!-- fine content -->
-  </div><!-- fine browser-window -->
-
-  <!-- Tab di navigazione -->
-  <div
-    class="portfolio__tabs"
-    id="portfolioTabs"
-    role="tablist"
-    aria-label="Seleziona progetto"
-  >
-    <button
-      class="portfolio__tab is-active"
-      role="tab"
-      aria-selected="true"
-      aria-controls="slide-0"
-      data-index="0"
-      data-preview="https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=400&q=80"
-    >
-      <span class="tab__numero">01</span>
-      <span class="tab__nome">Maison Grooming</span>
-      <span class="tab__cat">Pet Care · Lusso</span>
-    </button>
-
-    <button
-      class="portfolio__tab"
-      role="tab"
-      aria-selected="false"
-      aria-controls="slide-1"
-      data-index="1"
-      data-preview="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=80"
-    >
-      <span class="tab__numero">02</span>
-      <span class="tab__nome">Pala Cocktails</span>
-      <span class="tab__cat">Bar · Mixology</span>
-    </button>
-
-    <button
-      class="portfolio__tab"
-      role="tab"
-      aria-selected="false"
-      aria-controls="slide-2"
-      data-index="2"
-      data-preview="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=400&q=80"
-    >
-      <span class="tab__numero">03</span>
-      <span class="tab__nome">Controllo Assoluto</span>
-      <span class="tab__cat">Coach · Personal Brand</span>
-    </button>
+        <source src="ompagedemo.mp4" type="video/mp4">
+        <!-- Inserisci qui un eventuale .webm per massima compatibilità -->
+        Il tuo browser non supporta il video.
+      </video>
+    </div>
   </div>
-
 </section>
-
-<!-- Trail image — 8.04 DOM element (fuori dal flusso) -->
-<div class="trail-img" id="trailImg" aria-hidden="true">
-  <img src="" alt="" id="trailImgSrc" />
-</div>
 
 <!-- ============================================
      SEZIONE 5 — IL PROCESSO (I 3 Step)
