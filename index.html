@@ -1230,6 +1230,33 @@
   object-fit: cover; /* Riempie lo spazio. Cambia in 'contain' se preferisci non tagliare nulla */
 }
 
+@media screen and (max-width: 768px) {
+    /* 1. Rendiamo il contenitore del portfolio privo di padding laterale 
+          solo per la parte della finestra */
+    .browser-window {
+        /* Espandiamo la finestra per annullare il padding del parent (.portfolio) */
+        width: calc(100% + (var(--padding-inline-global) * 2)) !important;
+        margin-left: calc(var(--padding-inline-global) * -1) !important;
+        
+        /* Estetica mobile */
+        border-left: none !important;
+        border-right: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* 2. Assicuriamoci che il video riempia tutto lo spazio ora guadagnato */
+    .browser-window__content {
+        width: 100%;
+        border-radius: 0 !important;
+    }
+
+    .portfolio-video {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
 /* Slide immagine progetto */
 .browser-slide {
   position: absolute;
