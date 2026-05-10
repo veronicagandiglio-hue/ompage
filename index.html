@@ -386,9 +386,19 @@
   align-items: center;
   padding: 3vh var(--padding-inline-global);
   box-sizing: border-box;
-  background-image: url('ompagehero.webp');
-  background-size: cover;
+  overflow: hidden;
   justify-items: center;
+}
+
+.hero__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+  pointer-events: none;
 }
 
 /* ── Colonna sinistra ── */
@@ -3391,6 +3401,7 @@
      HERO — SEZIONE 2
 ============================================ -->
 <section class="hero" id="hero" aria-label="Sezione principale">
+  <img class="hero__bg-img" src="ompagehero.webp" fetchpriority="high" alt="" aria-hidden="true" />
 
   <!-- COLONNA SINISTRA -->
   <div class="hero__col-sx">
@@ -3773,7 +3784,7 @@
 
     <!-- Contenuto Video -->
     <div class="browser-window__content">
-      <video autoplay muted loop playsinline preload="none" controls class="portfolio-video">
+      <video autoplay muted loop playsinline controls class="portfolio-video">
   <source src="ompage demo.webm" type="video/webm">   </video>
     </div>
   </div>
