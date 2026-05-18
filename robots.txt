@@ -2,4 +2,4 @@
 # Allow all user agents to crawl the site
 User-agent: *
 Allow: /
-Sitemap: https://ompage.pages.dev/sitemap.xml
+Sitemap: https://ompage.it/sitemap.xml
