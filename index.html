@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ompage — Pubblica nuovi prodotti e avvisa i tuoi clienti</title>
+  <meta name="description" content="Ompage è la piattaforma per negozi, attività locali e professionisti: pubblica prodotti in pochi secondi e avvisa subito i clienti con una notifica push.">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph — sostituire i placeholder con i valori definitivi -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ompage.it/">
+  <meta property="og:title" content="Ompage — Pubblica nuovi prodotti e avvisa i tuoi clienti">
+  <meta property="og:description" content="Ompage è la piattaforma per negozi, attività locali e professionisti: pubblica prodotti in pochi secondi e avvisa subito i clienti con una notifica push.">
+  <meta property="og:image" content="/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Ompage — pubblica un prodotto e avvisa subito i tuoi clienti">
+
+  <!-- Twitter Card — sostituire i placeholder con i valori definitivi -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Ompage — Pubblica nuovi prodotti e avvisa i tuoi clienti">
+  <meta name="twitter:description" content="Ompage è la piattaforma per negozi, attività locali e professionisti: pubblica prodotti in pochi secondi e avvisa subito i clienti con una notifica push.">
+  <meta name="twitter:image" content="/assets/og-image.png">
+  <meta name="twitter:image:alt" content="Ompage — pubblica un prodotto e avvisa subito i tuoi clienti">
+
+  <!-- Favicon — i file verranno aggiunti successivamente -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+  <link rel="dns-prefetch" href="//fonts.googleapis.com">
+  <link rel="dns-prefetch" href="//fonts.gstatic.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@500;600;700&family=Public+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet"></noscript>
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <a class="skip-link" href="#contenuto">Vai al contenuto</a>
+
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a href="#top" class="logo">Ompage<span class="logo-dot">.</span></a>
+
+      <nav class="site-nav" aria-label="Navigazione principale">
+        <a href="#come-funziona">Come funziona</a>
+        <a href="#funzionalita">Funzionalità</a>
+        <a href="#prezzo">Prezzo</a>
+      </nav>
+
+      <a href="#prezzo" class="btn btn-primary btn-sm site-header__cta">Prova l'app</a>
+    </div>
+  </header>
+
+  <main id="contenuto">
+
+    <section class="hero" id="top">
+      <div class="container hero__inner">
+
+        <div class="hero__content">
+          <p class="mono-label hero__eyebrow">Zero social media che filtrano i post, zero volantini.</p>
+
+          <h1 class="hero__title">La vetrina del tuo negozio, nelle tasche dei tuoi clienti.</h1>
+
+          <p class="hero__text text-lead">
+            Dai ai tuoi clienti la tua app personale, pubblichi i tuoi nuovi arrivi con foto e prezzo e i clienti ricevono una notifica push immediata
+          </p>
+
+          <ul class="hero__trust" aria-label="Punti di fiducia">
+            <li class="hero__trust-item">
+              <svg class="icon icon-sm hero__trust-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              Nessuna commissione sulle vendite
+            </li>
+            <li class="hero__trust-item">
+              <svg class="icon icon-sm hero__trust-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              I clienti possono installarla con un semplice QR code
+            </li>
+            <li class="hero__trust-item">
+              <svg class="icon icon-sm hero__trust-icon" viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M20 6 9 17l-5-5"></path>
+              </svg>
+              Parti in pochi minuti, senza competenze tecniche
+            </li>
+          </ul>
+
+          <div class="hero__actions flex flex-gap-md flex-wrap">
+            <a href="#prezzo" class="btn btn-primary">Prova l'app</a>
+            <a href="#come-funziona" class="btn btn-secondary">Guarda come funziona</a>
+          </div>
+        </div>
+
+        <div class="hero__visual">
+          <div class="phone-mockup phone-mockup--full" role="img" aria-label="Schermata dell'app vista da un cliente: il nome del negozio in alto, una card con un prodotto in vendita, il prezzo e il pulsante per condividerlo.">
+            <div class="phone-mockup__frame" aria-hidden="true">
+              <div class="phone-mockup__speaker"></div>
+
+              <div class="phone-mockup__screen">
+                
+
+                <div class="card card--tag phone-mockup__card phone-mockup__card--full">
+                  <div class="phone-mockup__photo">
+                    <img src="./Screenshot%202026-07-14%20153319.png" alt="Anteprima dell'app Ompage" loading="eager">
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section id="come-funziona" class="section section--alt">
+      <div class="container">
+
+        <div class="section-header">
+          <p class="mono-label">Come funziona</p>
+          <h2 class="section-title">Dal telefono alla vetrina, in tre semplici passaggi</h2>
+        </div>
+
+        <div class="steps">
+
+          <div class="step card">
+            <h3 class="step__title">1) Carica una foto</h3>
+            <p class="step__text">Fotografa il prodotto appena arriva in negozio.</p>
+          </div>
+
+          <div class="step card">
+            <h3 class="step__title">2) Inserisci la descrizione</h3>
+            <p class="step__text">Aggiungi titolo e se vuoi anche il prezzo e la categoria.</p>
+          </div>
+
+          <div class="step card">
+            <h3 class="step__title">3) Notifica inviata</h3>
+            <p class="step__text">I clienti ricevono una notifica push istantanea.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="in-azione" class="section">
+      <div class="container">
+
+        <div class="section-header">
+          <p class="mono-label">Vedi l'app in azione</p>
+          <h2 class="section-title">Ecco come appare Ompage per i tuoi clienti e per te.</h2>
+        </div>
+
+        <div class="showcase">
+
+          <div class="showcase__mockups">
+
+            <div class="showcase__item">
+              <p class="showcase__label mono-label">Il negozio, visto dai clienti</p>
+
+              <div class="phone-mockup phone-mockup--full" role="img" aria-label="Schermata dell'app vista da un cliente.">
+                <div class="phone-mockup__frame" aria-hidden="true">
+                  <div class="phone-mockup__speaker"></div>
+
+                  <div class="phone-mockup__screen">
+                    <div class="card card--tag phone-mockup__card phone-mockup__card--full">
+                      <div class="phone-mockup__photo">
+                        <img src="./client.png" alt="Schermata client Ompage" loading="eager">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="showcase__item">
+              <p class="showcase__label mono-label">Il pannello, gestito da te</p>
+
+              <div class="phone-mockup phone-mockup--full" role="img" aria-label="Schermata del pannello gestore.">
+                <div class="phone-mockup__frame" aria-hidden="true">
+                  <div class="phone-mockup__speaker"></div>
+
+                  <div class="phone-mockup__screen">
+                    <div class="card card--tag phone-mockup__card phone-mockup__card--full">
+                      <div class="phone-mockup__photo">
+                        <img src="./manager.png" alt="Schermata pannello Ompage" loading="eager">
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="video-teaser">
+            <button type="button" class="video-teaser__play" aria-label="Guarda il video dimostrativo">
+              <svg class="icon" viewBox="0 0 24 24" fill="currentColor" stroke="none">
+                <path d="M8 5v14l11-7z"></path>
+              </svg>
+            </button>
+            <div class="video-teaser__text">
+              <p class="video-teaser__title">Guarda come funziona</p>
+              <p class="video-teaser__sub mono-label">Video demo — presto disponibile</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="per-chi" class="section section--alt">
+      <div class="container">
+
+        <div class="section-header">
+          <p class="mono-label">Per qualsiasi tipo di negozio</p>
+          <h2 class="section-title">Non importa cosa vendi. Se hai novità in negozio, questa app è per te.</h2>
+          <p class="section-lead">Se la tua attività vive di prodotti che cambiano, arrivano o finiscono, hai bisogno di un canale diretto con i tuoi clienti. Ecco quando l'app diventa il tuo miglior alleato:</p>
+        </div>
+
+        <div class="use-cases">
+
+          <div class="use-case card">
+            <h3 class="use-case__title">Quando arrivano i nuovi scatoloni</h3>
+            <p class="use-case__text">Hai appena ricevuto la merce nuova? Invece di aspettare che i clienti passino davanti alla vetrina per caso, fai una foto e invia una notifica push. Saranno i primi a sapere cosa è arrivato.</p>
+          </div>
+
+          <div class="use-case card">
+            <h3 class="use-case__title">Quando hai pochi pezzi o edizioni limitate</h3>
+            <p class="use-case__text">Se hai un articolo speciale disponibile in quantità ridotte (o un pezzo unico fatto a mano), caricalo sull'app. La scarsità spinge i clienti a contattarti subito per bloccarlo prima degli altri.</p>
+          </div>
+
+          <div class="use-case card">
+            <h3 class="use-case__title">Quando torna disponibile un prodotto</h3>
+            <p class="use-case__text">È finalmente tornato in magazzino quel prodotto che tutti ti chiedevano ed era esaurito? Avvisa istantaneamente tutti i clienti interessati con un solo click, senza dover mandare messaggi singoli.</p>
+          </div>
+
+          <div class="use-case card">
+            <h3 class="use-case__title">Quando vuoi lanciare una promo</h3>
+            <p class="use-case__text">Hai attivato una nuova promozione? Invia la notifica subito sullo schermo del telefono dei tuoi clienti, vedranno una barra attiva fino a che la farai scadere.</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="funzionalita" class="section">
+      <div class="container">
+
+        <div class="section-header">
+          <p class="mono-label">Funzionalità</p>
+          <h2 class="section-title">Tutto quello che ti serve. Niente di complicato.</h2>
+          <p class="section-lead">Niente funzioni inutili: solo gli strumenti che aiutano il tuo negozio a farsi notare ogni giorno.</p>
+        </div>
+
+        <div class="features-grid">
+
+          <div class="feature-card card">
+            <div class="feature-card__icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card__title">Pubblica senza perdere tempo</h3>
+            <p class="feature-card__text">Aggiungi una foto, il nome e il prezzo direttamente dal telefono: il tuo negozio è aggiornato in pochissimi secondi, senza dover passare dal computer.</p>
+            <p class="feature-card__detail">→ Dal telefono, in meno di 10 secondi</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-card__icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"></path>
+                <path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card__title">I tuoi clienti vengono avvisati</h3>
+            <p class="feature-card__text">Quando pubblichi qualcosa di nuovo, chi ti segue riceve subito una notifica push sullo schermo. Nessun algoritmo che nasconde i tuoi post.</p>
+            <p class="feature-card__detail">→ Una notifica sul telefono, senza bisogno di altre app</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-card__icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <rect x="7" y="2" width="10" height="20" rx="2"></rect>
+                <path d="M11 18h2"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card__title">Un'app senza installazione</h3>
+            <p class="feature-card__text">I clienti non devono cercare nulla sugli store di Apple o Google. Inquadrano un QR code in cassa e l'app si installa sul loro telefono in 3 secondi.</p>
+            <p class="feature-card__detail">→ Nessun download da scaricare</p>
+          </div>
+
+          <div class="feature-card card">
+            <div class="feature-card__icon" aria-hidden="true">
+              <svg class="icon" viewBox="0 0 24 24">
+                <path d="M4 4h16v12H8l-4 4V4z"></path>
+              </svg>
+            </div>
+            <h3 class="feature-card__title">Prenotazioni rapide e dirette</h3>
+            <p class="feature-card__text">Sotto ogni prodotto c'è un tasto d'azione rapido che apre direttamente una chat WhatsApp con te, una mail o una chiamata per prenotare l'articolo.</p>
+            <p class="feature-card__detail">→ WhatsApp, email o chiamata, in un tap</p>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="prezzo" class="section section--alt">
+      <div class="container">
+
+        <div class="section-header">
+          <p class="mono-label">Prezzo semplice</p>
+          <h2 class="section-title">Un prezzo semplice, senza sorprese</h2>
+          <p class="section-lead">Ompage nasce per essere accessibile anche alle piccole attività: paghi una volta e inizi subito a usarlo.</p>
+        </div>
+
+        <div class="pricing-card-wrap">
+
+          <div class="pricing-card card">
+
+            <div class="pricing-card__top">
+              <span class="badge badge--new">Prezzo di lancio</span>
+            </div>
+
+            <div class="pricing-card__price">
+              <span class="pricing-card__amount">39,90 €</span>
+              <span class="pricing-card__once">Nessun abbonamento mensile. Nessun costo per l'invio delle notifiche push. Paghi solo una volta e la tua app è attiva per sempre.</span>
+            </div>
+
+            <ul class="pricing-card__list">
+              <li>Pagina del tuo negozio</li>
+              <li>Pubblicazione prodotti</li>
+              <li>Pubblicazione promo</li>
+              <li>Notifiche ai clienti</li>
+              <li>App installabile da QR</li>
+              <li>Categorie e ricerca</li>
+              <li>Possibilità di usare un dominio personalizzato</li>
+            </ul>
+
+            <!-- CTA di acquisto: sostituire data-checkout-url con il link reale del checkout Lemon Squeezy -->
+            <a href="https://ompage.lemonsqueezy.com/checkout/buy/e81f1449-ce46-4039-9310-4a0b0b16022a?checkout[custom][product_slug]=nuovi-arrivi" class="btn btn-accent pricing-card__cta">Acquista Ompage</a>
+
+            <p class="pricing-card__guarantee">14 giorni di recesso garantito</p>
+
+          </div>
+
+          <p class="pricing-note">Nessun contratto. Nessuna configurazione complicata. Inizia quando vuoi.</p>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="section">
+      <div class="container">
+
+        <div class="section-header">
+          <p class="mono-label">Domande frequenti</p>
+          <h2 class="section-title">Le domande più comuni prima di iniziare</h2>
+          <p class="section-lead">Le risposte ai dubbi più frequenti di chi vuole provare Ompage per il proprio negozio.</p>
+        </div>
+
+        <div class="faq-accordion">
+
+          
+
+          <div class="faq-item">
+            <h3 class="faq-item__heading">
+              <button type="button" class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-2" id="faq-question-2">
+                <span>Posso gestire tutto dal telefono?</span>
+                <svg class="icon faq-item__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+            </h3>
+            <div class="faq-item__answer" id="faq-answer-2" role="region" aria-labelledby="faq-question-2" aria-hidden="true">
+              <div class="faq-item__answer-inner">
+                <p>Sì. Puoi pubblicare nuovi prodotti, aggiornare informazioni e gestire il tuo negozio direttamente dallo smartphone.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-item__heading">
+              <button type="button" class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-3" id="faq-question-3">
+                <span>I miei clienti devono registrarsi?</span>
+                <svg class="icon faq-item__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+            </h3>
+            <div class="faq-item__answer" id="faq-answer-3" role="region" aria-labelledby="faq-question-3" aria-hidden="true">
+              <div class="faq-item__answer-inner">
+                <p>No. Possono vedere i tuoi prodotti e ricevere aggiornamenti senza creare un account complicato.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-item__heading">
+              <button type="button" class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-4" id="faq-question-4">
+                <span>Posso usare il mio dominio?</span>
+                <svg class="icon faq-item__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+            </h3>
+            <div class="faq-item__answer" id="faq-answer-4" role="region" aria-labelledby="faq-question-4" aria-hidden="true">
+              <div class="faq-item__answer-inner">
+                <p>Sì. Puoi collegare un dominio personalizzato al tuo negozio. La configurazione viene spiegata con una guida semplice.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-item__heading">
+              <button type="button" class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-5" id="faq-question-5">
+                <span>Quanto costa Ompage?</span>
+                <svg class="icon faq-item__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+            </h3>
+            <div class="faq-item__answer" id="faq-answer-5" role="region" aria-labelledby="faq-question-5" aria-hidden="true">
+              <div class="faq-item__answer-inner">
+                <p>Il prezzo di lancio è 39,90 € con pagamento una tantum. Non ci sono abbonamenti mensili.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <h3 class="faq-item__heading">
+              <button type="button" class="faq-item__question" aria-expanded="false" aria-controls="faq-answer-6" id="faq-question-6">
+                <span>Posso avere un rimborso se cambio idea?</span>
+                <svg class="icon faq-item__chevron" viewBox="0 0 24 24" aria-hidden="true">
+                  <path d="M6 9l6 6 6-6"></path>
+                </svg>
+              </button>
+            </h3>
+            <div class="faq-item__answer" id="faq-answer-6" role="region" aria-labelledby="faq-question-6" aria-hidden="true">
+              <div class="faq-item__answer-inner">
+                <p>Sì. Hai 14 giorni di diritto di recesso dall'acquisto: se cambi idea, ricevi il rimborso completo.</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="cta-finale" class="section cta-final">
+      <div class="container cta-final__inner">
+        <h2 class="cta-final__title">Il tuo negozio, sempre aggiornato.</h2>
+        <p class="cta-final__subtitle">Iniziare è semplice: bastano pochi minuti, senza configurazioni complicate.</p>
+        <div class="cta-final__actions flex flex-gap-md flex-wrap">
+          <!-- CTA di acquisto: sostituire data-checkout-url con il link reale del checkout Lemon Squeezy -->
+          <a href="https://ompage.lemonsqueezy.com/checkout/buy/e81f1449-ce46-4039-9310-4a0b0b16022a?checkout[custom][product_slug]=nuovi-arrivi" class="btn btn-accent">Acquista Ompage</a>
+          <a href="#in-azione" class="btn btn-secondary">Guarda la demo</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+
+      <div class="site-footer__top">
+        <div class="site-footer__brand">
+          <a href="#top" class="logo">Ompage<span class="logo-dot">.</span></a>
+          <p class="site-footer__tagline">Pubblica prodotti. Fai sapere ai tuoi clienti cosa c'è di nuovo.</p>
+        </div>
+
+        <nav class="site-footer__links" aria-label="Link utili">
+          <button type="button" class="site-footer__link" data-modal-open="privacy">Privacy Policy</button>
+          <button type="button" class="site-footer__link" data-modal-open="termini">Termini e condizioni</button>
+          <button type="button" class="site-footer__link" data-modal-open="contatti">Contatti</button>
+        </nav>
+      </div>
+
+      <hr class="thread-divider">
+
+      <p class="site-footer__copy mono-label">© Ompage di Veronica Gandiglio - VAT IT12253180017</p>
+
+    </div>
+  </footer>
+
+  <dialog id="modal-privacy" class="modal modal--scrollable">
+    <div class="modal__inner">
+      <div class="modal__header">
+        <h3 class="modal__title">Privacy Policy</h3>
+        <button type="button" class="modal__close" data-modal-close aria-label="Chiudi">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path d="M18 6 6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="modal__body">
+        <p class="mono-label">Ultimo aggiornamento: 17/07/2026</p>
+
+        <h4>Privacy Policy - Ompage.it</h4>
+
+        <h4>1. Ruoli nel Trattamento dei Dati</h4>
+        <p><strong>Titolare del Trattamento:</strong> Il Titolare del trattamento per i dati relativi ai Commercianti (Gestori) è Veronica Gandiglio, contattabile a veronica.ompage@gmail.com.</p>
+        <p><strong>Responsabile del Trattamento:</strong> Per i dati dei clienti finali dei negozi (es. token push delle vetrine), Ompage agisce esclusivamente come Responsabile del Trattamento (Data Processor) per conto dei rispettivi Gestori dei negozi, che rimangono i Titolari autonomi del trattamento.</p>
+
+        <h4>2. Tipologia di Dati Trattati e Finalità</h4>
+
+        <h5 style="margin: 0.75rem 0 0.25rem; font-size: 1rem; font-weight: 600;">A. Dati dei Commercianti (Gestori)</h5>
+        <p><strong>Dati raccolti:</strong> Email di registrazione (tramite Lemon Squeezy), nome del negozio, logo, preferenze di branding e informazioni sui prodotti caricati.</p>
+        <p><strong>Finalità:</strong> Consentire l'erogazione del servizio, la gestione dell'account e la fatturazione.</p>
+        <p><strong>Cookie Tecnici:</strong> Per l'accesso all'area di gestione viene utilizzato un cookie tecnico di sessione (<code>__Host-session</code>), necessario a garantire la sicurezza dell'autenticazione. Non vengono utilizzati cookie di profilazione o tracciamento commerciale.</p>
+
+        <h5 style="margin: 0.75rem 0 0.25rem; font-size: 1rem; font-weight: 600;">B. Dati dei Clienti Finali (Visitatori delle vetrine dei negozi)</h5>
+        <p>Ompage adotta un approccio di "Privacy by Design". Non raccoglie né memorizza dati identificativi personali (nomi, email, indirizzi IP o numeri di telefono) dei clienti che visitano le vetrine dei negozi.</p>
+        <p><strong>Notifiche Push:</strong> Se il cliente finale acconsente a ricevere notifiche, viene memorizzato unicamente un token crittografato anonimo generato dal browser. Questo token è associato esclusivamente al tenant (negozio) specifico.</p>
+        <p><strong>Conservazione:</strong> I token delle notifiche push vengono cancellati automaticamente dopo 90 giorni di inattività o immediatamente in caso di disattivazione manuale da parte dell'utente.</p>
+
+        <h4>3. Base Giuridica e Conservazione</h4>
+        <p>Il trattamento si basa sull'esecuzione del contratto di servizio (per i Commercianti) e sul consenso esplicito fornito tramite il browser (per l'attivazione delle notifiche push dei Clienti Finali). I dati dei commercianti vengono conservati per tutta la durata del rapporto contrattuale e nei termini stabiliti dalla legge per scopi amministrativi e fiscali.</p>
+
+        <h4>4. Destinatari e Trasferimento dei Dati</h4>
+        <p>I dati sono ospitati e trattati tramite fornitori che garantiscono standard di sicurezza conformi al GDPR:</p>
+        <ol>
+          <li><strong>Lemon Squeezy LLC</strong> (USA) - Gestione dei pagamenti e delle licenze (basato su clausole contrattuali standard).</li>
+          <li><strong>Cloudflare Inc.</strong> (USA/Globale) - Infrastruttura server, database D1 e storage R2. Qualora i dati siano trasferiti al di fuori del SEE, Cloudflare garantisce il rispetto delle Clausole Contrattuali Standard (SCC).</li>
+        </ol>
+
+        <h4>5. Diritti dell'Interessato</h4>
+        <p>Gli interessati possono esercitare in qualsiasi momento i diritti previsti dal GDPR (accesso, rettifica, cancellazione, limitazione) inviando una richiesta a veronica.ompage@gmail.com.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <dialog id="modal-termini" class="modal modal--scrollable">
+    <div class="modal__inner">
+      <div class="modal__header">
+        <h3 class="modal__title">Termini e condizioni</h3>
+        <button type="button" class="modal__close" data-modal-close aria-label="Chiudi">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path d="M18 6 6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="modal__body">
+        <p class="mono-label">Ultimo aggiornamento: 14/07/2026</p>
+
+        <h4>CONTRATTO DI LICENZA D’USO – OMPAGE.IT</h4>
+        <p>Il presente contratto regola l’utilizzo della piattaforma Ompage.it (di seguito "Ompage" o "il Servizio") fornito da [Tuo Nome / Tua Ditta/Società], (di seguito "il Fornitore").</p>
+
+        <h4>1. Destinazione d&#39;Uso del Servizio</h4>
+        <p>Ompage è uno strumento concepito principalmente per uso professionale, commerciale e imprenditoriale. Qualora l&#39;Utente agisca in qualità di consumatore (ai sensi delle normative a tutela dei consumatori applicabili), si applicheranno le tutele inderogabili di legge previste nel suo paese di residenza.</p>
+
+        <h4>2. Definizione di Licenza "Lifetime" (A Vita)</h4>
+        <p>L&#39;acquisto del Servizio prevede un pagamento unico ("una tantum") gestito tramite il nostro partner di fatturazione (Lemon Squeezy). La licenza d&#39;uso si intende concessa per l&#39;intera durata della vita commerciale del Servizio. Qualora il Fornitore decida di cessare definitivamente lo sviluppo, la manutenzione o l&#39;erogazione di Ompage, la licenza cesserà di avere efficacia. In tal caso, nessun rimborso sarà dovuto per gli acquisti effettuati oltre il periodo di garanzia di 14 giorni.</p>
+
+        <h4>3. Sospensione e Risoluzione (Abusi)</h4>
+        <p>È severamente vietato utilizzare Ompage per pubblicare o diffondere contenuti illegali, pornografici, pedopornografici, lesivi del diritto d&#39;autore o contrari all&#39;ordine pubblico. In caso di violazione accertata o di fondato sospetto, Ompage si riserva il diritto di sospendere o risolvere l&#39;account dell&#39;utente, disabilitando l&#39;accesso al Servizio.</p>
+
+        <h4>4. Dismissione del Servizio</h4>
+        <p>Il Fornitore si riserva il diritto di dismettere o interrompere definitivamente l&#39;erogazione di Ompage. In tale eventualità, il Servizio potrà essere dismesso previo ragionevole preavviso di almeno 30 giorni, comunicato agli utenti registrati tramite email o avviso all&#39;interno della piattaforma, al fine di consentire l&#39;esportazione dei dati inseriti.</p>
+
+        <h4>5. Limitazione di Responsabilità</h4>
+        <p>Nei limiti massimi consentiti dalle leggi applicabili, il Fornitore non sarà responsabile per danni indiretti, perdita di dati, interruzioni dell&#39;attività o mancati guadagni derivanti dall&#39;uso o dall&#39;impossibilità di usare il Servizio. L&#39;eventuale responsabilità complessiva del Fornitore non potrà in ogni caso superare la somma effettivamente corrisposta dall&#39;Utente per l&#39;acquisto della licenza d&#39;uso del Servizio.</p>
+
+      </div>
+    </div>
+  </dialog>
+
+
+  <dialog id="modal-contatti" class="modal">
+    <div class="modal__inner">
+      <div class="modal__header">
+        <h3 class="modal__title">Contatti</h3>
+        <button type="button" class="modal__close" data-modal-close aria-label="Chiudi">
+          <svg class="icon" viewBox="0 0 24 24">
+            <path d="M18 6 6 18"></path>
+            <path d="M6 6l12 12"></path>
+          </svg>
+        </button>
+      </div>
+      <div class="modal__body">
+        <p>Hai domande su Ompage o sul tuo negozio? Scrivi a <a href="mailto:veronica.ompage@gmail.com">veronica.ompage@gmail.com</a>.</p>
+      </div>
+    </div>
+  </dialog>
+
+  <div id="cookie-bar" class="cookie-bar" role="dialog" aria-live="polite" aria-label="Gestione cookie">
+    <div class="cookie-bar__inner">
+      <p class="cookie-bar__text">
+        Utilizziamo solo i cookie necessari al funzionamento del sito. Puoi consultare la nostra
+        <button type="button" class="cookie-bar__link" data-modal-open="privacy">privacy policy</button>
+        per maggiori informazioni.
+      </p>
+      <div class="cookie-bar__actions">
+        <button type="button" class="btn btn-secondary btn-sm" id="cookie-reject">Rifiuta</button>
+        <button type="button" class="btn btn-primary btn-sm" id="cookie-accept">Accetta</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js" defer></script>
+
+</body>
+</html>

@@ -1,0 +1,4895 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ompage — Il Sito Web che gestisci tu! A soli 250€</title>
+  <meta name="description" content="Stanco delle solite web agency? Ompage crea siti web per attività locali gestibili in autonomia a soli 250€. Nessuna manutenzione, nessun canone." />
+<link rel="icon" type="image/png" href="logo_ompage.png">
+  <!-- ==========================================
+       FONTS (Caricamento Ultra-Veloce)
+       ========================================== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+  <!-- 1. Diciamo al browser di scaricare SUBITO i font in background -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Karla:wght@400;500;700&display=swap" />
+
+  <!-- 2. Li applichiamo alla pagina in modo asincrono (non blocca il caricamento visivo del sito) -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Karla:wght@400;500;700&display=swap" media="print" onload="this.media='all'" />
+
+  <!-- 3. Paracadute per i vecchi browser o chi non ha il JS -->
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Exo+2:wght@600;700;800&family=Karla:wght@400;500;700&display=swap" />
+  </noscript>
+
+ <!-- ==========================================
+       OPEN GRAPH (Per condivisione su WhatsApp, FB, LinkedIn)
+       ========================================== -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ompage.it/">
+  <meta property="og:title" content="Ompage | Il sito veramente tuo a 250€">
+  <meta property="og:description" content="Nessun costo di manutenzione. Trasforma la tua attività locale con un sito che gestisci da solo.">
+  <meta property="og:image" content="https://ompage.pages.dev/ompage-og.webp">
+  <!-- NOTA: Crea un'immagine 1200x630 pixel con il tuo logo su sfondo nero e nominala og-image.jpg, poi caricala nella cartella principale del sito -->
+
+  <style>
+    /* ============================================================
+       :ROOT — DESIGN SYSTEM COMPLETO (NON RISCRIVERE MAI)
+    ============================================================ */
+    /* Font import — sostituisce Space Grotesk e Inter */
+
+
+:root {
+  /* Palette — dark/gold al posto del lilla */
+  --lilla:          #F5F0E8;   /* era #dcd3fc — crema caldo come sfondo chiaro */
+  --bianco:         #EFEFEF;   /* off-white, non bianco puro */
+  --nero:           #080808;   /* nero profondo, non nero puro */
+  --verde-acido:    #FFB800;   /* era #c4f000 — oro chiaro per gli accenti forti */
+  --giallo:         #C9A84C;   /* era #ffe200 — oro caldo come colore secondario */
+
+  /* Neo-Brutalismo — ombre con nero profondo */
+  --border-brutal:  2px solid #080808;
+  --shadow-brutal:  6px 6px 0px #080808;
+  --shadow-hover:   2px 2px 0px #080808;
+
+  /* Spaziature — invariate */
+  --padding-inline-global: 10vw;
+  --padding-block-global:  15vh;
+
+  /* Tipografia — Clash Display + Satoshi al posto di Space Grotesk + Inter */
+--font-title: 'Exo 2', sans-serif;
+--font-body:  'Karla', sans-serif;
+
+  /* Transizioni — invariate */
+  --transition-base: 0.22s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+    /* ============================================================
+       RESET & BASE
+    ============================================================ */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      overflow-x: hidden;
+    }
+
+    body {
+      font-family: var(--font-body);
+      background-color: var(--lilla);
+      color: var(--nero);
+      font-size: clamp(15px, 1.1vw, 18px);
+      font-weight: 500;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img, video {
+      display: block;
+      max-width: 100%;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    ul { list-style: none; }
+
+    strong { font-weight: 700; }
+
+    @media (max-width: 768px) {
+  :root {
+    /* Sovrascriviamo solo la variabile del padding verticale */
+    --padding-block-global: 8vh;
+  }
+}
+    /* ============================================================
+       UTILITY GLOBALI
+    ============================================================ */
+    .btn-brutal {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      padding: 0.75em 1.5em;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: clamp(13px, 1vw, 16px);
+      background: var(--verde-acido);
+      color: var(--nero);
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal);
+      cursor: pointer;
+      transition: box-shadow var(--transition-base),
+                  transform var(--transition-base);
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-brutal:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    .btn-brutal--giallo {
+      background: var(--giallo);
+    }
+
+    .btn-brutal--nero {
+      background: var(--nero);
+      color: var(--bianco);
+    }
+
+    /* ============================================================
+       NAVBAR — SEZIONE 1
+    ============================================================ */
+    .navbar {
+      position: sticky;
+      top: 0;
+      z-index: 999;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      height: 8vh;
+      min-height: 56px;
+      padding: 0 var(--padding-inline-global);
+      box-sizing: border-box;
+      border-bottom: var(--border-brutal);
+      background: var(--lilla);
+    }
+
+    /* Blocco A — Logo */
+    .navbar__logo {
+      display: flex;
+      align-items: center;
+      gap: 0.3em;
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: clamp(18px, 1.6vw, 24px);
+      letter-spacing: -0.02em;
+      text-decoration: none;
+      color: var(--nero);
+      line-height: 1;
+    }
+
+    .navbar__logo-simbolo {
+      font-size: 1.1em;
+      line-height: 1;
+    }
+
+    /* Blocco B — Links + CTA */
+    .navbar__right {
+      display: flex;
+      align-items: center;
+      gap: 2vw;
+    }
+
+    .navbar__links {
+      display: flex;
+      align-items: center;
+      gap: 2vw;
+      list-style: none;
+    }
+
+    .navbar__links a {
+      position: relative;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: clamp(12px, 0.9vw, 15px);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--nero);
+      text-decoration: none;
+      padding-bottom: 3px;
+    }
+
+    /* 4.05 — Directional Hover Underline */
+    .navbar__links a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: var(--nero);
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    .navbar__links a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+
+    /* CTA Navbar */
+    .navbar__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4em;
+      padding: 0.55em 1.2em;
+      font-family: var(--font-title);
+      font-weight: 700;
+      font-size: clamp(12px, 0.85vw, 14px);
+      background: var(--verde-acido);
+      color: var(--nero);
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal);
+      cursor: pointer;
+      transition: box-shadow var(--transition-base),
+                  transform var(--transition-base);
+      text-decoration: none;
+      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .navbar__cta:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    /* Hamburger mobile */
+    .navbar__hamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      gap: 5px;
+      width: 40px;
+      height: 40px;
+      background: transparent;
+      border: var(--border-brutal);
+      cursor: pointer;
+      padding: 6px;
+      box-shadow: var(--shadow-brutal);
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .navbar__hamburger:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    .navbar__hamburger span {
+      display: block;
+      width: 100%;
+      height: 2px;
+      background: var(--nero);
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    /* Hamburger animato — aperto */
+    .navbar__hamburger.is-open span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+    .navbar__hamburger.is-open span:nth-child(2) {
+      opacity: 0;
+      transform: scaleX(0);
+    }
+    .navbar__hamburger.is-open span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+    /* Menu mobile overlay */
+    .navbar__mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 998;
+      background: var(--lilla);
+      padding: 12vh var(--padding-inline-global) 4vh;
+      flex-direction: column;
+      justify-content: center;
+      gap: 4vh;
+      border-bottom: var(--border-brutal);
+    }
+
+    .navbar__mobile-menu.is-open {
+      display: flex;
+    }
+
+    .navbar__mobile-menu a {
+      font-family: var(--font-title);
+      font-weight: 800;
+      font-size: clamp(12px, 5vw, 70px);
+      border-bottom: var(--border-brutal);
+      padding-bottom: 2vh;
+      display: block;
+      line-height: 1.1;
+    }
+
+    .navbar__mobile-cta {
+      margin-top: 2vh;
+    }
+
+    /* ============================================================
+       RESPONSIVE NAVBAR
+    ============================================================ */
+    @media (max-width: 768px) {
+      .navbar__links { display: none; }
+      .navbar__cta { display: none; }
+      .navbar__hamburger { display: flex; }
+    }
+
+    /* ============================================================
+       FLOATING WHATSAPP BADGE (globale)
+    ============================================================ */
+    .wa-float {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 997;
+      width: 56px;
+      height: 56px;
+      background: var(--verde-acido);
+      border: var(--border-brutal);
+      box-shadow: var(--shadow-brutal);
+      border-radius: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.6rem;
+      cursor: pointer;
+      text-decoration: none;
+      transition: box-shadow var(--transition-base), transform var(--transition-base);
+    }
+
+    .wa-float:hover {
+      box-shadow: var(--shadow-hover);
+      transform: translate(4px, 4px);
+    }
+
+    /* ============================================================
+       SCROLLBAR CUSTOM
+    ============================================================ */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--lilla); }
+    ::-webkit-scrollbar-thumb { background: var(--nero); }
+    
+/* ============================================================
+   HERO — SEZIONE 2
+============================================================ */
+.hero {
+  position: relative;
+  min-height: 85vh;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 6fr 4fr;
+  gap: 5vw;
+  align-items: center;
+  padding: 3vh var(--padding-inline-global);
+  box-sizing: border-box;
+  overflow: hidden;
+  justify-items: center;
+}
+
+.hero__bg-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* ── Colonna sinistra ── */
+.hero__col-sx {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  justify-content: flex-start;
+  
+    
+    /* Centra e copre l'intera area */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero__tag {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(11px, 0.85vw, 13px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--nero);
+  opacity: 0.6;
+}
+
+/* Titolo H1 — contenitore parole */
+.hero__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(42px, 6.5vw, 96px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--nero);
+  display: block;
+  flex-wrap: wrap;
+  gap: 0.18em 0.25em;
+  align-items: flex-end;
+}
+
+/* Maschera per ogni parola — 2.04 DOM requirement */
+.hero__word-mask {
+  display: inline-block;
+  overflow: hidden;
+  line-height: 1.25;
+  vertical-align: bottom;
+}
+
+/* Parola interna che emerge dal basso */
+.hero__word {
+  display: inline-block;
+  transform: translateY(110%);
+  transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.hero__word.is-visible {
+  transform: translateY(0);
+}
+
+/* Accento colorato nel titolo */
+.hero__titolo-accent {
+  color: var(--nero);
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+/* Testo descrittivo sotto il titolo */
+.hero__desc {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.65;
+  color: var(--nero);
+  max-width: 450px;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease 0.9s, transform 0.6s ease 0.9s;
+}
+
+.hero__desc.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* CTA hero */
+.hero__cta-wrap {
+  display: flex;
+  align-items: center;
+  gap: 1.5vw;
+  flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.6s ease 1.1s, transform 0.6s ease 1.1s;
+}
+
+.hero__cta-wrap.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Colonna destra — Box bianco brutale ── */
+.hero__col-dx {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  position: absolute;
+  right: 320px;  /* aumenta per spostare più a sinistra */
+  
+  transform: translateY(-50%);
+  width: 320px;  /* larghezza fissa, non si restringe */
+  margin-right: 0;
+  padding: 4vh 3vw;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+  opacity: 0;
+  transform: translateX(30px);
+  transition: opacity 0.7s ease 0.5s, transform 0.7s ease 0.5s;
+}
+
+.hero__col-dx.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.hero__box-label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: var(--border-brutal);
+  padding: 0.3em 0.8em;
+  margin-bottom: 2.5vh;
+  display: inline-block;
+}
+
+.hero__box-titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(22px, 2.2vw, 34px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 2vh;
+}
+
+.hero__box-lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.2vh;
+  margin-bottom: 3vh;
+  width: 100%;
+}
+
+.hero__box-lista li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.7em;
+  font-size: clamp(13px, 0.95vw, 15px);
+  font-weight: 500;
+  line-height: 1.4;
+  padding-bottom: 1.2vh;
+  border-bottom: 1px solid rgba(0,0,0,0.1);
+}
+
+.hero__box-lista li:last-child {
+  border-bottom: none;
+}
+
+.hero__box-lista .check {
+  font-size: 0.9em;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+
+.hero__box-prezzo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(38px, 4vw, 58px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  border-top: var(--border-brutal);
+  padding-top: 2vh;
+  width: 100%;
+  display: flex;
+  align-items: baseline;
+  gap: 0.3em;
+}
+
+.hero__box-prezzo-sub {
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: clamp(11px, 0.8vw, 13px);
+  opacity: 0.6;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Scontrino dentro l'hero — fix colori e layout ── */
+
+.hero__col-dx {
+  padding: 0;
+  overflow: hidden;
+}
+
+.hero__col-dx .scontrino {
+  width: 100%;
+  background: var(--bianco);
+  border: none;
+  box-shadow: none;
+}
+
+.hero__col-dx .scontrino__header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--nero);
+  color: var(--bianco);
+  padding: 10px 16px;
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.hero__col-dx .scontrino__lista {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.hero__col-dx .scontrino__voce {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 9px 16px;
+  border-bottom: 1px dashed rgba(0,0,0,0.12);
+  gap: 8px;
+}
+
+.hero__col-dx .scontrino__voce-nome {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--font-body);
+  font-size: clamp(14px, 0.85vw, 13px);
+  font-weight: 500;
+  color: var(--nero);
+  line-height: 1.3;
+}
+
+.hero__col-dx .scontrino__voce-icon {
+  font-size: 10px;
+  flex-shrink: 0;
+}
+
+.hero__col-dx .scontrino__voce-prezzo {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  color: var(--nero);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Voci barrate */
+.hero__col-dx .scontrino__voce--barrata .scontrino__voce-nome,
+.hero__col-dx .scontrino__voce--barrata .scontrino__voce-prezzo {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+/* Voci incluse */
+.hero__col-dx .scontrino__voce--inclusa .scontrino__voce-prezzo {
+  color: var(--giallo);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* Riga divisore "Quello che hai davvero" */
+.hero__col-dx .scontrino__voce[style] {
+  border-bottom: var(--border-brutal);
+}
+
+/* Totale */
+.hero__col-dx .scontrino__totale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 16px;
+  border-top: var(--border-brutal);
+  background: var(--bianco);
+  max-height: 50px;
+}
+
+.hero__col-dx .scontrino__totale-label {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--nero);
+  opacity: 0.6;
+}
+
+.hero__col-dx .scontrino__totale-prezzo {
+  font-family: var(--font-title);
+  font-size: clamp(28px, 2.8vw, 40px);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: var(--nero);
+}
+
+/* ── Ticker sotto la hero ── */
+.hero__ticker-wrap {
+  width: 100%;
+  overflow: hidden;
+  border-top: var(--border-brutal);
+  border-bottom: var(--border-brutal);
+  background: var(--nero);
+  padding: 0.9em 0;
+}
+
+.hero__ticker-track {
+  display: flex;
+  width: max-content;
+  animation: ticker-scroll 18s linear infinite;
+}
+
+.hero__ticker-track:hover {
+  animation-play-state: paused;
+}
+
+.hero__ticker-item {
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  padding: 0 2vw;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(13px, 1vw, 16px);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--bianco);
+  white-space: nowrap;
+}
+
+.hero__ticker-sep {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: var(--verde-acido);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes ticker-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* ── Responsive Hero ── */
+@media (max-width: 900px) {
+  .hero {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    padding: 8vh var(--padding-inline-global) 4vh;
+    gap: 4vh;
+  }
+
+  .hero__titolo {
+    font-size: clamp(36px, 9vw, 60px);
+  }
+
+  .hero__col-dx {
+    padding: 4vh 6vw;
+    position: relative;
+    right: 0px;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__titolo {
+    font-size: clamp(30px, 11vw, 48px);
+  }
+}
+
+/* ============================================================
+   SEZIONE 3 — IL CONFRONTO (Bento Grid)
+============================================================ */
+.confronto {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--bianco);
+  border-top: var(--border-brutal);
+  border-bottom: var(--border-brutal);
+}
+
+/* Header sezione */
+.confronto__header {
+  margin-bottom: 6vh;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.confronto__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.confronto__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4.5vw, 68px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.confronto__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+/* ── Bento Grid ── */
+.confronto__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: auto auto;
+  gap: 2vw;
+  position: relative;
+}
+
+/* 9.04 :has() — blur sui fratelli non in hover */
+.confronto__grid:has(.confronto__box--hoverable:hover)
+.confronto__box--hoverable:not(:hover) {
+  filter: blur(2px) brightness(0.88);
+  transform: scale(0.97);
+}
+
+.confronto__box--hoverable {
+  transition:
+    filter 0.35s ease,
+    transform 0.35s ease,
+    box-shadow 0.25s ease;
+}
+
+.confronto__box--hoverable:hover {
+  box-shadow: 10px 10px 0px var(--nero);
+  z-index: 2;
+}
+
+/* Box base */
+.confronto__box {
+  position: relative;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+  overflow: hidden;
+}
+
+/* BOX A — colonna sx, tutta l'altezza */
+.box-a {
+  grid-column: 1 / 2;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 3vw;
+  background: var(--lilla);
+  min-height: 500px;
+}
+
+
+
+.box-a__top {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.box-a__tag {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  border: var(--border-brutal);
+  padding: 0.3em 0.8em;
+  background: var(--bianco);
+  width: fit-content;
+}
+
+.box-a__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(24px, 2.8vw, 42px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.box-a__testo {
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.box-a__bottom {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+/* BOX B — col centrale, riga 1 */
+.box-b {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+/* BOX C — col destra, riga 1 */
+.box-c {
+  grid-column: 3 / 4;
+  grid-row: 1 / 2;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+/* BOX D — col 2+3, riga 2 */
+.box-d {
+  grid-column: 2 / 4;
+  grid-row: 2 / 3;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding: 0;
+  overflow: hidden;
+}
+
+.box-d__sx {
+  flex: 1.2;
+  padding: 2.5vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  border-right: var(--border-brutal);
+}
+
+.box-d__dx {
+  flex: 0.8;
+  padding: 2.5vw;
+  background: var(--nero);
+  color: var(--bianco);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 2vh;
+}
+
+/* Card tag */
+.card__tag {
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+
+/* Card titolo */
+.card__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 26px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+/* Card testo */
+.card__testo {
+  font-size: clamp(12px, 0.9vw, 14px);
+  line-height: 1.6;
+  font-weight: 500;
+  opacity: 0.75;
+  flex: 1;
+}
+
+/* Pillola differenza */
+.card__differenza {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: clamp(12px, 0.88vw, 14px);
+  font-weight: 600;
+  padding: 1em;
+  border: var(--border-brutal);
+  background: var(--verde-acido);
+  margin-top: auto;
+}
+
+.card__differenza-icon {
+  flex-shrink: 0;
+  font-size: 0.9em;
+}
+
+/* Box D dx — testo bianco */
+.box-d__dx .card__titolo { color: var(--bianco); }
+.box-d__dx .card__testo  { color: var(--bianco); opacity: 0.75; }
+.box-d__dx .card__tag    { color: var(--bianco); opacity: 0.5; }
+.box-d__dx .card__differenza {
+  background: var(--giallo);
+  color: var(--nero);
+}
+
+/* Reveal on scroll — sezione intera */
+.confronto__grid {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.confronto__grid.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .confronto__grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+  }
+
+  .box-a {
+    grid-column: 1 / 3;
+    grid-row: auto;
+    min-height: 280px;
+  }
+
+  .box-b { grid-column: 1 / 2; grid-row: auto; }
+  .box-c { grid-column: 2 / 3; grid-row: auto; }
+
+  .box-d {
+    grid-column: 1 / 3;
+    grid-row: auto;
+    flex-direction: column;
+  }
+
+  .box-d__sx { border-right: none; border-bottom: var(--border-brutal); }
+}
+
+@media (max-width: 580px) {
+  .confronto__grid {
+    grid-template-columns: 1fr;
+  }
+
+  .box-a, .box-b, .box-c, .box-d {
+    grid-column: 1 / 2;
+  }
+
+  .box-d { flex-direction: column; }
+  .box-d__sx { border-right: none; border-bottom: var(--border-brutal); }
+
+  .confronto__box--hoverable:hover {
+    box-shadow: var(--shadow-brutal);
+  }
+
+  .confronto__grid:has(.confronto__box--hoverable:hover)
+  .confronto__box--hoverable:not(:hover) {
+    filter: none;
+    transform: none;
+  }
+}
+
+/* ============================================================
+   SEZIONE 4 — PORTFOLIO (Browser Window)
+============================================================ */
+.portfolio {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--lilla);
+}
+
+/* Header sezione */
+.portfolio__header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-end;
+  margin-bottom: 5vh;
+  gap: 2vw;
+  flex-wrap: wrap;
+}
+
+.portfolio__header-sx {
+  display: flex;
+  flex-direction: column;
+  gap: 1vh;
+}
+
+.portfolio__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.portfolio__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4.5vw, 68px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.portfolio__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.portfolio__header-cta {
+  flex-shrink: 0;
+}
+
+/* ── Browser Window ── */
+.browser-window {
+  width: 100%;
+  position: relative;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: var(--bianco);
+
+  /* Reveal on scroll */
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.browser-window.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Header bar del browser */
+.browser-window__bar {
+  height: 40px;
+  display: flex;
+  align-items: center;
+  border-bottom: var(--border-brutal);
+  padding: 0 1vw;
+  gap: 0.5vw;
+  background: var(--bianco);
+  flex-shrink: 0;
+}
+
+/* I tre dot macOS */
+.browser-window__dots {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-right: 1vw;
+}
+
+.browser-window__dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: var(--border-brutal);
+  flex-shrink: 0;
+}
+
+.browser-window__dot--red    { background: #ff5f57; }
+.browser-window__dot--yellow { background: #febc2e; }
+.browser-window__dot--green  { background: #28c840; }
+
+/* Barra URL finta */
+.browser-window__url {
+  flex: 1;
+  height: 24px;
+  border: var(--border-brutal);
+  background: var(--lilla);
+  display: flex;
+  align-items: center;
+  padding: 0 0.8em;
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.75vw, 12px);
+  font-weight: 500;
+  color: var(--nero);
+  opacity: 0.6;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.browser-window__url-text {
+  transition: opacity 0.3s ease;
+}
+
+/* Area contenuto principale (Video Container) */
+.browser-window__content {
+  position: relative;
+  display: flex;       /* Necessario per centrare il video se non riempie tutto */
+  overflow: hidden;    /* Fondamentale per non far uscire il video dai bordi */
+  background: #000;    /* Sfondo nero per evitare flash bianchi al caricamento */
+  width: 100%;
+ 
+}
+
+/* Assicuriamoci che il video si comporti bene dentro il contenitore */
+.portfolio-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Riempie lo spazio. Cambia in 'contain' se preferisci non tagliare nulla */
+}
+
+@media screen and (max-width: 768px) {
+    /* 1. Rendiamo il contenitore del portfolio privo di padding laterale 
+          solo per la parte della finestra */
+    .browser-window {
+        /* Espandiamo la finestra per annullare il padding del parent (.portfolio) */
+        width: calc(100% + (var(--padding-inline-global) * 2)) !important;
+        margin-left: calc(var(--padding-inline-global) * -1) !important;
+        
+        /* Estetica mobile */
+        border-left: none !important;
+        border-right: none !important;
+        border-radius: 0 !important;
+        box-shadow: none !important;
+    }
+
+    /* 2. Assicuriamoci che il video riempia tutto lo spazio ora guadagnato */
+    .browser-window__content {
+        width: 100%;
+        border-radius: 0 !important;
+    }
+
+    .portfolio-video {
+        width: 100%;
+        object-fit: cover;
+    }
+}
+
+/* Slide immagine progetto */
+.browser-slide {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: opacity 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.browser-slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.browser-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Overlay info su immagine */
+.browser-slide__info {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2vw 2.5vw;
+  background: linear-gradient(to top, rgba(0,0,0,0.75) 0%, transparent 100%);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1vw;
+}
+
+.browser-slide__nome {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 2vw, 28px);
+  color: var(--bianco);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.browser-slide__categoria {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  color: var(--bianco);
+  opacity: 0.7;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ── Tab di navigazione ── */
+.portfolio__tabs {
+  display: flex;
+  flex-direction: row;
+  gap: 0;
+  margin-top: 0;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  background: var(--bianco);
+
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s ease 0.2s, transform 0.6s ease 0.2s;
+}
+
+.portfolio__tabs.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.portfolio__tab {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5vh;
+  padding: 2vh 2vw;
+  border: none;
+  border-right: var(--border-brutal);
+  background: var(--bianco);
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-body);
+  transition: background 0.25s ease, transform 0.2s ease;
+  position: relative;
+}
+
+.portfolio__tab:last-child {
+  border-right: none;
+}
+
+.portfolio__tab:hover {
+  background: var(--lilla);
+}
+
+.portfolio__tab.is-active {
+  background: var(--nero);
+  color: var(--bianco);
+}
+
+.portfolio__tab.is-active .tab__numero { color: var(--verde-acido); }
+.portfolio__tab.is-active .tab__nome   { color: var(--bianco); }
+.portfolio__tab.is-active .tab__cat    { color: rgba(255,255,255,0.5); }
+
+.tab__numero {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--nero);
+  opacity: 0.4;
+  transition: color 0.25s;
+}
+
+.portfolio__tab.is-active .tab__numero {
+  opacity: 1;
+}
+
+.tab__nome {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(14px, 1.2vw, 18px);
+  letter-spacing: -0.01em;
+  line-height: 1.1;
+  transition: color 0.25s;
+}
+
+.tab__cat {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.78vw, 12px);
+  font-weight: 500;
+  color: var(--nero);
+  opacity: 0.5;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  transition: color 0.25s;
+}
+
+/* Indicatore attivo — lineetta verde in cima */
+.portfolio__tab::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: var(--verde-acido);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.portfolio__tab.is-active::before {
+  transform: scaleX(1);
+}
+
+/* ── Mouse Trail — 8.04 DOM requirements ── */
+.trail-img {
+  position: fixed;
+  width: 200px;
+  height: 140px;
+  pointer-events: none;
+  opacity: 0;
+  z-index: 9990;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  transform: translate(-50%, -60%) scale(0.85);
+  transition:
+    opacity 0.2s ease,
+    transform 0.2s ease;
+}
+
+.trail-img.is-visible {
+  opacity: 1;
+  transform: translate(-50%, -60%) scale(1);
+}
+
+.trail-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Responsive ── */
+@media (max-width: 768px) {
+  .portfolio__header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .portfolio__tabs {
+    flex-direction: column;
+  }
+
+  .portfolio__tab {
+    border-right: none;
+    border-bottom: var(--border-brutal);
+  }
+
+  .portfolio__tab:last-child {
+    border-bottom: none;
+  }
+
+  .trail-img { display: none; }
+}
+
+/* ============================================================
+   SEZIONE 5 — IL PROCESSO (I 3 Step)
+============================================================ */
+.processo {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--bianco);
+  border-top: var(--border-brutal);
+}
+
+/* Header sezione */
+.processo__header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  margin-bottom: 8vh;
+}
+
+.processo__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.processo__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4.5vw, 68px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.processo__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.processo__sottotitolo {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.1vw, 17px);
+  font-weight: 500;
+  opacity: 0.6;
+  margin-top: 0.5vh;
+}
+
+/* ── Griglia 3 step ── */
+.processo__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2vw;
+  align-items: stretch;
+}
+
+/* Card step */
+.step-card {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+  overflow: hidden;
+  transition:
+    box-shadow 0.25s ease,
+    transform 0.25s ease;
+
+  /* Entrata staggered — JS aggiunge is-visible */
+  opacity: 0;
+  transform: translateY(28px);
+}
+
+.step-card.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s ease;
+}
+
+.step-card:hover {
+  box-shadow: 10px 10px 0px var(--nero);
+  transform: translate(-4px, -4px);
+}
+
+/* Blocco superiore (30%) */
+.step-card__top-01 {
+  height: auto;
+  min-height: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vw;
+  border-bottom: var(--border-brutal);
+  flex-shrink: 0;
+  background-image: url('ompagefase1.webp');
+  background-size: cover;      /* Forza l'immagine a coprire tutto il div */
+  background-position: center; /* Centra l'immagine */
+  background-repeat: no-repeat;
+}
+
+.step-card__top-02 {
+  height: auto;
+  min-height: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vw;
+  border-bottom: var(--border-brutal);
+  flex-shrink: 0;
+  background-image: url('ompagefase2.webp');
+  background-size: cover;      /* Forza l'immagine a coprire tutto il div */
+  background-position: center; /* Centra l'immagine */
+  background-repeat: no-repeat;
+}
+
+.step-card__top-03 {
+  height: auto;
+  min-height: 180px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2vw;
+  border-bottom: var(--border-brutal);
+  flex-shrink: 0;
+  background-image: url('ompagefase3.webp');
+  background-size: cover;      /* Forza l'immagine a coprire tutto il div */
+  background-position: center; /* Centra l'immagine */
+  background-repeat: no-repeat;
+}
+
+/* Numero step — 8.05 Scroll-Timeline target */
+.step-card__numero {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 3.5vw, 52px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: var(--nero);
+
+  /* 8.05 — scroll-timeline: cresce in opacity e scale */
+  animation: step-number-grow linear both;
+  animation-timeline: scroll(root);
+  animation-range: entry 0% entry 60%;
+}
+
+@keyframes step-number-grow {
+  from {
+    opacity: 0.15;
+    transform: scale(0.75);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Icona/tag step */
+.step-card__icona {
+  font-size: clamp(22px, 2.5vw, 36px);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: clamp(44px, 4vw, 60px);
+  height: clamp(44px, 4vw, 60px);
+  border: var(--border-brutal);
+  background: var(--lilla);
+  flex-shrink: 0;
+}
+
+/* Blocco inferiore (70%) */
+.step-card__body {
+  flex: 1;
+  padding: 2vw;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+}
+
+.step-card__tag {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.75vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.45;
+}
+
+.step-card__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(20px, 2vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+}
+
+.step-card__testo {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.75;
+  flex: 1;
+}
+
+.step-card__cta {
+  margin-top: auto;
+  padding-top: 2vh;
+  border-top: 1px solid rgba(0,0,0,0.1);
+}
+
+/* Step 1 — accent lilla */
+.step-card--01 { background: var(--lilla); }
+.step-card--01 .step-card__icona { background: var(--bianco); }
+
+/* Step 3 — accent verde acido */
+.step-card--03 { background: var(--bianco); }
+.step-card--03 .step-card__icona {
+  background: var(--verde-acido);
+  border-color: var(--nero);
+}
+
+/* Numero decorativo grande in background */
+.step-card__deco-num {
+  position: absolute;
+  bottom: -0.1em;
+  right: 0.1em;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(80px, 10vw, 130px);
+  line-height: 1;
+  letter-spacing: -0.05em;
+  color: var(--nero);
+  opacity: 0.04;
+  pointer-events: none;
+  user-select: none;
+
+  /* Anche il deco num scala con scroll */
+  animation: step-deco-grow linear both;
+  animation-timeline: scroll(root);
+  animation-range: entry 0% entry 70%;
+}
+
+@keyframes step-deco-grow {
+  from {
+    opacity: 0;
+    transform: scale(0.8) translateY(10px);
+  }
+  to {
+    opacity: 0.04;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Fallback per browser senza scroll-timeline */
+@supports not (animation-timeline: scroll()) {
+  .step-card__numero {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .step-card__deco-num {
+    animation: none;
+    opacity: 0.04;
+    transform: none;
+  }
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .processo__grid {
+    grid-template-columns: 1fr;
+    gap: 4vw;
+  }
+
+  .step-card {
+    flex-direction: row;
+    min-height: auto;
+  }
+
+  .step-card__top {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 80px;
+    min-height: auto;
+    border-bottom: none;
+    border-right: var(--border-brutal);
+    padding: 2vh 1.5vw;
+    gap: 1vh;
+    flex-shrink: 0;
+  }
+
+  .step-card__body {
+    padding: 3vw 4vw;
+  }
+
+  .step-card:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 8px 8px 0px var(--nero);
+  }
+}
+
+@media (max-width: 480px) {
+  .step-card {
+    flex-direction: column;
+  }
+
+  .step-card__top {
+    flex-direction: row;
+    width: 100%;
+    border-right: none;
+    border-bottom: var(--border-brutal);
+    padding: 3vw 4vw;
+  }
+}
+
+/* ============================================================
+   SEZIONE 6 — LA MATEMATICA DEI 250€ (Lo Scontrino)
+============================================================ */
+.matematica {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--lilla);
+  border-top: var(--border-brutal);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Wrapper interno 80% */
+.matematica__wrapper {
+  width: 100%;
+  max-width: 1200px;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  border: var(--border-brutal);
+  position: relative;
+  box-shadow: var(--shadow-brutal);
+  background: var(--bianco);
+
+  /* Reveal on scroll */
+  opacity: 0;
+  transform: translateY(32px);
+  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+
+.matematica__wrapper.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── Colonna sinistra ── */
+.matematica__col-sx {
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  border-right: var(--border-brutal);
+}
+
+.matematica__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.matematica__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(28px, 3.2vw, 48px);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+}
+
+.matematica__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.matematica__intro {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.75;
+}
+
+/* ── Scontrino ── */
+.scontrino {
+  border: var(--border-brutal);
+  background: var(--bianco);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.scontrino__header {
+  background: var(--nero);
+  color: var(--bianco);
+  padding: 1.2vh 1.5vw;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(10px, 0.78vw, 12px);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.scontrino__header-data {
+  opacity: 0.5;
+  font-weight: 500;
+}
+
+/* Lista voci */
+.scontrino__lista {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+}
+
+.scontrino__voce {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.2vh 1.5vw;
+  border-bottom: 1px dashed rgba(0,0,0,0.15);
+  font-family: var(--font-body);
+  font-size: clamp(12px, 0.88vw, 14px);
+  font-weight: 500;
+  gap: 1em;
+
+  /* Entrata staggered — JS aggiunge is-visible */
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.45s ease, transform 0.45s cubic-bezier(0.22,1,0.36,1);
+}
+
+.scontrino__voce.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scontrino__voce:last-child {
+  border-bottom: none;
+}
+
+.scontrino__voce-nome {
+  display: flex;
+  align-items: center;
+  gap: 0.6em;
+  flex: 1;
+}
+
+.scontrino__voce-icon {
+  font-size: 1em;
+  flex-shrink: 0;
+}
+
+.scontrino__voce-prezzo {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(12px, 0.9vw, 14px);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+/* Voce barrata — costo eliminato */
+.scontrino__voce--barrata .scontrino__voce-nome {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+.scontrino__voce--barrata .scontrino__voce-prezzo {
+  text-decoration: line-through;
+  opacity: 0.4;
+}
+
+/* Voce inclusa — verde acido */
+.scontrino__voce--inclusa {
+  background: rgba(196, 240, 0, 0.15);
+}
+
+.scontrino__voce--inclusa .scontrino__voce-prezzo {
+  color: #4a7c00;
+  font-weight: 800;
+}
+
+/* Totale finale */
+.scontrino__totale {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.8vh 1.5vw;
+  background: var(--nero);
+  color: var(--bianco);
+  border-top: var(--border-brutal);
+
+  opacity: 0;
+  transform: translateX(-16px);
+  transition: opacity 0.5s ease 0.8s, transform 0.5s ease 0.8s;
+}
+
+.scontrino__totale.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+.scontrino__totale-label {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(12px, 0.9vw, 14px);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.scontrino__totale-prezzo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(22px, 2.2vw, 32px);
+  letter-spacing: -0.02em;
+  color: var(--verde-acido);
+}
+
+.hero__col-dx .scontrino__voce,
+.hero__col-dx .scontrino__totale {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+/* ── Colonna destra ── */
+.matematica__col-dx {
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+}
+
+/* Sottoblocco superiore — prezzo timbro */
+.matematica__top-dx {
+  padding: 4vw;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2vh;
+  flex: 1;
+  border-bottom: var(--border-brutal);
+  position: relative;
+  overflow: hidden;
+  background: var(--lilla);
+}
+
+/* Prezzo enorme */
+.matematica__prezzo-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.matematica__prezzo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(64px, 8vw, 112px);
+  letter-spacing: -0.05em;
+  line-height: 1;
+  color: var(--nero);
+  position: relative;
+  z-index: 2;
+}
+
+/* SVG cerchio mano libera — 6.02 DOM requirement */
+.matematica__svg-callout {
+  position: absolute;
+  inset: -20px;
+  width: calc(100% + 40px);
+  height: calc(100% + 40px);
+  pointer-events: none;
+  z-index: 1;
+  overflow: visible;
+}
+
+.matematica__svg-path {
+  fill: none;
+  stroke: var(--nero);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  /* stroke-dasharray e stroke-dashoffset impostati via JS */
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  transition: stroke-dashoffset 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.matematica__svg-path.is-drawn {
+  stroke-dashoffset: 0;
+}
+
+.matematica__prezzo-nota {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  text-align: center;
+}
+
+.matematica__bullet-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+  width: 100%;
+}
+
+.matematica__bullet-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: clamp(12px, 0.88vw, 13px);
+  font-weight: 500;
+  opacity: 0.7;
+  line-height: 1.4;
+}
+
+.matematica__bullet-list .bullet-check {
+  color: #4a7c00;
+  font-weight: 800;
+  flex-shrink: 0;
+  margin-top: 0.05em;
+}
+
+/* Sottoblocco inferiore — CTA */
+.matematica__bottom-dx {
+  padding: 3vw 4vw;
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  justify-content: center;
+}
+
+.matematica__cta-titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 26px);
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+}
+
+.matematica__cta-nota {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.8vw, 12px);
+  font-weight: 500;
+  opacity: 0.5;
+  line-height: 1.5;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .matematica__wrapper {
+    grid-template-columns: 1fr;
+    width: 100%;
+  }
+
+  .matematica__col-sx {
+    border-right: none;
+    border-bottom: var(--border-brutal);
+    padding: 6vw;
+  }
+
+  .matematica__top-dx {
+    padding: 6vw;
+    border-bottom: var(--border-brutal);
+  }
+
+  .matematica__bottom-dx {
+    padding: 6vw;
+  }
+
+  .matematica__prezzo {
+    font-size: clamp(72px, 18vw, 110px);
+  }
+}
+
+@media (max-width: 480px) {
+  .matematica {
+    padding: var(--padding-block-global) 4vw;
+  }
+
+  .matematica__col-sx { padding: 8vw; }
+  .matematica__top-dx { padding: 8vw; }
+  .matematica__bottom-dx { padding: 8vw; }
+}
+
+/* ============================================================
+   SEZIONE 7 — CTA CON FOTO + FOOTER
+============================================================ */
+
+/* ── CTA Block ── */
+.cta-finale {
+  width: 100%;
+  min-height: 50vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--lilla);
+  border-top: var(--border-brutal);
+}
+
+.cta-finale__inner {
+  width: 100%;
+  max-width: 1100px;
+  position: relative;
+  display: grid;
+  grid-template-columns: 7fr 3fr;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  padding: 5vw;
+  background: var(--bianco);
+  gap: 3vw;
+  align-items: center;
+
+  /* Reveal on scroll — solo opacity, zero transform */
+  opacity: 0;
+  transition: opacity 0.6s ease;
+}
+
+.cta-finale__inner.is-visible {
+  opacity: 1;
+}
+
+/* Foto polaroid — posizione assoluta offset ── */
+.cta-finale__foto-wrap {
+  position: absolute;
+  right: -5vw;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+  width: 22vw;
+  aspect-ratio: 3 / 4;
+
+  /* Entrata con leggero delay */
+  opacity: 0;
+  transform: translateY(-50%) translateX(40px);
+  transition: opacity 0.6s ease 0.25s, transform 0.6s cubic-bezier(0.22,1,0.36,1) 0.25s;
+}
+
+.cta-finale__inner.is-visible .cta-finale__foto-wrap {
+  opacity: 1;
+  transform: translateY(-50%) translateX(-50%);
+}
+
+.cta-finale__foto {
+  width: 100%;
+  height: 100%;
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  overflow: hidden;
+  background: var(--nero);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cta-finale__foto img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Nastro scotch decorativo */
+.cta-finale__nastro {
+  position: absolute;
+  top: -8px;
+  left: 50%;
+  transform: translateX(-50%) rotateZ(-15deg);
+  width: 60%;
+  height: 12px;
+  background: rgba(255,255,255,0.8);
+  border-bottom: 2px dashed rgba(0,0,0,0.2);
+  pointer-events: none;
+  z-index: 11;
+}
+
+/* ── Contenuto CTA sx ── */
+.cta-finale__contenuto {
+  display: flex;
+  flex-direction: column;
+  gap: 2.5vh;
+  z-index: 2;
+  position: relative;
+}
+
+.cta-finale__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(36px, 5vw, 72px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.cta-finale__titolo .block {
+  display: block;
+}
+
+.cta-finale__titolo .block.oro {
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.cta-finale__sottotesto {
+  font-family: var(--font-body);
+  font-size: clamp(14px, 1.1vw, 17px);
+  line-height: 1.65;
+  font-weight: 500;
+  opacity: 0.75;
+  max-width: 45ch;
+}
+
+.cta-finale__cta-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5vh;
+  margin-top: 1vh;
+}
+
+.cta-finale__wa {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  padding: 0.8em 1.6em;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(13px, 1vw, 16px);
+  background: var(--verde-acido);
+  color: var(--nero);
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  white-space: nowrap;
+  width: fit-content;
+}
+
+.cta-finale__wa:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translate(4px, 4px);
+}
+
+.cta-finale__wa-icona {
+  font-size: 1.2em;
+}
+
+/* Email copy button */
+.cta-finale__email-copy {
+  background: var(--bianco);
+  color: var(--nero);
+  position: relative;
+}
+
+.cta-finale__email-copy .testo-principale {
+  display: inline;
+}
+
+.cta-finale__email-copy .testo-feedback {
+  display: none;
+  color: #4a7c00;
+  font-weight: 800;
+}
+
+.cta-finale__email-copy.is-copied .testo-principale {
+  display: none;
+}
+
+.cta-finale__email-copy.is-copied .testo-feedback {
+  display: inline;
+}
+
+/* ── Footer ── */
+.footer {
+  width: 100%;
+  padding: 6vh var(--padding-inline-global);
+  box-sizing: border-box;
+  border-top: var(--border-brutal);
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 5vw;
+  background: var(--bianco);
+}
+
+.footer__inner {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 6vh;
+}
+
+.footer__linea {
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, var(--lilla), var(--nero), var(--lilla));
+  opacity: 0.2;
+}
+
+.footer__main {
+  display: grid;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5vw;
+  grid-auto-flow: column;
+}
+
+/* Footer brand sx */
+.footer__brand {
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+  align-items: center;
+}
+
+.footer__logo {
+  display: flex;
+  align-items: center;
+  gap: 0.3em;
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 1.6vw, 24px);
+  letter-spacing: -0.02em;
+  color: var(--nero);
+  line-height: 1;
+}
+
+.footer__logo-simbolo {
+  font-size: 1.1em;
+}
+
+.footer__info {
+  font-family: var(--font-body);
+  font-size: clamp(12px, 0.9vw, 14px);
+  font-weight: 500;
+  line-height: 1.7;
+  opacity: 0.7;
+  text-align: center;
+}
+
+.footer__info a {
+  color: var(--nero);
+  text-decoration: underline;
+  transition: opacity 0.25s ease;
+}
+
+.footer__info a:hover {
+  opacity: 0.5;
+}
+
+/* Footer dx — social + legali */
+.footer__destra {
+  display: flex;
+  flex-direction: column;
+  gap: 3vh;
+  flex: 1;
+  align-items: center;
+}
+
+.footer__social {
+  display: flex;
+  flex-direction: row;
+  gap: 1.5vw;
+  flex-wrap: wrap;
+}
+
+.footer__social-tasto {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+  padding: 0.5em 1em;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: clamp(12px, 0.9vw, 14px);
+  border: var(--border-brutal);
+  background: var(--nero);
+  color: var(--bianco);
+  cursor: pointer;
+  text-decoration: none;
+  transition: box-shadow var(--transition-base), transform var(--transition-base);
+  white-space: nowrap;
+}
+
+.footer__social-tasto:hover {
+  box-shadow: var(--shadow-hover);
+  transform: translate(2px, 2px);
+}
+
+.footer__legali-links {
+  display: flex;
+  flex-direction: row;
+  gap: 2vw;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.footer__legali-links a {
+  font-family: var(--font-body);
+  font-size: clamp(11px, 0.85vw, 13px);
+  font-weight: 500;
+  color: var(--nero);
+  text-decoration: none;
+  opacity: 0.5;
+  transition: opacity 0.25s ease;
+  cursor: pointer;
+}
+
+.footer__legali-links a:hover {
+  opacity: 1;
+  text-decoration: underline;
+}
+
+.footer__copyright {
+  font-family: var(--font-body);
+  font-size: clamp(10px, 0.8vw, 12px);
+  font-weight: 500;
+  opacity: 0.4;
+  margin-top: 2vh;
+  text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .cta-finale {
+    padding: 8vh var(--padding-inline-global) 6vh;
+  }
+
+  .cta-finale__inner {
+    grid-template-columns: 1fr;
+    padding: 6vw;
+  }
+
+  .cta-finale__foto-wrap {
+    position: static;
+    transform: none;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    right: auto;
+    top: auto;
+  }
+
+  .cta-finale__inner.is-visible .cta-finale__foto-wrap {
+    transform: none;
+  }
+
+  .cta-finale__nastro {
+    width: 80%;
+  }
+
+  .footer__main {
+    flex-direction: column;
+  }
+
+  .footer__destra {
+    width: 100%;
+  }
+}
+
+@media (max-width: 480px) {
+  .cta-finale {
+    padding: 6vh 4vw;
+  }
+
+  .cta-finale__inner {
+    padding: 6vw 5vw;
+  }
+
+  .cta-finale__titolo {
+    font-size: clamp(28px, 10vw, 42px);
+  }
+
+  .footer {
+    padding: 6vh 4vw;
+  }
+
+  .footer__social-tasto {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* ============================================================
+   SEZIONE FAQ — DOMANDE FREQUENTI
+============================================================ */
+.faq {
+  width: 100%;
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  box-sizing: border-box;
+  background: var(--bianco);
+  border-top: var(--border-brutal);
+}
+
+.faq__inner {
+  display: grid;
+  grid-template-columns: 4fr 6fr;
+  gap: 5vw;
+  align-items: start;
+}
+
+/* ── Colonna sinistra — Intestazione sticky ── */
+.faq__sidebar {
+  position: sticky;
+  top: calc(8vh + 4vh);
+  display: flex;
+  flex-direction: column;
+  gap: 2vh;
+}
+
+.faq__label {
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: clamp(10px, 0.8vw, 12px);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.5;
+}
+
+.faq__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(32px, 4vw, 60px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+}
+
+.faq__titolo em {
+  font-style: normal;
+  -webkit-text-stroke: 2px var(--nero);
+  -webkit-text-fill-color: transparent;
+}
+
+.faq__deco {
+  width: 60px;
+  height: 3px;
+  background: var(--nero);
+  margin: 1vh 0;
+}
+
+.faq__deco-nome {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(40px, 5vw, 70px);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  opacity: 0.06;
+  color: var(--nero);
+  user-select: none;
+
+}
+
+/* ── Colonna destra — Accordion ── */
+.faq__lista {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Singolo item FAQ */
+.faq__item {
+  border-bottom: var(--border-brutal);
+}
+
+.faq__item:first-child {
+  border-top: var(--border-brutal);
+}
+
+/* Domanda (trigger click) */
+.faq__domanda {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 2vw;
+  padding: 2.8vh 0;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(15px, 1.3vw, 20px);
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+  color: var(--nero);
+  transition: opacity 0.2s ease;
+}
+
+.faq__domanda:hover {
+  opacity: 0.7;
+}
+
+/* Icona +/- */
+.faq__icona {
+  position: relative;
+  width: clamp(28px, 2.5vw, 36px);
+  height: clamp(28px, 2.5vw, 36px);
+  border: var(--border-brutal);
+  background: var(--lilla);
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+              background 0.25s ease;
+}
+
+.faq__icona::before,
+.faq__icona::after {
+  content: '';
+  position: absolute;
+  background: var(--nero);
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Linea orizzontale */
+.faq__icona::before {
+  width: 50%;
+  height: 2px;
+}
+
+/* Linea verticale — ruota quando aperto */
+.faq__icona::after {
+  width: 2px;
+  height: 50%;
+}
+
+/* Quando aperto: icona ruota, linea verticale scompare */
+.faq__item.is-open .faq__icona {
+  transform: rotate(90deg);
+  background: var(--verde-acido);
+}
+
+.faq__item.is-open .faq__icona::after {
+  transform: scaleY(0);
+}
+
+/* ── 6.01 — CSS Grid Accordion (body) ── */
+.faq__risposta {
+  display: grid;
+  grid-template-rows: 0fr;
+  overflow: hidden;
+  transition: grid-template-rows 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.faq__item.is-open .faq__risposta {
+  grid-template-rows: 1fr;
+}
+
+/* Wrapper interno (necessario per grid-rows trick) */
+.faq__risposta-inner {
+  min-height: 0;
+  overflow: hidden;
+  padding: 0 0 0 0;
+  transition: padding 0.4s ease;
+}
+
+.faq__item.is-open .faq__risposta-inner {
+  padding: 0 0 3vh 0;
+}
+
+.faq__risposta-inner p,
+.faq__risposta-inner {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 0.95vw, 15px);
+  line-height: 1.7;
+  font-weight: 500;
+  color: var(--nero);
+  opacity: 0.75;
+}
+
+.faq__risposta-inner strong {
+  font-weight: 700;
+  opacity: 1;
+}
+
+.faq__risposta-inner ul {
+  margin-top: 1.5vh;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8vh;
+  list-style: none;
+}
+
+.faq__risposta-inner ul li {
+  
+  align-items: flex-start;
+  gap: 0.6em;
+  font-size: clamp(12px, 0.9vw, 14px);
+  line-height: 1.5;
+}
+
+/* CTA sotto FAQ */
+.faq__cta-row {
+  margin-top: 5vh;
+  padding-top: 3vh;
+  border-top: var(--border-brutal);
+  display: flex;
+  align-items: center;
+  gap: 2vw;
+  flex-wrap: wrap;
+}
+
+.faq__cta-testo {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 15px);
+  font-weight: 500;
+  opacity: 0.6;
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .faq__inner {
+    grid-template-columns: 1fr;
+    gap: 4vh;
+  }
+
+  .faq__sidebar {
+    position: static;
+  }
+
+  .faq__deco-nome {
+    display: none;
+  }
+}
+
+/* --- Contenitore Principale --- */
+.processo__header {
+  display: flex;
+  justify-content: space-between; /* Spinge testo a sinistra e immagine a destra */
+  align-items: center;           /* Allinea verticalmente al centro */
+  gap: 40px;                     /* Spazio tra il testo e l'immagine */
+  width: 100%;
+  max-width: 1200px;             /* O la larghezza massima del tuo sito */
+  margin: 0 auto;                /* Centra l'header nella pagina */
+  padding: 40px 20px;
+  flex-direction: row;
+}
+
+/* --- Blocco Testo --- */
+.processo__text-block {
+  flex: 1; /* Prende lo spazio disponibile */
+  /* Mantieni qui i tuoi stili esistenti per label, titolo, sottotitolo */
+}
+
+/* Stili indicativi per il testo (usa i tuoi) */
+.processo__label { display: block; text-transform: uppercase; font-size: 14px; color: #666; }
+.processo__titolo { font-size: 48px; line-height: 1.1; margin: 10px 0; }
+.processo__sottotitolo { font-size: 18px; color: #444; }
+
+/* --- Blocco Immagine --- */
+.processo__image-block {
+  flex: 0 0 auto; /* Non si restringe, mantiene le sue dimensioni */
+}
+
+.processo__img {
+  max-width: 300px; /* Imposta la larghezza massima dell'immagine per desktop */
+  height: auto;     /* Mantiene le proporzioni */
+  display: block;
+}
+
+/* --- RESPONSIVE: Mobile --- */
+@media (max-width: 768px) {
+  .processo__header {
+    flex-direction: column-reverse; /* Impila verticalmente: immagine sotto, testo sopra */
+    text-align: center;           /* Centra il testo su mobile */
+    gap: 20px;                    /* Riduce lo spazio */
+  }
+
+  .processo__img {
+    max-width: 200px; /* Immagine più piccola su mobile */
+    margin: 0 auto;   /* Centra l'immagine se il titolo è centrato */
+  }
+}
+
+.obiezioni {
+  background: var(--bianco);
+  padding: var(--padding-block-global) var(--padding-inline-global);
+  border-top: var(--border-brutal);
+  border-bottom: var(--border-brutal);
+}
+ 
+.obiezioni__inner {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 6vw;
+  align-items: center;
+}
+ 
+/* Intestazione — entra da sinistra */
+.obiezioni__intestazione {
+  position: sticky;
+  top: 100px;
+  opacity: 0;
+  transform: translateX(-32px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1),
+              transform 0.7s cubic-bezier(0.22,1,0.36,1);
+}
+ 
+.obiezioni__intestazione.is-visible {
+  opacity: 1;
+  transform: translateX(0);
+}
+ 
+.obiezioni__etichetta {
+  font-family: var(--font-body);
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  opacity: 0.45;
+  display: block;
+  margin-bottom: 16px;
+}
+ 
+.obiezioni__titolo {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(28px, 3.5vw, 52px);
+  line-height: 1.0;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  margin-bottom: 50px;
+}
+ 
+.obiezioni__lista {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+ 
+/* Ogni riga parte invisibile */
+.obiezioni__riga {
+  display: grid;
+  grid-template-columns: 1fr auto 2fr;
+  gap: 24px;
+  align-items: center;
+  padding: 24px 0;
+  border-bottom: var(--border-brutal);
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.55s cubic-bezier(0.22,1,0.36,1),
+              transform 0.55s cubic-bezier(0.22,1,0.36,1);
+}
+ 
+.obiezioni__riga:first-child {
+  border-top: var(--border-brutal);
+}
+ 
+.obiezioni__riga.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+ 
+/* Q entra da sinistra, A da destra */
+.obiezioni__q {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  opacity: 0;
+  transform: translateX(-20px);
+  transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1),
+              transform 0.5s cubic-bezier(0.22,1,0.36,1);
+}
+ 
+.obiezioni__a {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  opacity: 0;
+  transform: translateX(20px);
+  transition: opacity 0.5s cubic-bezier(0.22,1,0.36,1) 0.15s,
+              transform 0.5s cubic-bezier(0.22,1,0.36,1) 0.15s;
+}
+ 
+.obiezioni__riga.is-visible .obiezioni__q,
+.obiezioni__riga.is-visible .obiezioni__a {
+  opacity: 1;
+  transform: translateX(0);
+}
+ 
+/* Freccia — scala da 0 */
+.obiezioni__sep {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(20px, 2vw, 28px);
+  color: var(--verde-acido);
+  flex-shrink: 0;
+  opacity: 0;
+  transform: scale(0.4);
+  transition: opacity 0.4s ease 0.1s,
+              transform 0.4s cubic-bezier(0.34,1.56,0.64,1) 0.1s;
+}
+ 
+.obiezioni__riga.is-visible .obiezioni__sep {
+  opacity: 1;
+  transform: scale(1);
+}
+ 
+.obiezioni__q-label,
+.obiezioni__a-label {
+  font-family: var(--font-title);
+  font-weight: 800;
+  font-size: clamp(18px, 1.8vw, 26px);
+  line-height: 1;
+  flex-shrink: 0;
+  padding-top: 2px;
+}
+ 
+.obiezioni__q-label {
+  color: var(--nero);
+  opacity: 0.25;
+}
+ 
+.obiezioni__a-label {
+  color: var(--verde-acido);
+}
+ 
+.obiezioni__q p {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 500;
+  line-height: 1.4;
+  opacity: 0.55;
+}
+ 
+.obiezioni__a p {
+  font-family: var(--font-body);
+  font-size: clamp(13px, 1vw, 16px);
+  font-weight: 700;
+  line-height: 1.4;
+  color: var(--nero);
+}
+ 
+/* Mobile */
+@media (max-width: 768px) {
+  .obiezioni__inner {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+ 
+  .obiezioni__intestazione {
+    position: static;
+  }
+ 
+  .obiezioni__riga {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    padding: 20px 0;
+  }
+ 
+  .obiezioni__sep {
+    display: none;
+  }
+ 
+  .obiezioni__q p {
+    opacity: 0.5;
+    font-size: 13px;
+  }
+ 
+  .obiezioni__a p {
+    font-size: 15px;
+  }
+}
+
+/* ============================================
+   IMMAGINE FAQ — forbici, decorativa a sinistra
+============================================ */
+.faq__sidebar img {
+  width: 360px;
+  height: auto;
+  margin-top: 24px;
+  transform: rotate(-8deg);
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.15));
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+.faq__sidebar img:hover {
+  transform: rotate(-4deg) scale(1.05);
+}
+
+/* ============================================
+   IMMAGINE PROCESSO — ingranaggi, decorativa header
+============================================ */
+.processo__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+}
+
+.processo__image-block {
+  flex-shrink: 0;
+}
+
+.processo__img {
+  width: 180px;
+  height: auto;
+  filter: drop-shadow(6px 6px 0px rgba(0,0,0,0.2));
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+.obiezioni__deco-img {
+  width: 360px;
+  height: auto;
+  margin-top: 24px;
+  transform: rotate(-8deg);
+  filter: drop-shadow(4px 4px 0px rgba(0,0,0,0.15));
+  transition: transform 0.4s cubic-bezier(0.22,1,0.36,1);
+}
+
+
+.processo__img:hover {
+  transform: scale(1.06) rotate(3deg);
+}
+
+/* Mobile — immagini più piccole */
+@media (max-width: 768px) {
+  .faq__sidebar img {
+    width: 110px;
+  }
+
+  .processo__header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+  }
+
+  .processo__img {
+    width: 130px;
+  }
+}
+
+.step-card__icona {
+  width: 72px;
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+ 
+.step-card__img {
+  width: 72px;
+  height: 72px;
+  object-fit: contain;
+  filter: drop-shadow(3px 3px 0px rgba(0,0,0,0.2));
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+}
+ 
+.step-card:hover .step-card__img {
+  transform: scale(1.12) rotate(4deg);
+}
+
+.tag-brutal {
+    display: inline-block;        /* Permette al riquadro di adattarsi al testo */
+    padding: 0.4em 1em;          /* Spazio interno leggermente più stretto di un bottone */
+    font-family: var(--font-title);
+    font-weight: 700;
+    font-size: clamp(14px, 1.2vw, 20px);
+    
+    /* Colori e Bordi */
+    background: var(--verde-acido); /* Oro */
+    color: var(--nero);
+    border: var(--border-brutal);
+    box-shadow: var(--shadow-brutal); /* L'effetto riquadro 3D solido */
+    
+    /* Rimuoviamo i comportamenti da bottone */
+    cursor: default;             /* Freccia normale, non manina */
+    user-select: none;           /* Evita che venga selezionato per sbaglio */
+    vertical-align: middle;
+}
+
+.hero__desc i {
+  font-style: italic;
+  font-weight: 500; /* Leggermente più spesso per farlo "saltare" all'occhio */
+  color: var(--nero); /* Forza il nero se il resto del testo è grigio/crema */
+}
+
+.modale-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  z-index: 9999;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modale {
+  background: var(--lilla);
+  border: var(--border-brutal);
+  box-shadow: var(--shadow-brutal);
+  border-radius: 4px;
+  padding: 40px;
+  max-width: 640px;
+  width: 100%;
+  max-height: 85vh;
+  overflow-y: auto;
+  position: relative;
+}
+
+.modale__chiudi {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: var(--nero);
+  color: var(--lilla);
+  border: none;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform var(--transition-base);
+}
+
+.modale__chiudi:hover {
+  transform: rotate(90deg);
+}
+
+.modale__titolo {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: clamp(24px, 3vw, 36px);
+  letter-spacing: -0.02em;
+  margin-bottom: 24px;
+  text-transform: uppercase;
+}
+
+.modale__titolo .oro {
+  color: var(--verde-acido);
+}
+
+.modale__testo h3 {
+  font-family: var(--font-title);
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 24px 0 8px;
+  color: var(--nero);
+}
+
+.modale__testo p {
+  font-family: var(--font-body);
+  font-size: 14px;
+  line-height: 1.75;
+  color: rgba(8,8,8,0.7);
+}
+
+.modale__separatore {
+  height: 1px;
+  background: var(--border-brutal);
+  margin: 20px 0;
+  opacity: 0.15;
+}
+
+.portfolio-video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  /* 'cover' taglia leggermente i bordi per riempire tutto lo spazio, 
+     'contain' mostra tutto il video con eventuali barre nere se il formato non è identico */
+  object-fit: contain; 
+  background-color: #000;
+}
+
+
+
+  </style>
+
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Service",
+  "serviceType": "Realizzazione Siti Web Gestibili Autonomamente",
+  "provider": {
+    "@type": "LocalBusiness",
+    "name": "Ompage",
+    "image": "logo_ompage.png",
+    "priceRange": "€€",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Italia",
+      "addressRegion": "Piemonte" 
+    }
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "250",
+    "priceCurrency": "EUR",
+    "description": "Sito web professionale gestibile in autonomia a 250 euro tutto incluso."
+  },
+  "areaServed": {
+    "@type": "Country",
+    "name": "Italy"
+  }
+}
+</script>
+
+</head>
+
+
+
+<body>
+
+  <!-- ============================================
+       NAVBAR
+  ============================================ -->
+  <nav class="navbar" id="navbar" role="navigation" aria-label="Navigazione principale">
+
+    <!-- Blocco A — Logo -->
+    <a href="#" class="navbar__logo" aria-label="Ompage — torna in cima">
+  <img src="logo_ompage.webp" 
+       alt="Logo Ompage" 
+       class="navbar__logo-img" 
+       style="height: 1.5em; width: auto; vertical-align: middle;">
+  PAGE
+</a>
+
+    <!-- Blocco B — Links + CTA -->
+    <div class="navbar__right">
+      <ul class="navbar__links" role="list">
+        <li><a href="#confronto">Confronto</a></li>
+        <li><a href="#portfolio">Pannello</a></li>
+        <li><a href="#processo">Metodo</a></li>
+        <li><a href="#faq">Faq</a></li>
+      </ul>
+
+      <a
+        href="https://wa.me/393515275546"
+        class="navbar__cta"
+        target="_blank"
+        rel="noopener"
+        aria-label="Scrivimi su WhatsApp"
+      >
+        Scrivimi su WA ↗
+      </a>
+    </div>
+
+    <!-- Hamburger mobile -->
+    <button
+      class="navbar__hamburger"
+      id="hamburger"
+      aria-label="Apri menu"
+      aria-expanded="false"
+      aria-controls="mobileMenu"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+  </nav>
+
+  <!-- Menu mobile -->
+  <nav
+    class="navbar__mobile-menu"
+    id="mobileMenu"
+    aria-label="Menu mobile"
+    role="navigation"
+  >
+    <a href="#confronto" class="mobile-link">Confronto</a>
+    <a href="#portfolio" class="mobile-link">Pannello</a>
+    <a href="#processo" class="mobile-link">Metodo</a>
+    <a href="#faq" class="mobile-link">Faq</a>
+    <a
+      href="https://wa.me/393515275546"
+      class="btn-brutal navbar__mobile-cta"
+      target="_blank"
+      rel="noopener"
+    >
+      Scrivimi su WhatsApp ↗
+    </a>
+  </nav>
+
+  <!-- Floating WhatsApp sempre visibile -->
+  <a
+    href="https://wa.me/393515275546"
+    class="wa-float"
+    target="_blank"
+    rel="noopener"
+    aria-label="Contattami su WhatsApp"
+    title="Scrivimi su WhatsApp"
+  >
+    💬
+  </a>
+
+ <!-- ============================================
+     HERO — SEZIONE 2
+============================================ -->
+<section class="hero" id="hero" aria-label="Sezione principale">
+  <img class="hero__bg-img" src="ompagehero.webp" fetchpriority="high" alt="" aria-hidden="true" />
+
+  <!-- COLONNA SINISTRA -->
+  <div class="hero__col-sx">
+
+    
+
+   
+
+    <!-- Titolo H1 — parole mascherabili per 2.04 -->
+    <h1 class="hero__titolo" aria-label="L'era delle agenzie è finita">
+      
+      <span class="hero__word-mask">
+        <span class="hero__word" style="--index:0">L'era</span>
+      </span>
+      <span class="hero__word-mask">
+        <span class="hero__word" style="--index:1">delle</span>
+      </span>
+      <span class="hero__word-mask">
+        <span class="hero__word" style="--index:2">agenzie</span>
+      </span>
+      <span class="hero__word-mask hero__titolo-accent">
+        <span class="hero__word" style="--index:3">è&nbsp;finita.</span>
+      </span>
+    </h1>
+
+    <p class="hero__desc">
+      Abbiamo normalizzato l'idea che qualcuno possa spegnere i nostri strumenti di lavoro se 
+      smettiamo di pagare un abbonamento. Pagare un tecnico per cambiare due righe di testo è assurdo. 
+      Ora puoi avere un sito veramente di tua proprietà e che modifichi da solo 
+      senza dipendere da nessuno. E senza canone. 
+    </p>
+
+    <div class="hero__cta-wrap">
+      <a
+        href="https://wa.me/393515275546"
+        class="btn-brutal"
+        target="_blank"
+        rel="noopener"
+        aria-label="Scrivimi su WhatsApp per iniziare"
+      >
+        💬 Scrivimi su WhatsApp ↗
+      </a>
+      <a href="#obiezioni" class="btn-brutal btn-brutal--nero">
+        Scopri come funziona ↓
+      </a>
+    </div>
+
+  </div>
+
+  <!-- COLONNA DESTRA — Box bianco brutale -->
+  <!-- Incolla questo al posto del tuo div.hero__col-dx -->
+
+<div class="hero__col-dx" aria-label="Riepilogo offerta">
+
+  <div class="scontrino" aria-label="Dettaglio costi">
+
+    <div class="scontrino__header">
+      <span>Ompage · Ricevuta</span>
+      <span class="scontrino__header-data">2026</span>
+    </div>
+
+    <ul class="scontrino__lista" id="scontrinoLista">
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Hosting annuo
+        </span>
+        <span class="scontrino__voce-prezzo">150€/anno</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Manutenzione obbligatoria
+        </span>
+        <span class="scontrino__voce-prezzo">200€/anno</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Plugin e template inutili
+        </span>
+        <span class="scontrino__voce-prezzo">80€</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--barrata">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✕</span>
+          Pagine inutili e fuffa SEO
+        </span>
+        <span class="scontrino__voce-prezzo">??€</span>
+      </li>
+
+      <li class="scontrino__voce" style="background:rgba(201,168,76,0.08); border-bottom: var(--border-brutal);">
+        <span class="scontrino__voce-nome" style="font-weight:700; opacity:1;">
+          <span class="scontrino__voce-icon" aria-hidden="true">✦</span>
+          Quello che avrai con Ompage
+        </span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Test in anteprima (Live Preview)
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+            <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Pannello modifiche autonome + Guida d'uso
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Sistema di prenotazioni online + Scudo Recensioni
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Hosting gratuito
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+      <li class="scontrino__voce scontrino__voce--inclusa">
+        <span class="scontrino__voce-nome">
+          <span class="scontrino__voce-icon" aria-hidden="true">✓</span>
+          Dal secondo anno: solo 10€ di dominio
+        </span>
+        <span class="scontrino__voce-prezzo">✓ incluso</span>
+      </li>
+
+    </ul>
+
+    <div class="scontrino__totale" id="scontrinoTotale" aria-label="Totale: 250 euro una tantum">
+      <span class="scontrino__totale-label">Totale una tantum</span>
+      <span class="scontrino__totale-prezzo">250€</span>
+    </div>
+
+  </div>
+
+</div>
+
+</section>
+
+<!-- TICKER sotto hero -->
+<div class="hero__ticker-wrap" aria-hidden="true">
+  <div class="hero__ticker-track">
+    <!-- Prima copia -->
+    <div class="hero__ticker-item">Zero canoni <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">250€ una tantum <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Zero manutenzione tecnica <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Gestione in totale autonomia <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">100% di tua proprietà <span class="hero__ticker-sep"></span></div>
+    <!-- Seconda copia per loop visivo perfetto -->
+    <div class="hero__ticker-item">Zero canoni mensili <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">250€ una tantum <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Zero manutenzione tecnica <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">Gestione in totale autonomia <span class="hero__ticker-sep"></span></div>
+    <div class="hero__ticker-item">100% di tua proprietà <span class="hero__ticker-sep"></span></div>
+  </div>
+</div>
+
+<!-- SEZIONE OBIEZIONI — "Hai già detto no a qualcuno. Ascolta." -->
+ 
+<section class="obiezioni" id="obiezioni">
+  <div class="obiezioni__inner">
+ 
+    <div class="obiezioni__intestazione">
+  <h2 class="obiezioni__titolo">
+    Avrai già<br>detto no<br>ad altri<br>
+    <span class="tag-brutal">Ecco perchè stavolta è diverso.</span>
+  </h2>
+  <img src="ompagetagli.webp" class="obiezioni__deco-img" alt="Decorazione obiezioni">
+</div>
+
+
+
+ 
+    <div class="obiezioni__lista">
+ 
+      <div class="obiezioni__riga" data-riga="0">
+        <div class="obiezioni__q">
+         
+          <p>Ti hanno chiesto un canone mensile?</p>
+        </div>
+        <div class="obiezioni__sep">→</div>
+        <div class="obiezioni__a">
+          
+          <p>Il mio sito è un prodotto che paghi una volta sola, resta tuo finché esiste internet.</p>
+        </div>
+      </div>
+ 
+      <div class="obiezioni__riga" data-riga="1">
+        <div class="obiezioni__q">
+          
+          <p>Hanno tenuto le tue password "in ostaggio"?</p>
+        </div>
+        <div class="obiezioni__sep">→</div>
+        <div class="obiezioni__a">
+          
+          <p>Sei l'unico proprietario delle chiavi di casa. Io non le voglio.</p>
+        </div>
+      </div>
+ 
+      <div class="obiezioni__riga" data-riga="2">
+        <div class="obiezioni__q">
+         
+          <p>Dovevi chiamarli anche per cambiare un prezzo?</p>
+        </div>
+        <div class="obiezioni__sep">→</div>
+        <div class="obiezioni__a">
+         
+          <p>Cambi testi e foto da solo in 2 minuti. Senza dovermi dire grazie.</p>
+        </div>
+      </div>
+ 
+      <div class="obiezioni__riga" data-riga="3">
+        <div class="obiezioni__q">
+          
+          <p>Paura di pagare per un lavoro che non ti piace?</p>
+        </div>
+        <div class="obiezioni__sep">→</div>
+        <div class="obiezioni__a">
+         
+          <p>Provi l'anteprima gratis. Se la usi senza problemi e il risultato ti soddisfa, compri. Altrimenti non mi devi nulla.</p>
+        </div>
+      </div>
+ 
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SEZIONE 3 — IL CONFRONTO (Bento Grid)
+============================================ -->
+<section
+  class="confronto"
+  id="confronto"
+  aria-label="Il confronto: Ompage vs alternative"
+>
+  <!-- Header -->
+  <div class="confronto__header">
+    
+    <h2 class="confronto__titolo">
+      Cosa compri<br>
+      <em>dagli altri?</em>
+    </h2>
+  </div>
+
+  <!-- Bento Grid -->
+  <div class="confronto__grid" id="confrontoGrid">
+
+    <!-- BOX A — dominante sx -->
+    <div class="confronto__box box-a" aria-label="Introduzione al confronto">
+      <div class="box-a__top">
+        <span class="box-a__tag">✦ Il Mercato</span>
+        <h3 class="box-a__titolo">
+          Esistono mille modi per avere un sito web. <br><br> 
+          Quasi tutti servono a renderti il loro affittuario.
+        </h3>
+        
+      </div>
+    </div>
+
+    <!-- BOX B — Io vs Wix -->
+    <div
+      class="confronto__box box-b confronto__box--hoverable"
+      aria-label="Confronto con Wix"
+    >
+      <span class="card__tag">Sito di tua Proprietà</span>
+      <h3 class="card__titolo">Io Vs Site-Builders</h3>
+      <p class="card__testo">
+        Con Wix o Shopify non possiedi nulla. Paghi un canone per "noleggiare" uno spazio. 
+        Se smetti di pagare, il tuo sito sparisce. In più, sono pesanti e lenti.
+      </p>
+      <div class="card__differenza">
+        <span class="card__differenza-icon" aria-hidden="true">→</span>
+        <span>
+          <strong>La mia differenza:</strong> Ti do il codice. Lo carichi sul TUO account GitHub. 
+          Anche se io sparissi domani, il tuo sito resterebbe online per sempre.
+        </span>
+      </div>
+    </div>
+
+    <!-- BOX C — Io vs Freelance economici -->
+    <div
+      class="confronto__box box-c confronto__box--hoverable"
+      aria-label="Confronto con freelance economici"
+    >
+      <span class="card__tag">Puro Codice</span>
+      <h3 class="card__titolo">Io Vs WordPress</h3>
+      <p class="card__testo">
+        I freelance usano WordPress: un sistema pesante che va aggiornato ogni mese, 
+        altrimenti si rompe o viene hackerato. Ti costringono a pagare per "l'assistenza tecnica".
+      </p>
+      <div class="card__differenza">
+        <span class="card__differenza-icon" aria-hidden="true">→</span>
+        <span>
+          <strong>La mia differenza:</strong> Ompage non ha database, non ha plugin, 
+          non può essere hackerato e non richiede manutenzione. Zero costi extra.
+        </span>
+      </div>
+    </div>
+
+    <!-- BOX D — Io vs Agenzie Web (orizzontale) -->
+    <div
+      class="confronto__box box-d confronto__box--hoverable"
+      aria-label="Confronto con agenzie web"
+    >
+      <div class="box-d__sx">
+        <span class="card__tag">Trasparenza</span>
+        <h3 class="card__titolo">Io vs Agenzie</h3>
+        <p class="card__testo">
+          Ti attirano con "strategie SEO" e poi ti caricano 200€ 
+          l'anno di hosting su server che a loro costano 10€. 
+          Ti tengono le password e non sei padrone di nulla.
+        </p>
+      </div>
+      <div class="box-d__dx">
+        <span class="card__tag">→ La mia differenza</span>
+        <p class="card__testo">
+          Paghi 250€ una volta sola a me e i 10€ annui del dominio direttamente al fornitore, 
+          senza intermediari. Gestisci testi e foto col tuo pannello.
+        </p>
+        <div class="card__differenza">
+          <span class="card__differenza-icon" aria-hidden="true">★</span>
+          <strong>Sei libero.</strong>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- fine grid -->
+
+</section>
+
+<!-- ============================================
+     SEZIONE 4 — PORTFOLIO (Browser Window)
+============================================ -->
+<section class="portfolio" id="portfolio" aria-label="Portfolio lavori">
+
+  <!-- Header -->
+  <div class="portfolio__header">
+    <div class="portfolio__header-sx">
+      <h2 class="portfolio__titolo">
+        Gestione<br><em>Semplice</em> e Totale
+      </h2>
+    </div>
+    <div class="portfolio__header-cta">
+      <a href="https://wa.me/39XXXXXXXXXX" class="btn-brutal" target="_blank" rel="noopener">
+        💬 Voglio provarlo ↗
+      </a>
+    </div>
+  </div>
+
+  <!-- Finestra Browser -->
+  <div class="browser-window" id="browserWindow">
+    <!-- Bar browser -->
+    <div class="browser-window__bar" aria-hidden="true">
+      <div class="browser-window__dots">
+        <span class="browser-window__dot browser-window__dot--red"></span>
+        <span class="browser-window__dot browser-window__dot--yellow"></span>
+        <span class="browser-window__dot browser-window__dot--green"></span>
+      </div>
+      <div class="browser-window__url">
+        <span class="browser-window__url-text">
+          tuosito.it/pannello.html
+        </span>
+      </div>
+    </div>
+
+    <!-- Contenuto Video -->
+    <div class="browser-window__content">
+      <video autoplay muted loop playsinline controls class="portfolio-video">
+  <source src="ompage demo.webm" type="video/webm">   </video>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================
+     SEZIONE 5 — IL PROCESSO (I 3 Step)
+============================================ -->
+<section
+  class="processo"
+  id="processo"
+  aria-label="Il metodo di lavoro in 3 step"
+>
+
+ <div class="processo__header">
+  
+  <div class="processo__text-block">
+    
+    <h2 class="processo__titolo">
+      Dalla bozza<br><em>alla libertà</em>
+    </h2>
+    <p class="processo__sottotitolo">Poche chiacchiere. Solo i fatti.</p>
+  </div>
+
+
+</div>
+
+  <!-- Griglia 3 card -->
+  <div class="processo__grid" id="processoGrid">
+
+    <!-- STEP 01 -->
+    <article
+      class="step-card step-card--01"
+      aria-label="Step 1: La bozza va online"
+    >
+      <!-- Blocco superiore -->
+      <div class="step-card__top-01">
+        
+      
+      </div>
+
+      <!-- Blocco inferiore -->
+      <div class="step-card__body">
+        <span class="step-card__tag">Test</span>
+        <h3 class="step-card__titolo">Installa l'anteprima</h3>
+        <p class="step-card__testo">
+          Segui la guida: devi solo aprire un account e caricare i file del sito. 
+          In pochi minuti hai un link provvisorio per vedere e testare il sito dal vivo. 
+          <strong>N.B.: Non hai ancora speso un euro.</strong>
+        </p>
+      </div>
+
+      <!-- Numero decorativo bg -->
+    </article>
+
+    <!-- STEP 02 -->
+    <article
+      class="step-card step-card--02"
+      aria-label="Step 2: Applico le modifiche"
+    >
+      <!-- Blocco superiore -->
+      <div class="step-card__top-02">
+        
+        
+      </div>
+
+      <!-- Blocco inferiore -->
+      <div class="step-card__body">
+        <span class="step-card__tag">Configurazione</span>
+        <h3 class="step-card__titolo">Smanetta col pannello</h3>
+        <p class="step-card__testo">
+          Usi il <strong>pannello</strong> per cambiare testi e foto in autonomia. 
+          Se vedi che il sistema fa per te e il sito ti piace, allora passiamo alla fase finale. 
+        </p>
+      </div>
+
+      <!-- Numero decorativo bg -->
+    </article>
+
+    <!-- STEP 03 -->
+    <article
+      class="step-card step-card--03"
+      aria-label="Step 3: Il sito è tuo"
+    >
+      <!-- Blocco superiore -->
+      <div class="step-card__top-03">
+        
+       
+      </div>
+
+      <!-- Blocco inferiore -->
+      <div class="step-card__body">
+        <span class="step-card__tag">Proprietà</span>
+        <h3 class="step-card__titolo">Il Sito è Tuo. Zero Ricatti.</h3>
+        <p class="step-card__testo">
+          Paghi i 250€ e scegli il tuo <strong>dominio</strong> .it o .com professionale. 
+          Il sito è 100% tuo. <strong>Niente canoni, mai più.</strong>
+        </p>
+        <div class="step-card__cta">
+          <a
+            href="https://wa.me/393515275546"
+            class="btn-brutal btn-brutal--nero"
+            target="_blank"
+            rel="noopener"
+            aria-label="Inizia ora su WhatsApp"
+          >
+            💬 Inizia la prova ↗
+          </a>
+        </div>
+      </div>
+
+      <!-- Numero decorativo bg -->
+    </article>
+
+  </div><!-- fine grid -->
+
+</section>
+
+
+
+<!-- ============================================
+     SEZIONE FAQ — DOMANDE FREQUENTI
+============================================ -->
+<section
+  class="faq"
+  id="faq"
+  aria-label="Domande frequenti"
+>
+  <div class="faq__inner">
+
+    <!-- Colonna sinistra — sticky -->
+    <div class="faq__sidebar">
+      
+      <h2 class="faq__titolo">
+        <em>Domande</em><br>Frequenti
+      </h2>
+      <div class="faq__deco" aria-hidden="true"></div>
+    </div>
+
+    <!-- Colonna destra — Accordion -->
+    <div class="faq__lista" role="list">
+
+      <!-- FAQ 1 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r1"
+        >
+          <span>A chi è adatto questo servizio?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r1" role="region">
+          <div class="faq__risposta-inner">
+            A chi ha un'attività locale e non vuole pagare cifre folli e ingiustificate per un sito. 
+            È perfetto per chi sa usare minimamente un computer e vuole la <strong>proprietà totale</strong> del proprio sito. 
+            
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 2 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r2"
+        >
+          <span>Cosa avrò esattamente?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r2" role="region">
+          <div class="faq__risposta-inner">
+            Compri un <strong>pacchetto software pronto all'uso</strong>: il codice del sito, 
+            un pannello semplicissimo per modificarne i contenuti con guida passo passo per tutto. 
+            L'unica spesa extra che avrai sono i circa 10€ annui per il dominio.
+          </div>
+        </div>
+      </div>
+
+      <div class="faq__item" role="listitem">
+  <button class="faq__domanda" aria-expanded="false" aria-controls="faq-r2">
+    <span>Perché non serve manutenzione?</span>
+    <span class="faq__icona" aria-hidden="true"></span>
+  </button>
+  <div class="faq__risposta" id="faq-r2" role="region">
+    <div class="faq__risposta-inner">
+      Perché non c'è WordPress, non ci sono database che si corrompono, plugin da aggiornare o falle di sicurezza. 
+      È un codice che non cambia mai. Per questo <strong>non ti chiederò mai un canone di assistenza</strong>: 
+      non c'è nulla da assistere.
+    </div>
+  </div>
+</div>
+
+      <!-- FAQ 3 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r3"
+        >
+          <span>Che tipo di modifiche posso fare?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r3" role="region">
+          <div class="faq__risposta-inner">
+            Aprendo il pannello puoi cambiare tutti i testi e le foto. 
+            Se sai compilare un modulo online, sai aggiornare il tuo sito. 
+            Senza chiamarmi, senza aspettare i miei comodi, senza pagare extra.
+          </div>
+          
+        </div>
+      </div>
+
+      
+
+      <!-- FAQ 5 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r5"
+        >
+          <span>Perché un sito One-Page?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r5" role="region">
+          <div class="faq__risposta-inner">
+            Perché <strong>funziona</strong>. I visitatori hanno
+            l'attenzione di un pesce rosso: o li colpisci in 3 secondi
+            o li perdi. Un sito One-Page concentra tutto il necessario
+            in un'unica pagina fluida e potente.
+            Le pagine multiple servono agli e-commerce e ai colossi.
+            A te serve un <strong>impatto immediato</strong> e un tasto
+            facile da trovare per essere subito contattato.
+          </div>
+        </div>
+      </div>
+
+<!-- FAQ 6bis (Aggiornata: Cos'è la GEO e cosa mi serve) -->
+      <div class="faq__item" role="listitem">
+        <button class="faq__domanda" aria-expanded="false" aria-controls="faq-r6">
+          <span>Cos'è l'ottimizzazione GEO?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r6" role="region">
+          <div class="faq__risposta-inner">
+            È il modo per farti trovare su Google Maps. Inserisci nel sito i tuoi dati esatti (Nome, Indirizzo e Telefono) 
+            e le parole chiave della tua attività e della tua zona. Questo "dice" a Google 
+            che sei la risposta giusta per chi cerca i tuoi servizi sul Google Maps locale.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 6tris (Aggiornata: Cos'è la GEO e cosa mi serve) -->
+      <div class="faq__item" role="listitem">
+        <button class="faq__domanda" aria-expanded="false" aria-controls="faq-r6">
+          <span>Come funziona il sistema di prenotazioni?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r6" role="region">
+          <div class="faq__risposta-inner">
+            Nella guida troverai le istruzioni per configurare un calendario dei 
+            tuoi appuntamenti. Sul sito inserisci solo
+            il link al calendario e i tuoi clienti potranno prenotare direttamente online.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 8 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r7"
+        >
+          <span>Cos'è lo Scudo Recensioni?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r7" role="region">
+          <div class="faq__risposta-inner">
+            È un sistema integrato nel sito che protegge la tua reputazione online e ti aiuta a scalare le classifiche 
+            di Google Maps a zero rischi. Funziona come un "filtro": hai una pagina web segreta 
+            (es. tuosito.it/valutaci) da mandare ai tuoi clienti dopo che sono stati da te o che si apre tramite QR code.
+Se il cliente clicca 4 o 5 stelle, il sistema lo manda dritto sulla tua pagina Google per farti una recensione pubblica.
+Se il cliente clicca da 1 a 3 stelle, il sistema blocca l'invio a Google e lo invita a scriverti 
+un messaggio privato su WhatsApp o via Email. Le lamentele restano tra te e lui, i complimenti finiscono su Google.
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 7 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r7"
+        >
+          <span>Siti a 250€. Qual è la fregatura?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r7" role="region">
+          <div class="faq__risposta-inner">
+            Non c'è nessuna fregatura, ma ci sono dei limiti chiari.
+            Sono una freelancer, quindi non faccio orari d'ufficio, 
+            ma puoi avere aiuto immediato nella creazione del sito 
+            tramite la guida e tramite l'assistente AI che trovi nel pannello.
+            Non creo email personalizzate, non faccio
+            copywriting professionale, fotografie professionali,
+            campagne pubblicitarie o gestione social.
+            Se hai davvero bisogno di tutto questo, hai bisogno proprio
+            di un'agenzia... e di un budget molto più grande.
+            Ho eliminato tutto il superfluo e creato un sistema semplice, 
+            ecco il segreto per cui riesco a offrirti 
+            un prodotto da agenzia a un prezzo da freelance. 
+          </div>
+        </div>
+      </div>
+
+      <!-- FAQ 7 -->
+      <div class="faq__item" role="listitem">
+        <button
+          class="faq__domanda"
+          aria-expanded="false"
+          aria-controls="faq-r7"
+        >
+          <span>Anche l'assistente AI è gratis?</span>
+          <span class="faq__icona" aria-hidden="true"></span>
+        </button>
+        <div class="faq__risposta" id="faq-r7" role="region">
+          <div class="faq__risposta-inner">
+            Sì, durante tutta la fase di anteprima è totalmente gratuito. 
+            Una volta acquistato il sito definitivo, se vorrai mantenerlo, ti guiderò a collegare un tuo account 
+            personale per l'Assistente AI (i costi di utilizzo sono letteralmente 
+            di pochi centesimi al mese). Questo perchè
+            il sito deve essere di tua esclusiva proprietà. 
+            Non devi dipendere dal mio account o da miei abbonamenti. 
+            Sei libero, padrone della tua tecnologia e senza alcun vincolo con me. 
+            In ogni caso, il pannello è così intuitivo che, dopo il primo giorno, 
+            probabilmente non avrai neanche più bisogno di chiedere aiuto all'IA!
+          </div>
+        </div>
+      </div>
+
+      
+
+      <!-- CTA sotto accordion -->
+      <div class="faq__cta-row">
+        <span class="faq__cta-testo">Non hai trovato la tua risposta?</span>
+        <a
+          href="https://wa.me/393515275546"
+          class="btn-brutal"
+          target="_blank"
+          rel="noopener"
+          aria-label="Scrivimi su WhatsApp"
+        >
+          💬 Chiedimi su WhatsApp ↗
+        </a>
+      </div>
+
+    </div><!-- fine lista -->
+
+  </div><!-- fine inner -->
+</section>
+
+<!-- ============================================
+     SEZIONE 7 — CTA FINALE CON FOTO
+============================================ -->
+<section
+  class="cta-finale"
+  id="cta-finale"
+  aria-label="Chiamata all'azione finale"
+>
+
+  <div class="cta-finale__inner" id="ctaFinal">
+
+    <!-- Foto polaroid con offset -->
+    <div class="cta-finale__foto-wrap" aria-label="Foto del designer">
+      <div class="cta-finale__foto">
+        <div class="cta-finale__nastro" aria-hidden="true"></div>
+        <img
+          src="ompageveronica.webp"
+          alt="Veronica Gandiglio, founder Ompage"
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    <!-- Contenuto CTA sx -->
+    <div class="cta-finale__contenuto">
+
+      <h2 class="cta-finale__titolo">
+        <span class="block oro">Basta pagare</span>
+        <span class="block">Il Pizzo Digitale</span>
+      </h2>
+
+      <p class="cta-finale__sottotesto">
+        Metti online la bozza e prova il pannello di gestione. 
+    Se il sistema ti convince, paghi una volta e il sito lo gestisci da solo.
+    Tuo davvero, senza canoni.
+      </p>
+
+      <div class="cta-finale__cta-group">
+
+        <a
+          href="https://wa.me/393515275546"
+          class="cta-finale__wa"
+          target="_blank"
+          rel="noopener"
+          aria-label="Scrivimi su WhatsApp per iniziare"
+        >
+          <span class="cta-finale__wa-icona" aria-hidden="true">💬</span>
+          Scrivimi su WhatsApp ↗
+        </a>
+
+        <button
+          class="cta-finale__wa cta-finale__email-copy"
+          id="btnCopiaEmail"
+          data-email="veronica.ompage@gmail.com"
+          aria-label="Copia indirizzo email"
+        >
+          <span class="cta-finale__wa-icona" aria-hidden="true">✉️</span>
+          <span class="testo-principale">Copia la mia email</span>
+          <span class="testo-feedback">Email copiata!</span>
+          <span class="freccia" aria-hidden="true">↗</span>
+        </button>
+
+      </div>
+
+    </div>
+
+  </div><!-- fine inner -->
+
+</section>
+
+<!-- ============================================
+     FOOTER
+============================================ -->
+<footer class="footer" role="contentinfo">
+
+  <div class="footer__inner">
+
+    <div class="footer__linea" aria-hidden="true"></div>
+
+    <!-- Main content -->
+    <div class="footer__main">
+
+      <!-- Brand sx -->
+      <div class="footer__brand">
+        <div class="footer__logo">
+          <img src="logo_ompage.webp" 
+               alt="Logo Ompage" 
+               class="footer__logo-img" 
+               style="height: 1.5em; width: auto; vertical-align: middle;">
+          PAGE
+        </div>
+        <div class="footer__info">
+          Ompage di Veronica Gandiglio<br>
+          P.IVA 12253180017<br>
+          <a href="mailto:veronica.ompage@gmail.com">veronica.ompage@gmail.com</a>
+        </div>
+      </div>
+
+      <!-- Social + Legali dx -->
+      <div class="footer__destra">
+
+        <!-- Social -->
+        <div class="footer__social" aria-label="Seguimi sui social">
+          <a
+            href="https://www.instagram.com/ompage.it/"
+            class="footer__social-tasto"
+            target="_blank"
+            rel="noopener"
+            aria-label="Profilo Instagram"
+          >
+            Instagram ↗
+          </a>
+          <a
+            href="https://www.facebook.com/profile.php?id=61589237986962#"
+            class="footer__social-tasto"
+            target="_blank"
+            rel="noopener"
+            aria-label="Pagina Facebook"
+          >
+            Facebook ↗
+          </a>
+          <a
+            href="https://wa.me/39374059531"
+            class="footer__social-tasto"
+            target="_blank"
+            rel="noopener"
+            aria-label="Chat WhatsApp"
+          >
+            WhatsApp ↗
+          </a>
+        </div>
+
+        <!-- Legali -->
+        <div class="footer__legali-links" aria-label="Link legali">
+          <a href="#" data-modale="termini" aria-label="Apri Termini e Condizioni">
+            Termini e Condizioni
+          </a>
+          <a href="#" data-modale="privacy" aria-label="Apri Privacy Policy">
+            Privacy Policy
+          </a>
+          <a href="#" data-modale="cookie" aria-label="Apri Cookie Policy">
+            Cookie Policy
+          </a>
+        </div>
+
+      </div>
+
+    </div><!-- fine main -->
+
+    <!-- Copyright -->
+    <div class="footer__copyright">
+      © 2026 Ompage — Tutti i diritti riservati · Realizzato con amore, zero librerie.
+    </div>
+
+  </div><!-- fine inner -->
+
+</footer>
+
+<!-- ============================================
+     MODALI — incolla prima dello <script>
+============================================ -->
+
+<!-- Modale Termini -->
+<div class="modale-overlay" id="modale-termini" role="dialog" aria-modal="true" aria-labelledby="modale-termini-titolo">
+  <div class="modale">
+    <button class="modale__chiudi" data-chiudi="termini" aria-label="Chiudi">✕</button>
+    
+    <div class="modale__header">
+      <h2 class="modale__titolo" id="modale-termini-titolo">Termini e <span class="oro">Condizioni</span></h2>
+    </div>
+
+    <!-- Area scrollabile separata dall'header -->
+    <div class="modale__scroll-area">
+      <div class="modale__testo">
+        
+        <h3>1. Oggetto del Contratto</h3>
+        <p>Ompage vende un vero e proprio servizio di creazione di siti web, ma più simile a un Prodotto Digitale finito di proprietà del cliente. Il prodotto consiste in un sito monopagina (One-Page), scritto in puro codice HTML/CSS/JS e gestibile in totale autonomia tramite un Pannello di Controllo privato (pannello.html) dotato di Guida.</p>
+        <p>Il costo del prodotto è di 250€ una tantum. Non sono richiesti canoni mensili, quote di server o abbonamenti obbligatori. Non è incluso l'acquisto del dominio.</p>
+
+        <div class="modale__separatore"></div>
+
+        <h3>2. Flusso di Lavoro, Bozza di Prova e "Scrematura" Tecnica</h3>
+        <p>Per garantire il massimo controllo e abbattere ogni rischio, la collaborazione segue un protocollo basato sulla fiducia reciproca e sulla verifica diretta:</p>
+        <ul class="modale__lista modale__lista--numeri">
+          <p>1. Fase di Prova (Gratuita): Ompage progetta la bozza personalizzata e consegna al cliente il pacchetto di file contenente un watermark ("Sito di Prova").</li>
+          <p>2. La Verifica (Aggancio a GitHub): Seguendo la guida PDF fornita, il cliente deve registrare autonomamente un account gratuito su GitHub e caricare i file per attivare la visualizzazione online del sito e testare il funzionamento del Pannello di Controllo. Questa fase è obbligatoria e serve a verificare che il cliente sia in grado di gestire in autonomia il pannello.</p>
+          <p>3. Il Saldo: Se il cliente è pienamente soddisfatto della bozza e dichiara di saper usare il pannello, procede al pagamento unico di 250€. Dato che il cliente ha la possibilità di testare il prodotto reale prima di pagare, non è previsto alcun rimborso dopo il saldo.</p>
+          <p>4. Messa Online Definitiva: Ricevuto il pagamento, Ompage sblocca la filigrana di prova. Il cliente acquista in autonomia il proprio nome a dominio sul fornitore che preferisce (Aruba, Hostinger, ecc.) e lo collega al sito.</p>
+        </ul>
+
+        <div class="modale__separatore"></div>
+
+        <h3>3. Proprietà Tecnica, Hosting Gratis e Rinnovi</h3>
+        <ul class="modale__lista">
+          <p>- Proprietà 100%: Dal momento del saldo, il cliente è l'unico proprietario legale e tecnico del codice sorgente, dei file e della repository GitHub.</p>
+          <p>- Hosting Gratis: Il sito è ospitato sulle infrastrutture gratuite di GitHub/Cloudflare. Il cliente non dovrà pagare alcun costo di "spazio server" o "manutenzione hosting" a Ompage o a terzi, salvo cambiamenti delle condizioni di Github e Cloudfare.</p>
+          <p>- Da subito, il cliente dovrà pagare solo il costo vivo del proprio dominio (circa 10€/all'anno) direttamente al proprio fornitore. Il sito in puro codice continuerà a girare online a vita senza bisogno di alcuna manutenzione tecnica.</p>
+        </ul>
+
+        <div class="modale__separatore"></div>
+
+        <h3>4. Regole di Modifica e "Contenitori Indistruttibili"</h3>
+        <p>Tramite il Pannello di Controllo, il cliente può modificare autonomamente i testi e le foto.</p>
+        <p>Modifiche Strutturali: Non sono incluse modifiche all'HTML di base o alterazioni strutturali della griglia dopo la consegna finale. Qualsiasi richiesta di stravolgimento del design richiede un preventivo separato.</p>
+
+        <div class="modale__separatore"></div>
+
+        <h3>5. Esclusioni e Integrazione Prenotazioni</h3>
+        <p>Per mantenere il prezzo competitivo e un processo snello, sono esplicitamente esclusi dal prezzo di 250€:</p>
+        <ul class="modale__lista">
+          <p>- Servizi di scrittura testi (copywriting) e fotografie professionali (devono essere inseriti dal cliente o resteranno quelli generati dall'AI in fase di bozza).</p>
+          <p>- Configurazione di caselle email professionali personalizzate (es. info@nomedominio.it).</p>
+          <p>-Campagne marketing o promesse di posizionamento garantito al primo posto su Google.</p>
+          <p>- Sistema di Prenotazione: Il sistema di prenotazione online integrato si basa su link di terze parti (es. Calendly o gestionali di settore del cliente). La creazione e la gestione dell'account su tali piattaforme esterne è a carico del cliente.</p>
+        </ul>
+
+        <div class="modale__separatore"></div>
+
+        <h3>6. Utilizzo del Portfolio</h3>
+        <p>Ompage si riserva il diritto di inserire il lavoro svolto nel proprio portfolio online e sui canali social, come esempio di collaborazione professionale, salvo esplicita richiesta contraria del cliente.</p>
+
+        <div class="modale__separatore"></div>
+
+        <h3>7. Esonero da Responsabilità (Piattaforme Terze e Manomissione)</h3>
+        <p>Per garantire la massima trasparenza e tutelare l'integrità del prodotto consegnato, Ompage specifica le seguenti limitazioni di responsabilità:</p>
+        <ul class="modale__lista">
+          <p>- Policy di GitHub e Cloudflare: L'infrastruttura "Hosting Gratis" si basa sui piani gratuiti attualmente offerti da piattaforme multinazionali di terze parti (come GitHub Pages e Cloudflare). Ompage non ha alcun controllo sulle loro future decisioni commerciali. Qualora, negli anni a venire, tali piattaforme decidessero di modificare le proprie policy o di rendere a pagamento i servizi oggi gratuiti, i relativi costi saranno a carico esclusivo del cliente. Ompage non potrà in alcun caso essere ritenuta responsabile o tenuta a fornire alternative di hosting gratuite.</p>
+          <p>- Manomissione del Codice Sorgente: Il cliente è tenuto a effettuare le modifiche di testo, immagini e impostazioni esclusivamente tramite l'interfaccia sicura del Pannello di Controllo (pannello.html). Qualora il cliente, o terzi da lui autorizzati, decida di aprire e alterare manualmente il codice sorgente del sito (file index.html, config.json o altri asset strutturali), causando la rottura del layout, il blocco delle animazioni (JS) o il malfunzionamento generale, la garanzia sul prodotto decade immediatamente.</p>
+          <p>- Interventi di Ripristino: Ompage è sollevata da qualsiasi obbligo di assistenza gratuita per danni causati da manomissione manuale. Qualsiasi intervento richiesto per ripristinare il sito alle condizioni originali di consegna o per riparare il codice danneggiato dal cliente sarà preventivato e fatturato separatamente come intervento tecnico straordinario.</li>
+        </ul>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Privacy -->
+<div class="modale-overlay" id="modale-privacy" role="dialog" aria-modal="true" aria-labelledby="modale-privacy-titolo">
+  <div class="modale">
+    <button class="modale__chiudi" data-chiudi="privacy" aria-label="Chiudi">✕</button>
+    <h2 class="modale__titolo" id="modale-privacy-titolo">Privacy <span class="oro">Policy</span></h2>
+    <div class="modale__testo">
+      <h3>Titolare del Trattamento</h3>
+      <p>Ompage di Veronica Gandiglio — P.IVA 12253180017<br>Sede Legale: Via Belmonte 6, 10155 - Torino (TO)<br>Email: <strong>veronica.ompage@gmail.com</strong></p>
+      <div class="modale__separatore"></div>
+      <h3>Dati Raccolti</h3>
+      <p>Questo sito è progettato per ridurre al minimo la raccolta di dati personali. Non sono presenti moduli (form) di contatto. Il contatto avviene esclusivamente tramite email o link esterno a WhatsApp. Cliccando sul tasto, verrai indirizzato alla piattaforma di WhatsApp (Meta Platforms, Inc.), che gestirà i tuoi dati secondo la propria informativa privacy. I server che ospitano il sito (Cloudflare) raccolgono automaticamente alcuni dati tecnici (come indirizzo IP, tipo di browser, orario della richiesta) per scopi strettamente legati alla sicurezza e alla prevenzione di attacchi informatici.</p>
+      <div class="modale__separatore"></div>
+      <h3>Cookie</h3>
+      <p>Questo sito non utilizza cookie di profilazione, tracciamento o marketing (niente Google Analytics, niente Pixel di Facebook). Potrebbero essere utilizzati esclusivamente cookie tecnici necessari per la sicurezza e la corretta visualizzazione delle pagine (gestiti dall'infrastruttura Cloudflare). Non è richiesto il consenso dell'utente per questi cookie.</p>
+      <div class="modale__separatore"></div>
+      <h3>I Tuoi Diritti</h3>
+      <p>Ai sensi del GDPR (Regolamento UE 2016/679), hai il diritto di accedere, rettificare o richiedere la cancellazione dei dati che ti riguardano (ad esempio, se mi hai inviato una mail). Per ogni richiesta, scrivi a: <strong>veronica.ompage@gmail.com</strong>.</p>
+    </div>
+  </div>
+</div>
+
+<!-- Modale Cookie Policy -->
+<div class="modale-overlay" id="modale-cookie" role="dialog" aria-modal="true" aria-labelledby="modale-cookie-titolo">
+  <div class="modale">
+    <button class="modale__chiudi" data-chiudi="cookie" aria-label="Chiudi">✕</button>
+    <h2 class="modale__titolo" id="modale-cookie-titolo">Cookie <span class="oro">Policy</span></h2>
+    <div class="modale__testo">
+      <h3>Cosa Sono i Cookie</h3>
+      <p>I cookie sono piccoli file di testo che i siti web visitati dall'utente inviano al suo terminale, dove vengono memorizzati per essere poi ritrasmessi agli stessi siti alla visita successiva.</p>
+      <div class="modale__separatore"></div>
+      <h3>Cookie Tecnici (Necessari)</h3>
+      <p>Questo sito utilizza esclusivamente cookie tecnici. Questi cookie sono indispensabili per il corretto funzionamento del sito e per garantire la sicurezza della navigazione (ad esempio, quelli generati dall'infrastruttura di protezione Cloudflare). Finalità: Sicurezza, prevenzione spam, corretta visualizzazione dei contenuti. Consenso: Ai sensi della normativa vigente (GDPR), per l'installazione di tali cookie non è richiesto il preventivo consenso dell'utente.</p>
+      <div class="modale__separatore"></div>
+      <h3>Cookie Analitici e di Profilazione (Non presenti)</h3>
+      <p>Ompage ha scelto di tutelare la tua privacy al massimo: NON utilizziamo cookie di profilazione per inviarti pubblicità. NON utilizziamo cookie di terze parti (come Google Analytics o Pixel di Facebook) per tracciare il tuo comportamento.</p>
+      <div class="modale__separatore"></div>
+      <h3>Come Gestire i Cookie</h3>
+      <p>Puoi decidere di disabilitare i cookie tecnici agendo direttamente sulle impostazioni del tuo browser. Ti informiamo però che la disattivazione totale dei cookie potrebbe impedire la corretta visualizzazione di alcune parti del sito.</p>
+    </div>
+  </div>
+</div>
+
+  <script>
+    // ============================================================
+    // NAVBAR — Hamburger toggle
+    // ============================================================
+    const hamburger = document.getElementById('hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    const mobileLinks = mobileMenu.querySelectorAll('.mobile-link');
+
+    hamburger.addEventListener('click', () => {
+      const isOpen = hamburger.classList.toggle('is-open');
+      mobileMenu.classList.toggle('is-open', isOpen);
+      hamburger.setAttribute('aria-expanded', String(isOpen));
+      document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Chiudi al click su un link interno
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        hamburger.classList.remove('is-open');
+        mobileMenu.classList.remove('is-open');
+        hamburger.setAttribute('aria-expanded', 'false');
+        document.body.style.overflow = '';
+      });
+    });
+
+// ============================================================
+// HERO — 2.04 Staggered Masked Typography
+// Ogni .hero__word ha --index per il delay progressivo.
+// L'Observer innesca is-visible che porta translateY a 0.
+// ============================================================
+(function () {
+  const words   = document.querySelectorAll('.hero__word');
+  const desc    = document.querySelector('.hero__desc');
+  const ctaWrap = document.querySelector('.hero__cta-wrap');
+  const boxDx   = document.querySelector('.hero__col-dx');
+
+  // Assegna transition-delay basato su --index
+  words.forEach(word => {
+    const idx = parseFloat(
+      getComputedStyle(word).getPropertyValue('--index') || 0
+    );
+    word.style.transitionDelay = `${idx * 0.1}s`;
+  });
+
+  // Observer unico per la hero
+  const heroObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Trigger parole
+          words.forEach(w => w.classList.add('is-visible'));
+          // Trigger desc e cta con ritardo gestito via CSS transition-delay
+          if (desc)    desc.classList.add('is-visible');
+          if (ctaWrap) ctaWrap.classList.add('is-visible');
+          if (boxDx)   boxDx.classList.add('is-visible');
+          heroObserver.disconnect();
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  const heroSection = document.getElementById('hero');
+  if (heroSection) heroObserver.observe(heroSection);
+})();
+
+// ============================================================
+// SEZIONE 3 — Reveal on scroll per la bento grid
+// La griglia intera si rivela con opacity + translateY
+// quando entra in viewport (IntersectionObserver).
+// Il :has() blur è CSS puro, zero JS necessario.
+// ============================================================
+(function () {
+  const grid = document.getElementById('confrontoGrid');
+  if (!grid) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          grid.classList.add('is-visible');
+          observer.disconnect();
+        }
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  observer.observe(grid);
+})();
+
+// ============================================================
+// SEZIONE 4 — PORTFOLIO
+// ============================================================
+(function () {
+
+  // ── Reveal on scroll ──────────────────────────────────────
+  const browserWindow = document.getElementById('browserWindow');
+  const portfolioTabs = document.getElementById('portfolioTabs');
+
+  const revealObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  if (browserWindow) revealObs.observe(browserWindow);
+  if (portfolioTabs)  revealObs.observe(portfolioTabs);
+
+  // ── Tab switch ────────────────────────────────────────────
+  const tabs   = document.querySelectorAll('.portfolio__tab');
+  const slides = document.querySelectorAll('.browser-slide');
+  const urlText = document.getElementById('urlText');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = parseInt(tab.dataset.index, 10);
+
+      // Aggiorna tab attiva
+      tabs.forEach(t => {
+        t.classList.remove('is-active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      tab.classList.add('is-active');
+      tab.setAttribute('aria-selected', 'true');
+
+      // Aggiorna slide attiva
+      slides.forEach(s => s.classList.remove('is-active'));
+      if (slides[idx]) slides[idx].classList.add('is-active');
+
+      // Aggiorna URL bar
+      if (urlText && slides[idx]) {
+        urlText.style.opacity = '0';
+        setTimeout(() => {
+          urlText.textContent = slides[idx].dataset.url || '';
+          urlText.style.opacity = '1';
+        }, 200);
+      }
+    });
+  });
+
+  // ── 8.04 Mouse Trail Image Reveal ─────────────────────────
+  // Attivo solo su desktop (min-width 768px)
+  if (window.innerWidth < 768) return;
+
+  const trailEl  = document.getElementById('trailImg');
+  const trailImg = document.getElementById('trailImgSrc');
+  if (!trailEl || !trailImg) return;
+
+  let trailTimeout = null;
+  let lastX = 0;
+  let lastY = 0;
+  let moved = false;
+  const MOVE_THRESHOLD = 30; // pixel minimi di movimento prima del trigger
+
+  // Monitora il mousemove sui tab
+  tabs.forEach(tab => {
+    tab.addEventListener('mousemove', (e) => {
+      const dx = Math.abs(e.clientX - lastX);
+      const dy = Math.abs(e.clientY - lastY);
+
+      if (dx + dy < MOVE_THRESHOLD && moved) return;
+
+      moved = true;
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      // Carica la preview dal data attribute
+      const previewSrc = tab.dataset.preview;
+      if (!previewSrc) return;
+
+      // Posiziona e mostra il trail
+      trailImg.src = previewSrc;
+      trailEl.style.left = e.clientX + 'px';
+      trailEl.style.top  = e.clientY + 'px';
+      trailEl.classList.add('is-visible');
+
+      // Reset timeout — scompare dopo 700ms di inattività
+      clearTimeout(trailTimeout);
+      trailTimeout = setTimeout(() => {
+        trailEl.classList.remove('is-visible');
+        moved = false;
+      }, 700);
+    });
+
+    // Scompare immediatamente al mouseleave dalla tab
+    tab.addEventListener('mouseleave', () => {
+      clearTimeout(trailTimeout);
+      trailEl.classList.remove('is-visible');
+      moved = false;
+    });
+  });
+
+})();
+
+// ============================================================
+// SEZIONE 5 — IL PROCESSO
+// Stagger entrata card via IntersectionObserver.
+// Il meccanismo principale scroll-timeline è CSS puro (GPU).
+// ============================================================
+(function () {
+  const cards = document.querySelectorAll('.step-card');
+  if (!cards.length) return;
+
+  const staggerObs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          // Recupera l'indice della card per il delay staggered
+          const idx = Array.from(cards).indexOf(entry.target);
+          const delay = idx * 120; // ms di stagger tra card
+
+          setTimeout(() => {
+            entry.target.classList.add('is-visible');
+          }, delay);
+
+          staggerObs.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15 }
+  );
+
+  cards.forEach(card => staggerObs.observe(card));
+
+})();
+
+// ============================================================
+// SEZIONE 6 — LA MATEMATICA DEI 250€
+// ============================================================
+(function () {
+
+  const wrapper      = document.getElementById('matematicaWrapper');
+  const voci         = document.querySelectorAll('.scontrino__voce');
+  const totale       = document.getElementById('scontrinoTotale');
+  const svgPath      = document.getElementById('cerchioPath');
+
+  if (!wrapper) return;
+
+  // ── 6.02 — Calcola lunghezza reale del path SVG ───────────
+  function setupSVGPath() {
+    if (!svgPath) return;
+    const len = svgPath.getTotalLength();
+    svgPath.style.strokeDasharray  = len;
+    svgPath.style.strokeDashoffset = len;
+  }
+  setupSVGPath();
+
+  // ── IntersectionObserver — tutto si attiva all'entrata ────
+  const obs = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (!entry.isIntersecting) return;
+
+        // 1. Reveal wrapper
+        wrapper.classList.add('is-visible');
+
+        // 2. Stagger voci scontrino
+        voci.forEach((voce, i) => {
+          setTimeout(() => {
+            voce.classList.add('is-visible');
+          }, 150 + i * 80);
+        });
+
+        // 3. Totale — dopo tutte le voci
+        if (totale) {
+          setTimeout(() => {
+            totale.classList.add('is-visible');
+          }, 150 + voci.length * 80 + 100);
+        }
+
+        // 4. SVG draw-in cerchio — con leggero ritardo drammatico
+        if (svgPath) {
+          setTimeout(() => {
+            svgPath.classList.add('is-drawn');
+          }, 400);
+        }
+
+        obs.disconnect();
+      });
+    },
+    { threshold: 0.12 }
+  );
+
+  obs.observe(wrapper);
+
+})();
+
+// ============================================================
+// SEZIONE 7 — CTA + FOOTER
+// ============================================================
+(function () {
+
+  // ── CTA reveal on scroll ──────────────────────────────────
+  const ctaFinal = document.getElementById('ctaFinal');
+  if (ctaFinal) {
+    const ctaObs = new IntersectionObserver(
+      (entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            ctaFinal.classList.add('is-visible');
+            ctaObs.disconnect();
+          }
+        });
+      },
+      { threshold: 0.15 }
+    );
+    ctaObs.observe(ctaFinal);
+  }
+
+  // ── Email copy button ─────────────────────────────────────
+  const btnCopiaEmail = document.getElementById('btnCopiaEmail');
+  if (btnCopiaEmail) {
+    btnCopiaEmail.addEventListener('click', async (e) => {
+      e.preventDefault();
+      const email = btnCopiaEmail.dataset.email || 'veronica.ompage@gmail.com';
+
+      try {
+        // Usa Clipboard API se disponibile
+        if (navigator.clipboard) {
+          await navigator.clipboard.writeText(email);
+        } else {
+          // Fallback vecchi browser
+          const textarea = document.createElement('textarea');
+          textarea.value = email;
+          document.body.appendChild(textarea);
+          textarea.select();
+          document.execCommand('copy');
+          document.body.removeChild(textarea);
+        }
+
+        // Feedback visivo
+        btnCopiaEmail.classList.add('is-copied');
+        setTimeout(() => {
+          btnCopiaEmail.classList.remove('is-copied');
+        }, 2500);
+      } catch (err) {
+        console.error('Copia fallita:', err);
+      }
+    });
+  }
+
+  // ── Modal open/close ──────────────────────────────────────
+  // Attivarsi quando ci sono link data-modale nel footer
+  const modalLinks = document.querySelectorAll('[data-modale]');
+  modalLinks.forEach(link => {
+    link.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modale = link.dataset.modale;
+      const modaleEl = document.getElementById(`modale-${modale}`);
+      if (modaleEl) {
+        modaleEl.style.display = 'flex';
+        document.body.style.overflow = 'hidden';
+      }
+    });
+  });
+
+  // Chiudi modale
+  const closeButtons = document.querySelectorAll('[data-chiudi]');
+  closeButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const modale = btn.dataset.chiudi;
+      const modaleEl = document.getElementById(`modale-${modale}`);
+      if (modaleEl) {
+        modaleEl.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+  // Chiudi modale al click su overlay
+  document.querySelectorAll('.modale-overlay').forEach(overlay => {
+    overlay.addEventListener('click', (e) => {
+      if (e.target === overlay) {
+        overlay.style.display = 'none';
+        document.body.style.overflow = '';
+      }
+    });
+  });
+
+})();
+
+// ============================================================
+// SEZIONE FAQ — 6.01 Smooth CSS Grid Accordion
+// JS si limita ad aggiungere/rimuovere .is-open.
+// La transizione è interamente CSS (grid-template-rows: 0fr→1fr).
+// ============================================================
+(function () {
+  const faqItems = document.querySelectorAll('.faq__item');
+  if (!faqItems.length) return;
+
+  faqItems.forEach(item => {
+    const btn = item.querySelector('.faq__domanda');
+    if (!btn) return;
+
+    btn.addEventListener('click', () => {
+      const isOpen = item.classList.contains('is-open');
+
+      // Chiudi tutti gli altri (accordion singolo)
+      faqItems.forEach(other => {
+        if (other !== item) {
+          other.classList.remove('is-open');
+          const otherBtn = other.querySelector('.faq__domanda');
+          if (otherBtn) otherBtn.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      // Toggle corrente
+      item.classList.toggle('is-open', !isOpen);
+      btn.setAttribute('aria-expanded', String(!isOpen));
+    });
+  });
+
+})();
+
+(function () {
+  const SOGLIA = 0.2;
+ 
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+ 
+      const el = entry.target;
+ 
+      // Intestazione
+      if (el.classList.contains('obiezioni__intestazione')) {
+        el.classList.add('is-visible');
+        observer.unobserve(el);
+        return;
+      }
+ 
+      // Righe — stagger basato su data-riga
+      if (el.classList.contains('obiezioni__riga')) {
+        const indice = parseInt(el.dataset.riga) || 0;
+        setTimeout(() => {
+          el.classList.add('is-visible');
+        }, indice * 120);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: SOGLIA });
+ 
+  // Osserva intestazione
+  const intestazione = document.querySelector('.obiezioni__intestazione');
+  if (intestazione) observer.observe(intestazione);
+ 
+  // Osserva ogni riga
+  document.querySelectorAll('.obiezioni__riga').forEach(r => observer.observe(r));
+})();
+
+
+  
+
+
+  </script>
+
+</body>
+</html>
