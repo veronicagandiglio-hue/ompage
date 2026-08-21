@@ -137,4 +137,19 @@
       });
     }
   }
+
+  /* ==========================================================
+     VELOCITÀ VIDEO DEMO (2x)
+     ========================================================== */
+  var demoVideo = document.querySelector('.demo-showcase__video');
+  if (demoVideo) {
+    demoVideo.defaultPlaybackRate = 2.0;
+    demoVideo.playbackRate = 2.0;
+    demoVideo.addEventListener('play', function () {
+      demoVideo.playbackRate = 2.0;
+    });
+    demoVideo.addEventListener('loadedmetadata', function () {
+      demoVideo.playbackRate = 2.0;
+    });
+  }
 })();
